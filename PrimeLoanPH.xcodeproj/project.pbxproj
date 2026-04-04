@@ -62,11 +62,6 @@
 		985C24542AEF585E0008F38B /* PPBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24522AEF585D0008F38B /* PPBaseModel.m */; };
 		985C24572AEFA51C0008F38B /* PPSendCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24562AEFA51B0008F38B /* PPSendCodeModel.m */; };
 		985C245A2AEFAA7B0008F38B /* PPLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24582AEFAA7B0008F38B /* PPLoginModel.m */; };
-		985C245D2AEFD3CC0008F38B /* PPHomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C245C2AEFD3CC0008F38B /* PPHomeHeaderView.m */; };
-		985C24602AEFDF3D0008F38B /* PPHomeMoreHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C245F2AEFDF3D0008F38B /* PPHomeMoreHeaderView.m */; };
-		985C24662AEFE07A0008F38B /* PPHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24652AEFE07A0008F38B /* PPHomeTableViewCell.m */; };
-		985C24692AEFE2D50008F38B /* PPHomeMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24682AEFE2D50008F38B /* PPHomeMoreTableViewCell.m */; };
-		985C246F2AEFECCC0008F38B /* PPHomeNotiHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C246E2AEFECCC0008F38B /* PPHomeNotiHeader.m */; };
 		985C24722AEFF8750008F38B /* PPHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24702AEFF8750008F38B /* PPHomeModel.m */; };
 		985C24762AF0D3DA0008F38B /* PPEnterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24752AF0D3DA0008F38B /* PPEnterModel.m */; };
 		985C24792AF0D52D0008F38B /* PPGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24782AF0D52D0008F38B /* PPGoodsDetailViewController.m */; };
@@ -104,7 +99,6 @@
 		987FE9B52AFCCA8F00868AD5 /* PPVeCardTypeOptionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 987FE9B42AFCCA8F00868AD5 /* PPVeCardTypeOptionHeaderView.m */; };
 		987FE9B82AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 987FE9B72AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m */; };
 		988025762C65D5E100BFD490 /* FaceCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 988025752C65D5E100BFD490 /* FaceCameraViewController.m */; };
-		988605E22B62A423002775A3 /* PPHomeNameHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 988605E12B62A423002775A3 /* PPHomeNameHeaderFooterView.m */; };
 		9887CC582AF27FC000E9E5F7 /* PPResignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC572AF27FC000E9E5F7 /* PPResignViewController.m */; };
 		9887CC672AF3C3CC00E9E5F7 /* PPVerifyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC662AF3C3CC00E9E5F7 /* PPVerifyHeaderView.m */; };
 		9887CC6A2AF3D92100E9E5F7 /* PPCardHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC692AF3D92100E9E5F7 /* PPCardHeader.m */; };
@@ -112,7 +106,6 @@
 		9887CC702AF3E32000E9E5F7 /* PPVeCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC6E2AF3E32000E9E5F7 /* PPVeCardModel.m */; };
 		9887CC732AF3F48100E9E5F7 /* PPVeCardUploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC712AF3F48100E9E5F7 /* PPVeCardUploadModel.m */; };
 		98A146F52C625EC1009CA624 /* PBBorrGuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A146F42C625EC1009CA624 /* PBBorrGuideVC.m */; };
-		98E904BB2C6744850084C255 /* PBSmallTableHeaderSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E904BA2C6744850084C255 /* PBSmallTableHeaderSectionView.m */; };
 		98E904BE2C675F760084C255 /* PPLanguageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E904BD2C675F750084C255 /* PPLanguageModel.m */; };
 		CDA7BC9117CC633F4F981C8E /* libPods-PrimeLoanPH.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4FB139169708CC3F4FDFCD3 /* libPods-PrimeLoanPH.a */; };
 /* End PBXBuildFile section */
@@ -225,16 +218,6 @@
 		985C24562AEFA51B0008F38B /* PPSendCodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSendCodeModel.m; sourceTree = "<group>"; };
 		985C24582AEFAA7B0008F38B /* PPLoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPLoginModel.m; sourceTree = "<group>"; };
 		985C24592AEFAA7B0008F38B /* PPLoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPLoginModel.h; sourceTree = "<group>"; };
-		985C245B2AEFD3CC0008F38B /* PPHomeHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPHomeHeaderView.h; sourceTree = "<group>"; };
-		985C245C2AEFD3CC0008F38B /* PPHomeHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPHomeHeaderView.m; sourceTree = "<group>"; };
-		985C245E2AEFDF3D0008F38B /* PPHomeMoreHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPHomeMoreHeaderView.h; sourceTree = "<group>"; };
-		985C245F2AEFDF3D0008F38B /* PPHomeMoreHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPHomeMoreHeaderView.m; sourceTree = "<group>"; };
-		985C24642AEFE07A0008F38B /* PPHomeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPHomeTableViewCell.h; sourceTree = "<group>"; };
-		985C24652AEFE07A0008F38B /* PPHomeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPHomeTableViewCell.m; sourceTree = "<group>"; };
-		985C24672AEFE2D50008F38B /* PPHomeMoreTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPHomeMoreTableViewCell.h; sourceTree = "<group>"; };
-		985C24682AEFE2D50008F38B /* PPHomeMoreTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPHomeMoreTableViewCell.m; sourceTree = "<group>"; };
-		985C246D2AEFECCC0008F38B /* PPHomeNotiHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPHomeNotiHeader.h; sourceTree = "<group>"; };
-		985C246E2AEFECCC0008F38B /* PPHomeNotiHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPHomeNotiHeader.m; sourceTree = "<group>"; };
 		985C24702AEFF8750008F38B /* PPHomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPHomeModel.m; sourceTree = "<group>"; };
 		985C24712AEFF8750008F38B /* PPHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPHomeModel.h; sourceTree = "<group>"; };
 		985C24742AF0D3DA0008F38B /* PPEnterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEnterModel.h; sourceTree = "<group>"; };
@@ -309,8 +292,6 @@
 		987FE9B72AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeCardTypeOptionHeader.m; sourceTree = "<group>"; };
 		988025742C65D5E100BFD490 /* FaceCameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceCameraViewController.h; sourceTree = "<group>"; };
 		988025752C65D5E100BFD490 /* FaceCameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceCameraViewController.m; sourceTree = "<group>"; };
-		988605E02B62A423002775A3 /* PPHomeNameHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPHomeNameHeaderFooterView.h; sourceTree = "<group>"; };
-		988605E12B62A423002775A3 /* PPHomeNameHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPHomeNameHeaderFooterView.m; sourceTree = "<group>"; };
 		9887CC562AF27FC000E9E5F7 /* PPResignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPResignViewController.h; sourceTree = "<group>"; };
 		9887CC572AF27FC000E9E5F7 /* PPResignViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPResignViewController.m; sourceTree = "<group>"; };
 		9887CC652AF3C3CC00E9E5F7 /* PPVerifyHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVerifyHeaderView.h; sourceTree = "<group>"; };
@@ -325,8 +306,6 @@
 		9887CC722AF3F48100E9E5F7 /* PPVeCardUploadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPVeCardUploadModel.h; sourceTree = "<group>"; };
 		98A146F32C625EC1009CA624 /* PBBorrGuideVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBorrGuideVC.h; sourceTree = "<group>"; };
 		98A146F42C625EC1009CA624 /* PBBorrGuideVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBBorrGuideVC.m; sourceTree = "<group>"; };
-		98E904B92C6744850084C255 /* PBSmallTableHeaderSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBSmallTableHeaderSectionView.h; sourceTree = "<group>"; };
-		98E904BA2C6744850084C255 /* PBSmallTableHeaderSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBSmallTableHeaderSectionView.m; sourceTree = "<group>"; };
 		98E904BC2C675F750084C255 /* PPLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPLanguageModel.h; sourceTree = "<group>"; };
 		98E904BD2C675F750084C255 /* PPLanguageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPLanguageModel.m; sourceTree = "<group>"; };
 		B4FB139169708CC3F4FDFCD3 /* libPods-PrimeLoanPH.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrimeLoanPH.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -519,22 +498,8 @@
 			children = (
 				98043AEC2AEBFF6800374328 /* HomeViewController.h */,
 				98043AED2AEBFF6800374328 /* HomeViewController.m */,
-				985C245B2AEFD3CC0008F38B /* PPHomeHeaderView.h */,
-				985C245C2AEFD3CC0008F38B /* PPHomeHeaderView.m */,
-				985C245E2AEFDF3D0008F38B /* PPHomeMoreHeaderView.h */,
-				985C245F2AEFDF3D0008F38B /* PPHomeMoreHeaderView.m */,
-				985C24642AEFE07A0008F38B /* PPHomeTableViewCell.h */,
-				985C24652AEFE07A0008F38B /* PPHomeTableViewCell.m */,
-				985C24672AEFE2D50008F38B /* PPHomeMoreTableViewCell.h */,
-				985C24682AEFE2D50008F38B /* PPHomeMoreTableViewCell.m */,
-				985C246D2AEFECCC0008F38B /* PPHomeNotiHeader.h */,
-				985C246E2AEFECCC0008F38B /* PPHomeNotiHeader.m */,
 				985C24712AEFF8750008F38B /* PPHomeModel.h */,
 				985C24702AEFF8750008F38B /* PPHomeModel.m */,
-				988605E02B62A423002775A3 /* PPHomeNameHeaderFooterView.h */,
-				988605E12B62A423002775A3 /* PPHomeNameHeaderFooterView.m */,
-				98E904B92C6744850084C255 /* PBSmallTableHeaderSectionView.h */,
-				98E904BA2C6744850084C255 /* PBSmallTableHeaderSectionView.m */,
 			);
 			path = PBMainHome;
 			sourceTree = "<group>";
@@ -869,9 +834,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PrimeLoanPH/Pods-PrimeLoanPH-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PrimeLoanPH/Pods-PrimeLoanPH-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -886,9 +855,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PrimeLoanPH/Pods-PrimeLoanPH-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PrimeLoanPH/Pods-PrimeLoanPH-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -912,13 +885,11 @@
 				985C244E2AEF40840008F38B /* GuideViewController.m in Sources */,
 				983EB35F2AF6A2F60062A141 /* PPVeNorInfoModel.m in Sources */,
 				985C24542AEF585E0008F38B /* PPBaseModel.m in Sources */,
-				988605E22B62A423002775A3 /* PPHomeNameHeaderFooterView.m in Sources */,
 				98643E002C6464CA00F83A5A /* PB_APP_Control.m in Sources */,
 				9863F4D92AF1034A003B8598 /* PPVeContactViewController.m in Sources */,
 				98043AE52AEBF71000374328 /* PPTableViewController.m in Sources */,
 				9863F4DC2AF10370003B8598 /* PPVeBankViewController.m in Sources */,
 				98643E0C2C6470CD00F83A5A /* PB_BankNoAlertView.m in Sources */,
-				985C24662AEFE07A0008F38B /* PPHomeTableViewCell.m in Sources */,
 				9829BD4D2C63B88500D5A5D6 /* PB_getAppInfoHelper.m in Sources */,
 				98043A9F2AEBE28700374328 /* PPNavigationController.m in Sources */,
 				987FE9B82AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m in Sources */,
@@ -936,7 +907,6 @@
 				9863F4EC2AF15081003B8598 /* PPSubOrderViewController.m in Sources */,
 				985C24792AF0D52D0008F38B /* PPGoodsDetailViewController.m in Sources */,
 				9863F4D62AF10320003B8598 /* PPVeWorkInfoViewController.m in Sources */,
-				985C246F2AEFECCC0008F38B /* PPHomeNotiHeader.m in Sources */,
 				988025762C65D5E100BFD490 /* FaceCameraViewController.m in Sources */,
 				9887CC732AF3F48100E9E5F7 /* PPVeCardUploadModel.m in Sources */,
 				9863F4E22AF12FE2003B8598 /* PPMeModel.m in Sources */,
@@ -954,17 +924,13 @@
 				98043ACF2AEBEDB000374328 /* NSString+PP.m in Sources */,
 				98643E0F2C64712C00F83A5A /* PB_ExampleAlertViewController.m in Sources */,
 				9887CC6A2AF3D92100E9E5F7 /* PPCardHeader.m in Sources */,
-				985C24692AEFE2D50008F38B /* PPHomeMoreTableViewCell.m in Sources */,
-				98E904BB2C6744850084C255 /* PBSmallTableHeaderSectionView.m in Sources */,
 				985C24722AEFF8750008F38B /* PPHomeModel.m in Sources */,
 				987FE9B52AFCCA8F00868AD5 /* PPVeCardTypeOptionHeaderView.m in Sources */,
 				9863F4E92AF15060003B8598 /* PPOrderViewController.m in Sources */,
 				98A146F52C625EC1009CA624 /* PBBorrGuideVC.m in Sources */,
-				985C24602AEFDF3D0008F38B /* PPHomeMoreHeaderView.m in Sources */,
 				9863F4F52AF15664003B8598 /* PPOrderModel.m in Sources */,
 				9829BD2C2C63A82500D5A5D6 /* NSString+PB3.m in Sources */,
 				98043AE82AEBF73000374328 /* PPTableViewCell.m in Sources */,
-				985C245D2AEFD3CC0008F38B /* PPHomeHeaderView.m in Sources */,
 				985C24822AF0DC450008F38B /* PPGoodsDetailTableViewCell.m in Sources */,
 				98043AC22AEBE83B00374328 /* WMProgressView.m in Sources */,
 				98043A9C2AEBE26400374328 /* PPBaseViewController.m in Sources */,
