@@ -21,6 +21,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // QMUI DEBUG 会向 qmuiteam.com 上报；该域名当前 TLS 证书与主机不匹配，会刷 NSURLErrorDomain -1202。
+    [QMUIConfiguration sharedInstance].sendAnalyticsToQMUITeam = NO;
+
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -43,7 +46,7 @@
     [self.window makeKeyAndVisible];
     //[[FBSDKSettings sharedSettings] setAdvertiserTrackingEnabled:YES];
     
-    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_LanguageUrl params:@{} commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_LanguageUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         if(result != nil){
             PPLanguageModel *pb_t_lauMD = [PPLanguageModel yy_modelWithJSON:result];
 //            "interpretml" : {

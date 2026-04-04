@@ -75,7 +75,7 @@
     NSDictionary *params = @{
         @"foundation":PBStrFormat(self.pId),
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V3JobInfoUrl params:params commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V3JobInfoUrl params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             self.dataModel = [PPVeNorInfoModel yy_modelWithJSON:result];
@@ -290,7 +290,7 @@
     PMMyWeekSelf
     [self.view endEditing:YES];
     [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V3JobInfoSubUrl params:self.submitParams commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V3JobInfoSubUrl params:self.submitParams commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             //上报风险

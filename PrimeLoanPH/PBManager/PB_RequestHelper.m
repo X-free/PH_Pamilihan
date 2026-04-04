@@ -44,8 +44,8 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
 /// GET
 - (void)pb_getRequestWithUrlStr:(NSString *)url params:(id)params commplete:(commpleteBlock)block failure:(failureBlock)fblock {
     
-    [self pb_t_de_toNetRequestWithType:PB_GET_RequestType url:url params:params commplete:^(id  _Nonnull result, NSInteger statusCode) {
-        block(result,statusCode);
+    [self pb_t_de_toNetRequestWithType:PB_GET_RequestType url:url params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
+        block(result, statusCode);
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
         fblock(error,errorCode,errorStr);
     }];
@@ -55,8 +55,8 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
 /// POST
 -(void)pb_postRequestWithUrlStr:(NSString *)url params:(id)params commplete:(commpleteBlock)block failure:(failureBlock)fblock {
 
-    [self pb_t_de_toNetRequestWithType:PB_POST_RequestType url:url params:params commplete:^(id  _Nonnull result, NSInteger statusCode) {
-        block(result,statusCode);
+    [self pb_t_de_toNetRequestWithType:PB_POST_RequestType url:url params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
+        block(result, statusCode);
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
         fblock(error,errorCode,errorStr);
     }];
@@ -67,6 +67,8 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
 - (void)pb_uploadFileRequestWithUrlStr:(NSString *)url params:(nonnull id)params file:(nonnull UIImage *)img success:(nonnull commpleteBlock)successHandler failure:(nonnull failureBlock)failureHandler {
     BOOL vaild = [self pb_t_checkRequestEnableWith:url];
     if (!vaild) {
+        NSError *err = [NSError errorWithDomain:@"PB_RequestHelper" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"url is empty"}];
+        failureHandler(err, -1, @"");
         return;
     }
     url = [[PB_APP_Control instanceOnly] pb_t_addPublicParamsDictKeyToUrlSuff:url];
@@ -114,6 +116,10 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
     
     BOOL vaild = [self pb_t_checkRequestEnableWith:url];
     if (!vaild) {
+        if (fblock) {
+            NSError *err = [NSError errorWithDomain:@"PB_RequestHelper" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"url is empty"}];
+            fblock(err, -1, @"");
+        }
         return;
     }
     url = [[PB_APP_Control instanceOnly] pb_t_addPublicParamsDictKeyToUrlSuff:url];
@@ -177,15 +183,21 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
 
 /** 重置成功code */
 - (void)resetSuccess:(id)resp code:(NSInteger)code url:(NSString *)url successHandler:(commpleteBlock)successHandler {
-    NSDictionary *pb_t_de_dic=[NSJSONSerialization JSONObjectWithData:resp options:NSJSONReadingMutableContainers error:nil];
-    //NSLog(@"resp ::: %@",dic);
-    NSLog(@"请求结果%ld::%@:::%@",code,url,[NSString PB_getJsonStringFromDictionary:pb_t_de_dic]);
-    if ( [resp isKindOfClass:[NSNull class]] || [resp isEqual:[NSNull null]] || resp == nil) {
-        NSLog(@"responseObject***:%@***code:%zd",pb_t_de_dic,code);
+    NSDictionary *pb_t_de_dic = nil;
+    if (resp != nil && ![resp isKindOfClass:[NSNull class]] && ![resp isEqual:[NSNull null]]) {
+        if ([resp isKindOfClass:[NSDictionary class]]) {
+            pb_t_de_dic = (NSDictionary *)resp;
+        } else if ([resp isKindOfClass:[NSData class]] && [(NSData *)resp length] > 0) {
+            id obj = [NSJSONSerialization JSONObjectWithData:(NSData *)resp options:NSJSONReadingMutableContainers error:nil];
+            if ([obj isKindOfClass:[NSDictionary class]]) {
+                pb_t_de_dic = obj;
+            }
+        }
+    }
+    NSLog(@"请求结果%ld::%@:::%@", (long)code, url, pb_t_de_dic ? [NSString PB_getJsonStringFromDictionary:pb_t_de_dic] : @"(nil)");
+    if ([resp isKindOfClass:[NSNull class]] || [resp isEqual:[NSNull null]] || resp == nil) {
+        NSLog(@"responseObject***:%@***code:%zd", pb_t_de_dic, (long)code);
         NSLog(@"成功--但是返回是个空");
-    }else{
-        //NSString *jsonStr =  [NSString PB_getJsonStringFromDictionary:resp];
-        //NSLog(@"jsonStr:######%@######code:%zd",dic,code);
     }
     if (code == 200 || code == 201 || code == 204 || code == 205) {
         //0或00表示成功；-1系统通用错误未指定具体错误码；-2未登录；其他
@@ -194,7 +206,7 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
             NSString *pb_t_de_tipMsg = PBStrFormat(pb_t_de_dic[@"concepts"]);
 
             if([stateCode isEqualToString:@"0"] || [stateCode isEqualToString:@"00"] ){
-                successHandler(resp,code);
+                successHandler(pb_t_de_dic, code);
             }else if ([stateCode isEqualToString:@"-2"]){
                 NSLog(@"未登录");
                 successHandler(nil,code);
@@ -223,6 +235,9 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
     NSInteger pb_t_error_code = [[error userInfo][@"statusCode"] integerValue];
     if (pb_t_error_code == 200 || pb_t_error_code == 201 || pb_t_error_code == 204 || pb_t_error_code == 205)  {
         [QMUITips hideAllTips];
+        if (failureBlock) {
+            failureBlock(error, pb_t_error_code, @"");
+        }
         return;
     }
     NSData *data = error.userInfo[@"com.alamofire.serialization.response.error.data"];
@@ -239,11 +254,15 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
             pb_t_error_code = [PBStrFormat(errorDic[@"code"]) integerValue];
         }
 //        pb_t_error_code = [PBStrFormat(errorDic[@"statusCode"]) integerValue];
-    }else{
+    } else {
         NSLog(@"不存在-");
-        failureBlock(error,pb_t_error_code,error_str);
     }
-
+    if (failureBlock) {
+        if ([NSString PB_CheckStringIsEmpty:error_str]) {
+            error_str = error.localizedDescription ?: @"";
+        }
+        failureBlock(error, pb_t_error_code, error_str);
+    }
 }
 
 - (void)showTipMsg:(NSString *)msg{

@@ -6,7 +6,7 @@
 //
 
 #import "PPTabBarController.h"
-#import "HomeViewController.h"
+#import "PrimeCash-Swift.h"
 #import "MeViewController.h"
 #import "PPNavigationController.h"
 

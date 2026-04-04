@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (PB_RequestHelper *)pb_instance;
 
-typedef void(^commpleteBlock)(_Nullable id result,NSInteger statusCode);
+typedef void(^commpleteBlock)(NSDictionary * _Nullable result, NSInteger statusCode);
 
 typedef void(^failureBlock)(NSError *error,NSInteger errorCode,NSString *errorStr);
 

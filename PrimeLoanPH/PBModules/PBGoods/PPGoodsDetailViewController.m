@@ -145,7 +145,7 @@
     NSDictionary *p = @{
         @"foundation":PBStrFormat(self.goodsId)
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productDetailInfoUrl params:p commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productDetailInfoUrl params:p commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             self.dataModel = [PPDetailModel yy_modelWithJSON:result];
@@ -203,7 +203,7 @@
         @"drury":l_oanType,//借款类型
     };
 
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_myOrderListItemLinkUrl params:params commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_myOrderListItemLinkUrl params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPBaseModel *model = [PPBaseModel yy_modelWithJSON:result];

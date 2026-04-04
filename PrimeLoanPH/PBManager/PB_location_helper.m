@@ -115,7 +115,7 @@
                 @"kenny":self.pb_t_street,
                 @"discue":self.pb_t_subCity
             };
-            [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportLocationInfoUrl params:params commplete:^(id  _Nullable result, NSInteger statusCode) {
+            [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportLocationInfoUrl params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
                         
             } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
                         

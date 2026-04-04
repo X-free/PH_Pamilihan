@@ -79,7 +79,7 @@
     NSDictionary *p = @{
         @"foundation":PBStrFormat(self.pId),
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V1CardInfoUrl params:p commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V1CardInfoUrl params:p commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             self.dataModel = [PPVeCardModel yy_modelWithJSON:result];
@@ -96,7 +96,7 @@
 
     [QMUITips showLoading:PBLoading_TipMsg inView:[UIApplication sharedApplication].delegate.window];
 
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V1CardInfoSaveUrl params:dic commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V1CardInfoSaveUrl params:dic commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
 
         if(result != nil){
@@ -323,7 +323,7 @@
     }
     PMMyWeekSelf
     [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
-    [[PB_RequestHelper pb_instance] pb_uploadFileRequestWithUrlStr:PBURL_V1UploadCardInfo params:params file:image success:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_uploadFileRequestWithUrlStr:PBURL_V1UploadCardInfo params:params file:image success:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPVeCardUploadModel *model = [PPVeCardUploadModel yy_modelWithJSON:result];

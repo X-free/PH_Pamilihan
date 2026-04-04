@@ -110,7 +110,7 @@
         @"relevant":PBStrFormat(code)
     };
     [QMUITips showLoading:PBLoading_TipMsg inView:vc.view];
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_loginUrl params:pa commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_loginUrl params:pa commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPLoginModel *model = [PPLoginModel yy_modelWithJSON:result];
@@ -248,7 +248,7 @@
         @"stage":@""
     };
     [QMUITips showLoading:PBLoading_TipMsg inView:fromVC.view];
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productCanApplyUrl params:pa commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productCanApplyUrl params:pa commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPEnterModel *model = [PPEnterModel yy_modelWithJSON:result];
@@ -297,7 +297,7 @@
         NSLog(@"已经请求过地址信息");
         return;
     }
-    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_selAdressUrl params:@{} commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_selAdressUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPAdressModel *model = [PPAdressModel yy_modelWithJSON:result];
@@ -350,7 +350,7 @@
     NSDictionary *p = @{
         @"foundation":PBStrFormat(pId)
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productDetailInfoUrl params:p commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productDetailInfoUrl params:p commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPDetailModel *dataModel = [PPDetailModel yy_modelWithJSON:result];
@@ -394,10 +394,10 @@
             @"conceptualised":PBStrFormat(pb_t_de_idfv),//idfv
             @"baker":PBStrFormat(pb_t_de_idfa),//idfa
         };
-        [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportGoogleMarkInfoUrl params:params commplete:^(id  _Nullable result, NSInteger statusCode) {
+        [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportGoogleMarkInfoUrl params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
             if (result != nil) {
-                NSDictionary *pb_t_de_resp=[NSJSONSerialization JSONObjectWithData:result options:NSJSONReadingMutableContainers error:nil];
-                if([pb_t_de_resp[@"defines"] intValue] == 0){
+                NSDictionary *pb_t_de_resp = result;
+                if ([pb_t_de_resp[@"defines"] intValue] == 0) {
                     NSString *pb_t_de_adjustId = pb_t_de_resp[@"theoretical"][@"second"];
                     if(pb_t_de_adjustId.length != 0){
                         
@@ -426,7 +426,7 @@
             @"theoretical":result
         };
         //此处需要将dic 转换成jison然后在上传
-        [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportDeviceInfoUrl params:pa commplete:^(id  _Nullable result, NSInteger statusCode) {
+        [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportDeviceInfoUrl params:pa commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
                     
         } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
                     
@@ -461,7 +461,7 @@
     [_pb_deDic setValue:pb_t_de_idfv forKey:@"already"];
     [_pb_deDic setValue:pb_t_de_idfa forKey:@"since"];
     [_pb_deDic setValue:@"2" forKey:@"know"];
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportRiskInfoUrl params:_pb_deDic commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportRiskInfoUrl params:_pb_deDic commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
             
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
             

@@ -63,7 +63,7 @@
     if(_isFirst == NO){
         [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
     }
-    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_appMineMenuUrl params:@{} commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_appMineMenuUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPMeModel *model = [PPMeModel yy_modelWithJSON:result];

@@ -78,7 +78,7 @@
         @"foundation":PBStrFormat(self.pId),
         @"dramatically":PBStrFormat([PB_APP_Control instanceOnly].phoneNum)
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V4ContactInfoUrl params:p commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V4ContactInfoUrl params:p commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             self.dataModel = [PPVeContactModel yy_modelWithJSON:result];
@@ -269,7 +269,7 @@
         @"foundation":PBStrFormat(self.pId),
         @"theoretical":self.submitParams.count > 0 ? [PPTools pb_t_jsonStrFormatForNSArray:self.submitParams] : @""
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V4ContactInfoSubUrl params:dict commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V4ContactInfoSubUrl params:dict commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             //上报风险
@@ -464,7 +464,7 @@
          NSDictionary *dict = @{
              @"theoretical":contactArr.count > 0 ? [PPTools pb_t_jsonStrFormatForNSArray:contactArr] : @""
          };
-         [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportConnectInfoUrl params:dict commplete:^(id  _Nullable result, NSInteger statusCode) {
+         [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportConnectInfoUrl params:dict commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
 
          } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
              

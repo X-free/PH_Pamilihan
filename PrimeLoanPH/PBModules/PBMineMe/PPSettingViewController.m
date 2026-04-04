@@ -130,7 +130,7 @@
 
 - (void)pb_t_requestLogout{
     [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
-    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_logoutUrl params:@{} commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_logoutUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         [PB_APP_Control pb_t_toLogoutAntToHomeMyAccount];
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {

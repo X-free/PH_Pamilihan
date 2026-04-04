@@ -63,7 +63,7 @@
         @"statement":@(1),
         @"differentiate":@(1000)
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_myOrderListUrl params:pb_t_de_params commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_myOrderListUrl params:pb_t_de_params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             PPOrderModel *model = [PPOrderModel yy_modelWithJSON:result];

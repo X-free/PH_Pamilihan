@@ -62,7 +62,7 @@
     };
 
     [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:url params:ppDic commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:url params:ppDic commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [self pp_reloadBeginTime];
         [QMUITips hideAllTips];
         if(result != nil){

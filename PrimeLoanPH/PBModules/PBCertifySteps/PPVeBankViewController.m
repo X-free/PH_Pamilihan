@@ -74,7 +74,7 @@
     NSDictionary *params = @{
         @"foundation":PBStrFormat(self.pId),
     };
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V5BankInfoUrl params:params commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V5BankInfoUrl params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             self.dataModel = [PPVeNorInfoModel yy_modelWithJSON:result];
@@ -319,7 +319,7 @@
 - (void)requestToSubmit{
     
     [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
-    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V5BankSubUrl params:self.submitParams commplete:^(id  _Nullable result, NSInteger statusCode) {
+    [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V5BankSubUrl params:self.submitParams commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [QMUITips hideAllTips];
         if(result != nil){
             [self pb_t_toRePortRiskDataToServeFromStep];
