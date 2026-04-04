@@ -29,10 +29,10 @@ final class APageLargeLoanCardView: UIView {
     private let amountLabel = UILabel()
     private let termTitleLabel = UILabel()
     private let termValueLabel = UILabel()
-    private let termIconView = UIImageView()
+
     private let rateTitleLabel = UILabel()
     private let rateValueLabel = UILabel()
-    private let rateIconView = UIImageView()
+
     private let applyButton = UIButton(type: .system)
 
     private var productId: Int = 0
@@ -97,8 +97,6 @@ final class APageLargeLoanCardView: UIView {
             $0.textColor = UIColor.pbColorBackHexStr("#26252A")
         }
 
-        [termIconView, rateIconView].forEach { $0.contentMode = .scaleAspectFit }
-
         applyButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         applyButton.setTitleColor(.white, for: .normal)
         applyButton.layer.cornerRadius = APageLayout.ratio(22)
@@ -115,12 +113,12 @@ final class APageLargeLoanCardView: UIView {
         }
         applyButton.addTarget(self, action: #selector(tapApply), for: .touchUpInside)
 
-        let termStack = UIStackView(arrangedSubviews: [termIconView, termTitleLabel, termValueLabel])
+        let termStack = UIStackView(arrangedSubviews: [termTitleLabel, termValueLabel])
         termStack.axis = .horizontal
         termStack.spacing = 6
         termStack.alignment = .center
 
-        let rateStack = UIStackView(arrangedSubviews: [rateIconView, rateTitleLabel, rateValueLabel])
+        let rateStack = UIStackView(arrangedSubviews: [rateTitleLabel, rateValueLabel])
         rateStack.axis = .horizontal
         rateStack.spacing = 6
         rateStack.alignment = .center
@@ -176,10 +174,6 @@ final class APageLargeLoanCardView: UIView {
             mainStack.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor, constant: -pad),
             mainStack.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -pad),
 
-            termIconView.widthAnchor.constraint(equalToConstant: 18),
-            termIconView.heightAnchor.constraint(equalToConstant: 18),
-            rateIconView.widthAnchor.constraint(equalToConstant: 18),
-            rateIconView.heightAnchor.constraint(equalToConstant: 18),
             applyButton.heightAnchor.constraint(equalToConstant: APageLayout.ratio(44))
         ])
     }
@@ -199,8 +193,6 @@ final class APageLargeLoanCardView: UIView {
         rateTitleLabel.text = model.simply
         rateValueLabel.text = model.opposition
         applyButton.setTitle(model.lobbying ?? "Go for a loan", for: .normal)
-        loadURL(model.discourage, into: termIconView)
-        loadURL(model.consequently, into: rateIconView)
     }
 
     @objc private func tapApply() {
