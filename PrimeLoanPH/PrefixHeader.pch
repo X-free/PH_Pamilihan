@@ -1,0 +1,65 @@
+//
+//  PrefixHeader.pch
+//  PrimeLoanPH
+//
+//  Created by MacPing on 2023/10/27.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#pragma mark -----------------PB______ pod PB______ pod --------------------------------------
+#import <QMUIKit/QMUIKit.h>
+#import <YYModel/YYModel.h>
+#import <MJRefresh/MJRefresh.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import <MJRefresh/MJRefresh.h>
+#import <Masonry/Masonry.h>
+#import <SDWebImage/SDWebImage.h>
+#import <BRPickerView/BRPickerView.h>
+#import <BRPickerView/BRPickerView.h>
+
+#pragma mark -----------------PB______ pod ------------------- other PB______ pod --------------------------------------
+#import "PPLoginModel.h"
+
+#pragma mark -----------------PB______ pod ------------------- Macros PB______ pod --------------------------------------
+#import "PPServe.h"
+#import "PPHelper.h"
+
+#pragma mark -----------------PB______ pod ------------------- category PB______-------------------
+#import "NSString+PP.h"
+#import "NSString+PB1.h"
+#import "NSString+PB2.h"
+#import "NSString+PB3.h"
+#import "NSString+PB4.h"
+
+
+
+#import "UIColor+PB.h"
+#import "UINavigationController+PBB.h"
+
+#import "PPBaseViewController.h"
+#import "PPServe.h"
+#import "PPTools.h"
+#import "PB_OpenUrl.h"
+#import "PB_CallCell.h"
+#import "PB_BR.h"
+#import "PB_UI.h"
+#import "PB_GetVC.h"
+#import "PB_timeHelper.h"
+#import "PB_getAppInfoHelper.h"
+#import "PBCameraAndPhotoHelper.h"
+#import "PB_RequestHelper.h"
+#import "PB_idf_helper.h"
+#import "PB_location_helper.h"
+#import "PB_mainInfo_helper.h"
+#import "PB_APP_Control.h"
+
+
+
+
+
+#endif /* PrefixHeader_pch */

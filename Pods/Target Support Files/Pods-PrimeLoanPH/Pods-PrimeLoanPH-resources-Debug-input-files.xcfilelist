@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-PrimeLoanPH/Pods-PrimeLoanPH-resources.sh
+${PODS_ROOT}/BRPickerView/BRPickerView/AddressPickerView/BRAddressPickerView.bundle
+${PODS_ROOT}/BRPickerView/BRPickerView/Base/BRPickerView.bundle
+${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/QMUIKit/QMUIResources.bundle
