@@ -257,7 +257,7 @@
     if(isEnable == NO){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [QMUITips showWithText:@"The front camera is not available"];
+            [PB_NativeTipsHelper pb_presentAlertWithMessage:@"The front camera is not available"];
         });
        
         NSLog(@"前置摄像头不可用");
@@ -270,7 +270,7 @@
 - (void)photoButtonClick{
     AVCaptureConnection *connection = [self.imgOutPut connectionWithMediaType:AVMediaTypeVideo];
     if(!connection){
-        [QMUITips showWithText:@"Take photo failure"];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:@"Take photo failure"];
 
         NSLog(@"拍照失败了");
         return;

@@ -10,7 +10,7 @@
 #import "PPBaseModel.h"
 #import "PPVeNorInputTableViewCell.h"
 #import "PB_BankNoAlertView.h"
-#import "PPGoodsDetailViewController.h"
+#import "PrimeCash-Swift.h"
 #import <BRPickerView.h>
 
 @interface PPVeBankViewController ()<PPVeNorInputTableViewCellDelegate>
@@ -70,12 +70,12 @@
 
 ///请求页面数据
 - (void)requestMethod {
-    [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     NSDictionary *params = @{
         @"foundation":PBStrFormat(self.pId),
     };
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V5BankInfoUrl params:params commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             self.dataModel = [PPVeNorInfoModel yy_modelWithJSON:result];
             self.dataArr = @[];
@@ -86,7 +86,7 @@
         [self refreshSubmitParams];
         [self.tableView reloadData];
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     }];
 }
 
@@ -220,7 +220,7 @@
     }else if ([type isEqualToString:@"sec"]){//citySelect
         self.adressPickerView.title = PBStrFormat(model.age);
         if([PB_APP_Control instanceOnly].adressArray.count == 0){
-            [QMUITips showInfo:@"city adress is on request..." inView:self.view];
+            [PB_NativeTipsHelper pb_presentAlertWithMessage:@"city adress is on request..."];
             PMMyWeekSelf
             [PB_APP_Control pb_t_toRequestAdressDataSuccessAfterCallBack:^(id  _Nonnull data) {
                 [weakSelf showAdressPickerView];
@@ -318,15 +318,15 @@
 
 - (void)requestToSubmit{
     
-    [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V5BankSubUrl params:self.submitParams commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             [self pb_t_toRePortRiskDataToServeFromStep];
             [self goToProductDetailVC];
         }
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     }];
 }
 

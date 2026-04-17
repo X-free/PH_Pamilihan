@@ -68,7 +68,7 @@ typedef void (^CityDataBack)(id data);
 
 /// 信息sdfsd上报sdfsd
 - (void)pb_t_toRePortDataToServeWithType:(UploadDateType_pb_t)type;
-- (void)pb_t_toRePortRiskDataToServe:(NSDictionary *)params;
+- (void)pb_t_toRePortRiskDataToServe:(NSDictionary *)params NS_SWIFT_NAME(pb_t_toRePortRiskDataToServe(_:));
 
 /// 检查是否需要sdfsdf显示引导页sdfsdf
 + (BOOL)pb_t_needShowGuideModuleJudge;

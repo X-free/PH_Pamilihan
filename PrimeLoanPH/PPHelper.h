@@ -15,7 +15,7 @@
 
 #define PB_BgColor          PB_Color(@"#F5F5F5") //背景色qweqw
 #define PB_WhiteColor       PB_Color(@"#FFFFFF") //白色fsdf
-#define PP_AppColor        PB_Color(@"#2961DC")  //主色调sdfdsf
+#define PP_AppColor        PB_Color(@"#FFDB3F")  //主色调sdfdsf
 #define PB_TitleColor       PB_Color(@"#294A72") //标题色sdf
 #define PB_xiaoTitleColor    PB_AlphaColor(@"#4A4A4C",0.5) //小标题色sdff
 #define PB_shenBlackColor   PB_Color(@"#202020") //深黑色dfsdd
@@ -39,11 +39,11 @@
 #define PBStrFormat(s) [NSString stringWithFormat:@"%@",s]
 
 
-#define PB_CameraTipMsg @"Please enable the camera function so that the PeraBoostAPP application can obtain image information for a better experience and better service"
-#define PB_PhotoTipContent  @"Please enable the photo album function so that the PeraBoostAPP can obtain image information for a better experience and better service"
-#define PBPositionSettingTipContent @"PeraBoostAPP needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. Do you need to go to setup now ?"
+#define PB_CameraTipMsg @"Please enable the camera function so that the Pamilihan PesoAPP application can obtain image information for a better experience and better service"
+#define PB_PhotoTipContent  @"Please enable the photo album function so that the Pamilihan PesoAPP can obtain image information for a better experience and better service"
+#define PBPositionSettingTipContent @"Pamilihan PesoAPP needs to assess whether your account has a security risk or determine whether it is a real location based on your account login location. Do you need to go to setup now ?"
 
-#define PBContactTipContent @"Please enable the contacts function, so that the PeraBoostAPP can obtain contact information, get better experience and better service"
+#define PBContactTipContent @"Please enable the contacts function, so that the Pamilihan PesoAPP can obtain contact information, get better experience and better service"
 
 
 #ifdef DEBUG

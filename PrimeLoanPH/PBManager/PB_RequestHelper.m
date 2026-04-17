@@ -153,7 +153,7 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
                    [url containsString:@"off/naldic"] ||
                    [url containsString:@"credit-info/upload-contacts-ios"] ||
                    [url containsString:@"off/questioning"]){
-                    [QMUITips hideAllTips];
+                    [PB_NativeTipsHelper pb_hideAllLoading];
                 }else{
                     [self resetError:error failureBlock:fblock];
                 }
@@ -171,7 +171,7 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
 /** 检查请求是否可用 */
 - (BOOL)pb_t_checkRequestEnableWith:(NSString *)url {
     if (!url) {
-        [QMUITips showWithText:@"url is empty"];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:@"url is empty"];
         return NO;
     }
     NSString *str = @" ";
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
                 NSLog(@"其他错误");
                 successHandler(nil,code);
                 if(![NSString PB_CheckStringIsEmpty:pb_t_de_tipMsg]){
-                    [QMUITips showWithText:pb_t_de_tipMsg];
+                    [PB_NativeTipsHelper pb_presentAlertWithMessage:pb_t_de_tipMsg];
                 };
             }
         }else{
@@ -230,11 +230,11 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
 
 /** 重置失败的code */
 - (void)resetError:(NSError *)error failureBlock:(failureBlock)failureBlock {
-    [QMUITips hideAllTips];
+    [PB_NativeTipsHelper pb_hideAllLoading];
     NSLog(@"errorInfo:%@",error.userInfo);
     NSInteger pb_t_error_code = [[error userInfo][@"statusCode"] integerValue];
     if (pb_t_error_code == 200 || pb_t_error_code == 201 || pb_t_error_code == 204 || pb_t_error_code == 205)  {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if (failureBlock) {
             failureBlock(error, pb_t_error_code, @"");
         }
@@ -266,7 +266,7 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
 }
 
 - (void)showTipMsg:(NSString *)msg{
-    [QMUITips showWithText:msg];
+    [PB_NativeTipsHelper pb_presentAlertWithMessage:msg];
 }
 
 ///未登录

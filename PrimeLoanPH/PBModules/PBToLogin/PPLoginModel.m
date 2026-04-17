@@ -25,7 +25,7 @@
 
 //归档
 + (void)archiverWithModel:(PPLoginModel *)model {
-    NSString *file = TempModelPath(@"PeraBoost_xinxi.data");
+    NSString *file = TempModelPath(@"Pamilihan Peso_xinxi.data");
     NSDictionary *dic = [model yy_modelToJSONObject];
     BOOL isSuccess = [NSKeyedArchiver archiveRootObject:dic toFile:file];
     NSLog(@"LoginModel归档成功与否：%d", isSuccess);
@@ -34,7 +34,7 @@
 //解当
 + (PPLoginModel *)unArchiver {
     //获取文件路径
-    NSString *file = TempModelPath(@"PeraBoost_xinxi.data");
+    NSString *file = TempModelPath(@"Pamilihan Peso_xinxi.data");
     //读取文件的内容
     NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithFile:file];
     
@@ -46,7 +46,7 @@
 
 //删除
 +(BOOL)removeRootObject{
-    NSString *file = TempModelPath(@"PeraBoost_xinxi.data");
+    NSString *file = TempModelPath(@"Pamilihan Peso_xinxi.data");
     return [self archiveRootObject:nil toFile:file];
 }
 

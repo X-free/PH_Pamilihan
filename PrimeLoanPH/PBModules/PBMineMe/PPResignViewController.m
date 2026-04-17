@@ -133,12 +133,12 @@
 }
 
 - (void)pb_t_resignButtonSendAction:(UIButton *)button {
-    [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_cancelationUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         [PB_APP_Control pb_t_toLogoutAntToHomeMyAccount];
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
         [PB_APP_Control pb_t_toLogoutAntToHomeMyAccount];
     }];
 }

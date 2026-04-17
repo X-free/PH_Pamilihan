@@ -7,7 +7,6 @@
 
 #import "AppDelegate.h"
 #import "PPStartViewController.h"
-#import "GuideViewController.h"
 #import "PPTabBarController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "PPLanguageModel.h"
@@ -30,28 +29,19 @@
     
     [PB_APP_Control instanceOnly].pb_t_serve_set_Language = 1;
     PMMyWeekSelf
-    if([PB_APP_Control pb_t_needShowGuideModuleJudge] == YES){
-        GuideViewController *vc = [[GuideViewController alloc] init];
-        self.window.rootViewController = vc;
-        vc.finsihCallBlock = ^{
-            weakSelf.window.rootViewController = [[PPTabBarController alloc] init];
-        };
-    }else{
-        PPStartViewController *vc = [[PPStartViewController alloc] init];
-        self.window.rootViewController = vc;
-        vc.finishCallBlock = ^{
-            weakSelf.window.rootViewController = [[PPTabBarController alloc] init];
-        };
-    }
+    PPStartViewController *vc = [[PPStartViewController alloc] init];
+    self.window.rootViewController = vc;
+    vc.finishCallBlock = ^{
+        weakSelf.window.rootViewController = [[PPTabBarController alloc] init];
+    };
     [self.window makeKeyAndVisible];
-    //[[FBSDKSettings sharedSettings] setAdvertiserTrackingEnabled:YES];
     
     [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_LanguageUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         if(result != nil){
             PPLanguageModel *pb_t_lauMD = [PPLanguageModel yy_modelWithJSON:result];
 //            "interpretml" : {
 //              "interpretpqow" : "4c3140b03330aa8c220ac312cddb2677",
-//              "interpretnahsd" : "PeraBoost",
+//              "interpretnahsd" : "Pamilihan Peso",
 //              "interpretlaoa" : "fb538358828521993",
 //              "interpretmans" : "538358828521993"
 //            }

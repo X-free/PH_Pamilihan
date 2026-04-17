@@ -25,6 +25,13 @@
 @property (nonatomic, strong) PPVerifyHeaderView *headerView;
 @property (nonatomic, strong) UIButton *pb_t_de_submitButton;
 @property (nonatomic, strong) PPVeCardModel *dataModel;
+@property (nonatomic, strong) UIView *pb_t_de_uploadCardWrap;
+@property (nonatomic, strong) UIButton *pb_t_de_frontTabBtn;
+@property (nonatomic, strong) UIButton *pb_t_de_faceTabBtn;
+@property (nonatomic, strong) UIView *pb_t_de_tabLineView;
+@property (nonatomic, strong) UIImageView *pb_t_de_mainPreviewImgV;
+@property (nonatomic, strong) UIImageView *pb_t_de_errorExampleImgV;
+@property (nonatomic, assign) NSInteger pb_t_de_selectedTab; // 0: Front of ID photo, 1: Face recognition
 
 @property (nonatomic, copy) NSString *pb_t_de_carType_reportStartTime;
 @property (nonatomic, copy) NSString *pb_t_de_reportStartTime;
@@ -40,7 +47,8 @@
     // Do any additional setup after loading the view.
     
     [self setShowBackBtn:YES];
-    [self setNavTitle:@"Authentication"];
+    [self setNavTitle:@"Identity information"];
+    self.useDarkNavBackIcon = YES;
     self.view.backgroundColor = PB_BgColor;
     [self ppInit];
 }
@@ -52,15 +60,116 @@
     self.cardTypeValue = @"";
     self.pb_t_de_carType_reportStartTime = @"";
     self.view.backgroundColor = PB_BgColor;
-
-    //
-    [self.tableView registerClass:PPVeCardTableViewCell.class forCellReuseIdentifier:PPVeCardTableViewCellKey];
-    [self.tableView registerClass:PPCardHeader.class forHeaderFooterViewReuseIdentifier:PPCardHeaderKey];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(PB_NaviBa_H, 0, PB_Ratio(100), 0));
+    self.pb_t_de_selectedTab = 0;
+    self.tableView.hidden = YES;
+    
+    UIImageView *topBg = [[UIImageView alloc] initWithImage:UIImageMake(@"ordtopbg")];
+    topBg.contentMode = UIViewContentModeScaleAspectFill;
+    topBg.clipsToBounds = YES;
+    [self.view addSubview:topBg];
+    [topBg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(0);
+        make.height.mas_equalTo(PB_Ratio(220) + StatusBarHeightConstant);
     }];
-    self.tableView.backgroundColor = PB_BgColor;
-    self.tableView.tableHeaderView = [PPVerifyHeaderView new];
+    [self.view sendSubviewToBack:topBg];
+
+    UIView *contentWrap = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:UIColor.clearColor];
+    [self.view addSubview:contentWrap];
+    [contentWrap mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(PB_NaviBa_H + PB_Ratio(14));
+        make.left.mas_equalTo(PB_Ratio(15));
+        make.right.mas_equalTo(-PB_Ratio(15));
+        make.bottom.mas_equalTo(-PB_Ratio(120));
+    }];
+
+    UIView *titleBg = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:PB_Color(@"#FB6E21") radius:PB_Ratio(12)];
+    [contentWrap addSubview:titleBg];
+    [titleBg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.mas_equalTo(0);
+        make.width.mas_equalTo(PB_Ratio(220));
+        make.height.mas_equalTo(PB_Ratio(52));
+    }];
+    QMUILabel *titleLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:@"Upload information" color:UIColor.whiteColor font:UIFontBoldMake(PB_Ratio(32*0.5)) alignment:NSTextAlignmentLeft lines:1];
+    [titleBg addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(PB_Ratio(14));
+        make.top.mas_equalTo(PB_Ratio(8));
+    }];
+
+    self.pb_t_de_uploadCardWrap = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:UIColor.whiteColor radius:PB_Ratio(12)];
+    [contentWrap addSubview:self.pb_t_de_uploadCardWrap];
+    [self.pb_t_de_uploadCardWrap mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(0);
+        make.top.mas_equalTo(titleBg.mas_bottom).offset(-PB_Ratio(10));
+    }];
+
+    self.pb_t_de_frontTabBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
+    [self.pb_t_de_frontTabBtn setTitle:@"Front of ID photo" forState:UIControlStateNormal];
+    self.pb_t_de_frontTabBtn.titleLabel.font = UIFontBoldMake(PB_Ratio(16));
+    [self.pb_t_de_frontTabBtn setTitleColor:PB_Color(@"#8C8C8C") forState:UIControlStateNormal];
+    [self.pb_t_de_frontTabBtn setTitleColor:PB_yiBanBlackColor forState:UIControlStateSelected];
+    [self.pb_t_de_frontTabBtn addTarget:self action:@selector(pb_t_de_tabAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.pb_t_de_frontTabBtn.tag = 700;
+    [self.pb_t_de_uploadCardWrap addSubview:self.pb_t_de_frontTabBtn];
+
+    self.pb_t_de_faceTabBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
+    [self.pb_t_de_faceTabBtn setTitle:@"Face recognition" forState:UIControlStateNormal];
+    self.pb_t_de_faceTabBtn.titleLabel.font = UIFontBoldMake(PB_Ratio(16));
+    [self.pb_t_de_faceTabBtn setTitleColor:PB_Color(@"#8C8C8C") forState:UIControlStateNormal];
+    [self.pb_t_de_faceTabBtn setTitleColor:PB_yiBanBlackColor forState:UIControlStateSelected];
+    [self.pb_t_de_faceTabBtn addTarget:self action:@selector(pb_t_de_tabAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.pb_t_de_faceTabBtn.tag = 701;
+    [self.pb_t_de_uploadCardWrap addSubview:self.pb_t_de_faceTabBtn];
+
+    self.pb_t_de_tabLineView = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:PB_Color(@"#FB6E21") radius:0];
+    [self.pb_t_de_uploadCardWrap addSubview:self.pb_t_de_tabLineView];
+
+    self.pb_t_de_mainPreviewImgV = [PB_UI pb_create_imageViewWhihFrame:CGRectZero imgName:@"Frame 39" cornerRadius:PB_Ratio(12)];
+    self.pb_t_de_mainPreviewImgV.contentMode = UIViewContentModeScaleAspectFit;
+    [self.pb_t_de_uploadCardWrap addSubview:self.pb_t_de_mainPreviewImgV];
+    UIButton *previewTap = [UIButton buttonWithType:UIButtonTypeCustom];
+    previewTap.backgroundColor = UIColor.clearColor;
+    [previewTap addTarget:self action:@selector(pb_t_de_mainPreviewTapAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.pb_t_de_mainPreviewImgV addSubview:previewTap];
+    [previewTap mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(0);
+    }];
+    
+    self.pb_t_de_errorExampleImgV = [PB_UI pb_create_imageViewWhihFrame:CGRectZero imgName:@"Grouerror9900502" cornerRadius:PB_Ratio(10)];
+    self.pb_t_de_errorExampleImgV.contentMode = UIViewContentModeScaleAspectFit;
+    [self.pb_t_de_uploadCardWrap addSubview:self.pb_t_de_errorExampleImgV];
+
+    [self.pb_t_de_frontTabBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(PB_Ratio(12));
+        make.top.mas_equalTo(PB_Ratio(8));
+        make.height.mas_equalTo(PB_Ratio(38));
+        make.width.mas_equalTo(PB_Ratio(145));
+    }];
+    [self.pb_t_de_faceTabBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.pb_t_de_frontTabBtn.mas_right).offset(PB_Ratio(8));
+        make.centerY.mas_equalTo(self.pb_t_de_frontTabBtn);
+        make.height.width.mas_equalTo(self.pb_t_de_frontTabBtn);
+    }];
+    [self.pb_t_de_tabLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.pb_t_de_frontTabBtn.mas_bottom).offset(-PB_Ratio(2));
+        make.left.mas_equalTo(self.pb_t_de_frontTabBtn);
+        make.width.mas_equalTo(PB_Ratio(135));
+        make.height.mas_equalTo(PB_Ratio(4));
+    }];
+    [self.pb_t_de_mainPreviewImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(PB_Ratio(12));
+        make.right.mas_equalTo(-PB_Ratio(12));
+        make.top.mas_equalTo(self.pb_t_de_frontTabBtn.mas_bottom).offset(PB_Ratio(10));
+        make.height.mas_equalTo(PB_Ratio(182));
+    }];
+    [self.pb_t_de_errorExampleImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(PB_Ratio(12));
+        make.right.mas_equalTo(-PB_Ratio(12));
+        make.top.mas_equalTo(self.pb_t_de_mainPreviewImgV.mas_bottom).offset(PB_Ratio(10));
+        make.bottom.mas_equalTo(-PB_Ratio(10));
+        make.height.mas_equalTo(PB_Ratio(102));
+    }];
+
     [self.view addSubview:self.pb_t_de_submitButton];
     [self.pb_t_de_submitButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(0);
@@ -68,49 +177,53 @@
         make.width.mas_equalTo(PB_SW - PB_Ratio(47)*2);
         make.height.mas_equalTo(PB_Ratio(44));
     }];
-    [self setPpShowTableViewHeaderRefresh:YES];
     [self requestMethod];
     
 }
 
 ///请求页面数据
 - (void)requestMethod {
-    [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     NSDictionary *p = @{
         @"foundation":PBStrFormat(self.pId),
     };
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V1CardInfoUrl params:p commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             self.dataModel = [PPVeCardModel yy_modelWithJSON:result];
+            NSInteger idAck = self.dataModel.theoretical.range.acknowledges;
+            self.pb_t_de_selectedTab = idAck == 1 ? 1 : 0;
+            [self pb_t_de_refreshTabUI];
         }
         [self ppTableViewEndAllRefresh];
-        [self.tableView reloadData];
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
         [self ppTableViewEndAllRefresh];
     }];
 }
 
 - (void)requestpb_t_toUploadIdCard:(NSDictionary *)dic presentVC:(UIViewController *)presentVC {
 
-    [QMUITips showLoading:PBLoading_TipMsg inView:[UIApplication sharedApplication].delegate.window];
+    UIWindow *pb_win = [UIApplication sharedApplication].delegate.window;
+    if (pb_win) {
+        [PB_NativeTipsHelper pb_showLoadingInView:pb_win];
+    }
 
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V1CardInfoSaveUrl params:dic commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
 
         if(result != nil){
             if(presentVC != nil){
                 [presentVC dismissViewControllerAnimated:YES completion:nil];
             }
             PPBaseModel *model= [PPBaseModel yy_modelWithJSON:result];
-            [QMUITips showInfo:PBStrFormat(model.concepts) inView:self.view];
+            [PB_NativeTipsHelper pb_presentAlertWithMessage:PBStrFormat(model.concepts)];
             [self requestMethod];
         }
-        [self.tableView reloadData];
+        [self pb_t_de_refreshTabUI];
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips hideAllTips];
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_hideAllLoading];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     }];
 }
 
@@ -126,7 +239,7 @@
 - (UIButton *)pb_t_de_submitButton {
     if(!_pb_t_de_submitButton){
         _pb_t_de_submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _pb_t_de_submitButton.backgroundColor = PP_AppColor;
+        [_pb_t_de_submitButton setBackgroundImage:UIImageMake(@"Roundedrectangle") forState:UIControlStateNormal];
         _pb_t_de_submitButton.layer.cornerRadius = PB_Ratio(22);
         _pb_t_de_submitButton.layer.masksToBounds = YES;
         [_pb_t_de_submitButton setTitle:@"Next" forState:UIControlStateNormal];
@@ -137,74 +250,53 @@
     return _pb_t_de_submitButton;
 }
 
-#pragma mark - tableView
+#pragma mark - Card UI
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return (self.dataModel && self.dataModel.theoretical.range && self.dataModel.theoretical.sought) ? 2 : 0;
+- (void)pb_t_de_tabAction:(UIButton *)sender {
+    self.pb_t_de_selectedTab = sender.tag == 700 ? 0 : 1;
+    [self pb_t_de_refreshTabUI];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
+- (void)pb_t_de_refreshTabUI {
+    BOOL isFront = self.pb_t_de_selectedTab == 0;
+    self.pb_t_de_frontTabBtn.selected = isFront;
+    self.pb_t_de_faceTabBtn.selected = !isFront;
+    [self.pb_t_de_tabLineView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.pb_t_de_frontTabBtn.mas_bottom).offset(-PB_Ratio(2));
+        make.left.mas_equalTo(isFront ? self.pb_t_de_frontTabBtn : self.pb_t_de_faceTabBtn);
+        make.width.mas_equalTo(PB_Ratio(135));
+        make.height.mas_equalTo(PB_Ratio(4));
+    }];
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    PPVeCardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PPVeCardTableViewCellKey forIndexPath:indexPath];
-    NSString *imgValueStr = @"";
-    if(indexPath.section == 0){
-        imgValueStr = PBStrFormat(self.dataModel.theoretical.range.translated);
-    }else{
-        imgValueStr = PBStrFormat(self.dataModel.theoretical.sought.translated);
-    }
-    [cell pb_configWithCellData:imgValueStr indexPath:indexPath];;
-        return cell;
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return PB_Ratio(54);
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    PPCardHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:PPCardHeaderKey];
-    NSString *sectionTitle = @"Front of ID card";
-    if(section == 1){
-        sectionTitle = @"Face recognition";
-    }
-    [header pb_confWithSectionData:sectionTitle];
-    return header;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return PB_Ratio(96);
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(self.dataModel == nil)
-        return;
-
-    NSString *imgValueStr = @"";
-    NSString *type = @"";
-    if(indexPath.section == 0){
-        imgValueStr = PBStrFormat(self.dataModel.theoretical.range.translated);
-        type = PB_VeIdCard_only_tag;
-    }else{
-        imgValueStr = PBStrFormat(self.dataModel.theoretical.sought.translated);
-        type = PBFaceCard_only_tag;
-        //身份证未完成时
-        if([NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.range.translated)]){
-            NSString *tipMsg = @"Please upload Front of ID card !";
-            [QMUITips showInfo:tipMsg inView:self.view];
-            return;
+    if (isFront) {
+        NSString *frontUrl = PBStrFormat(self.dataModel.theoretical.range.translated);
+        if([NSString PB_CheckStringIsEmpty:frontUrl]){
+            self.pb_t_de_mainPreviewImgV.image = UIImageMake(@"Framefront38");
+        }else{
+            [PPTools PB_loadUrl_ImageView:self.pb_t_de_mainPreviewImgV urlStr:frontUrl holdImg:@"Framefront38"];
         }
+        self.pb_t_de_errorExampleImgV.image = UIImageMake(@"Grouerror9900502");
+    } else {
+        NSString *faceUrl = PBStrFormat(self.dataModel.theoretical.sought.translated);
+        if([NSString PB_CheckStringIsEmpty:faceUrl]){
+            self.pb_t_de_mainPreviewImgV.image = UIImageMake(@"Frame 39");
+        }else{
+            [PPTools PB_loadUrl_ImageView:self.pb_t_de_mainPreviewImgV urlStr:faceUrl holdImg:@"Frame 39"];
+        }
+        self.pb_t_de_errorExampleImgV.image = UIImageMake(@"Grou990050");
     }
-    if([NSString PB_CheckStringIsEmpty:imgValueStr]){
-        [self pp_UploadVeCellUploadButtonTap:type];
+}
+
+- (void)pb_t_de_mainPreviewTapAction {
+    if(self.pb_t_de_selectedTab == 0){
+        [self pp_UploadVeCellUploadButtonTap:PB_VeIdCard_only_tag];
+        return;
     }
+    if([NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.range.translated)]){
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:@"Please upload Front of ID card !"];
+        return;
+    }
+    [self pp_UploadVeCellUploadButtonTap:PBFaceCard_only_tag];
 }
 
 #pragma mark - Click
@@ -322,9 +414,9 @@
         };
     }
     PMMyWeekSelf
-    [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     [[PB_RequestHelper pb_instance] pb_uploadFileRequestWithUrlStr:PBURL_V1UploadCardInfo params:params file:image success:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             PPVeCardUploadModel *model = [PPVeCardUploadModel yy_modelWithJSON:result];
             //显示确认弹框
@@ -346,7 +438,7 @@
             }
         }
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     } ];
 }
 

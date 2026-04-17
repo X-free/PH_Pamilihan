@@ -57,6 +57,7 @@
 #import "PB_location_helper.h"
 #import "PB_mainInfo_helper.h"
 #import "PB_APP_Control.h"
+#import "PB_NativeTipsHelper.h"
 
 
 

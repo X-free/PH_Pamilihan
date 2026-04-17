@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 //加载网sdfsdfdsafas络图片
-+(void)PB_loadUrl_ImageView:(UIImageView *)imageView urlStr:(NSString *)urlStr holdImg:(NSString *)holdImg;
++ (void)PB_loadUrl_ImageView:(UIImageView *)imageView urlStr:(NSString *)urlStr holdImg:(NSString *)holdImg NS_SWIFT_NAME(pb_loadRemoteIcon(_:url:placeholder:));
 
 + (NSMutableAttributedString *)pb_t_attriStringWithHexString:(NSString *)attriStr totalStr:(NSString *)totalStr norColor:(UIColor *)norColor attriColor:(UIColor *)attriColor norFont:(UIFont *)font attriFont:(UIFont *)attriFont underline:(BOOL)showUnderLine;
 

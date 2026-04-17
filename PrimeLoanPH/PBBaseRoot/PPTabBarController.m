@@ -7,14 +7,15 @@
 
 #import "PPTabBarController.h"
 #import "PrimeCash-Swift.h"
-#import "MeViewController.h"
 #import "PPNavigationController.h"
+#import "PPOrderViewController.h"
 
 @interface PPTabBarController ()<UITabBarControllerDelegate>
 
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, strong) HomeViewController *pb_t_page1_de;
-@property (nonatomic, strong) MeViewController *pb_t_page2_de;
+@property (nonatomic, strong) PPOrderViewController *pb_t_page2_de;
+@property (nonatomic, strong) MeViewController *pb_t_page3_de;
 
 @end
 
@@ -30,45 +31,43 @@
     self.delegate = self;
     NSArray *pb_t_normalImgs = @[
         UIImageMake(@"icon_home_default"),
+        UIImageMake(@"icon_order_default"),
         UIImageMake(@"icon_Me_default"),
     ];
     NSArray *pb_t_selectlImgs = @[
         UIImageMake(@"icon_home_actice"),
+        UIImageMake(@"icon_order_active"),
         UIImageMake(@"icon_Me_active"),
     ];
-    NSArray *pb_t_titles = @[@"Home",@"Me"];
+    NSArray *pb_t_titles = @[@"Home",@"Order",@"Me"];
     
     self.pb_t_page1_de = [[HomeViewController alloc] initWithPBTableViewOfGroupStyle:YES];
     PPNavigationController *pb_t_navVC1 = [[PPNavigationController alloc] initWithRootViewController:self.pb_t_page1_de];
     
-    self.pb_t_page2_de = [[MeViewController alloc] initWithPBTableViewOfGroupStyle:YES];
+    self.pb_t_page2_de = [[PPOrderViewController alloc] init];
     PPNavigationController *pb_t_navVC2 = [[PPNavigationController alloc] initWithRootViewController:self.pb_t_page2_de];
     
-    self.viewControllers = @[pb_t_navVC1,pb_t_navVC2];
+    self.pb_t_page3_de = [[MeViewController alloc] initWithPBTableViewOfGroupStyle:YES];
+    PPNavigationController *pb_t_navVC3 = [[PPNavigationController alloc] initWithRootViewController:self.pb_t_page3_de];
     
-    ///设置普通图片
-    for (int i = 0; i < self.tabBar.items.count && i < pb_t_normalImgs.count; ++i) {
-        UITabBarItem *pb_t_tabBarItem = [self.tabBar.items objectAtIndex:i];
-        //pb_t_tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-        pb_t_tabBarItem.image = [[pb_t_normalImgs objectAtIndex:i] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        
-        NSDictionary *pb_t_textNormalOptions = @{
-            NSFontAttributeName:UIFontMake(11),
-            NSForegroundColorAttributeName:PB_Color(@"#C9C9C9")
-        };
-        NSDictionary *pb_t_textSelectOptions = @{
-            NSFontAttributeName:UIFontMake(11),
-            NSForegroundColorAttributeName:PP_AppColor
-        };
-        pb_t_tabBarItem.title = pb_t_titles[i];
-        [pb_t_tabBarItem setTitleTextAttributes:pb_t_textNormalOptions forState:UIControlStateNormal];
-        [pb_t_tabBarItem setTitleTextAttributes:pb_t_textSelectOptions forState:UIControlStateSelected];
-        
-    }
-    ///设置选中图片
+    self.viewControllers = @[pb_t_navVC1,pb_t_navVC2, pb_t_navVC3];
+   
+    
+    
+    ///设置默认/选中图片与标题
     for (int i = 0; i < self.tabBar.items.count && pb_t_selectlImgs.count; ++i) {
         UITabBarItem *pb_t_tabBarItem = [self.tabBar.items objectAtIndex:i];
+        pb_t_tabBarItem.image = [[pb_t_normalImgs objectAtIndex:i] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         pb_t_tabBarItem.selectedImage = [[pb_t_selectlImgs objectAtIndex:i] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        pb_t_tabBarItem.title = [pb_t_titles objectAtIndex:i];
+        [pb_t_tabBarItem setTitleTextAttributes:@{
+            NSForegroundColorAttributeName : PB_Color(@"#8C8C8C"),
+            NSFontAttributeName : UIFontMake(PB_Ratio(10))
+        } forState:UIControlStateNormal];
+        [pb_t_tabBarItem setTitleTextAttributes:@{
+            NSForegroundColorAttributeName : PB_Color(@"#FFCC16"),
+            NSFontAttributeName : UIFontMake(PB_Ratio(10))
+        } forState:UIControlStateSelected];
     }
     if (@available(iOS 13.0, *)) { //去掉tabbard顶部黑色线
         self.tabBar.backgroundImage = [UIImage new];

@@ -73,13 +73,13 @@
 
 ///请求页面数据
 - (void)requestMethod {
-    [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     NSDictionary *p = @{
         @"foundation":PBStrFormat(self.pId),
         @"dramatically":PBStrFormat([PB_APP_Control instanceOnly].phoneNum)
     };
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V4ContactInfoUrl params:p commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             self.dataModel = [PPVeContactModel yy_modelWithJSON:result];
             self.dataArr = @[];
@@ -90,7 +90,7 @@
         [self refreshSubmitParams];
         [self.tableView reloadData];
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     }];
 }
 
@@ -264,13 +264,13 @@
 
     PMMyWeekSelf
     [self.view endEditing:YES];
-    [QMUITips showLoading:PBLoading_TipMsg inView:self.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     NSDictionary *dict = @{
         @"foundation":PBStrFormat(self.pId),
         @"theoretical":self.submitParams.count > 0 ? [PPTools pb_t_jsonStrFormatForNSArray:self.submitParams] : @""
     };
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_V4ContactInfoSubUrl params:dict commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             //上报风险
             [self pb_t_toRePortRiskDataToServeFromStep];
@@ -280,7 +280,7 @@
             }];
         }
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:self.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     }];
 }
 

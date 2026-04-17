@@ -11,7 +11,7 @@
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <AdSupport/AdSupport.h>
 
-static NSString *const key_idfv = @"PeraBoost_idfv_key";
+static NSString *const key_idfv = @"Pamilihan Peso_idfv_key";
 
 
 @implementation PB_idf_helper

@@ -9,9 +9,8 @@
 #import "PB_APP_Control.h"
 #import <Adjust.h>
 #import "PPNavigationController.h"
-#import "PPLoginViewController.h"
+#import "PrimeCash-Swift.h"
 #import "PPWebViewController.h"
-#import "PPGoodsDetailViewController.h"
 #import "PPDetailModel.h"
 #import "PPEnterModel.h"
 #import "PPVeCardsViewController.h"
@@ -20,7 +19,8 @@
 #import "PPVeContactViewController.h"
 #import "PPVeBankViewController.h"
 #import "PPOrderViewController.h"
-#import "PPSettingViewController.h"
+
+static UIView *PBLoginNativeLoadingOverlay = nil;
 
 @implementation PB_APP_Control
 
@@ -109,14 +109,11 @@
         @"literature":PBStrFormat(phone),
         @"relevant":PBStrFormat(code)
     };
-    [QMUITips showLoading:PBLoading_TipMsg inView:vc.view];
+    [PB_APP_Control pb_t_showNativeLoginLoadingOnHostView:vc.view];
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_loginUrl params:pa commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_APP_Control pb_t_hideNativeLoginLoadingOverlay];
         if(result != nil){
             PPLoginModel *model = [PPLoginModel yy_modelWithJSON:result];
-            if(![NSString PB_CheckStringIsEmpty:model.concepts]){
-                [QMUITips showSucceed:model.concepts];
-            }
 
             [PB_APP_Control instanceOnly].pb_t_loginMD = model;
             [PB_NotificationOfCenter postNotificationName:PB_NotiLoginThanSuccess object:nil];
@@ -126,7 +123,8 @@
             }
         }
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:vc.view];
+        [PB_APP_Control pb_t_hideNativeLoginLoadingOverlay];
+        [PB_APP_Control pb_t_presentLoginAlertFromViewController:vc message:errorStr];
     }];
 }
 
@@ -247,16 +245,16 @@
         @"eyfs":@"",
         @"stage":@""
     };
-    [QMUITips showLoading:PBLoading_TipMsg inView:fromVC.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:fromVC.view];
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productCanApplyUrl params:pa commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             PPEnterModel *model = [PPEnterModel yy_modelWithJSON:result];
             NSString *pb_t_de_linkStr = PBStrFormat(model.theoretical.translated);
             [self pb_t_goToModuleWithJudgeTypeStr:pb_t_de_linkStr fromVC:fromVC];
         }
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr inView:fromVC.view];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     }];
 }
 
@@ -298,7 +296,7 @@
         return;
     }
     [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_selAdressUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             PPAdressModel *model = [PPAdressModel yy_modelWithJSON:result];
             [PB_APP_Control instanceOnly].cityModel = model;
@@ -346,12 +344,12 @@
 
 ///请求产品详情--认证流程进入下一步
 + (void)pb_t_toRequestProductDetailThanGoToNextStepOptionWithProductID:(NSString *)pId oId:(NSString *)oId fromVC:(PPBaseViewController *)fromVC SuccessBlock:(void (^)(BOOL))block{
-    [QMUITips showLoading:PBLoading_TipMsg inView:fromVC.view];
+    [PB_NativeTipsHelper pb_showLoadingInView:fromVC.view];
     NSDictionary *p = @{
         @"foundation":PBStrFormat(pId)
     };
     [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_productDetailInfoUrl params:p commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-        [QMUITips hideAllTips];
+        [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             PPDetailModel *dataModel = [PPDetailModel yy_modelWithJSON:result];
         
@@ -373,7 +371,7 @@
             }
         }
     } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-        [QMUITips showError:errorStr];
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:errorStr];
     }];
 }
 
@@ -476,6 +474,56 @@
 
 
 /// 检查是否需要显示引导页
+#pragma mark - Native loading (avoid QMUITips maskView crash on iOS 18+)
+
++ (void)pb_t_showNativeLoginLoadingOnHostView:(UIView *)hostView {
+    if (!hostView) { return; }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [PB_APP_Control pb_t_hideNativeLoginLoadingOverlay];
+        UIView *dim = [[UIView alloc] initWithFrame:hostView.bounds];
+        dim.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        dim.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.22];
+        dim.userInteractionEnabled = YES;
+        UIActivityIndicatorView *spin;
+        if (@available(iOS 13.0, *)) {
+            spin = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+            spin.color = [UIColor whiteColor];
+        } else {
+            spin = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        }
+        spin.translatesAutoresizingMaskIntoConstraints = NO;
+        [dim addSubview:spin];
+        [NSLayoutConstraint activateConstraints:@[
+            [spin.centerXAnchor constraintEqualToAnchor:dim.centerXAnchor],
+            [spin.centerYAnchor constraintEqualToAnchor:dim.centerYAnchor],
+        ]];
+        [spin startAnimating];
+        [hostView addSubview:dim];
+        PBLoginNativeLoadingOverlay = dim;
+    });
+}
+
++ (void)pb_t_hideNativeLoginLoadingOverlay {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [PBLoginNativeLoadingOverlay removeFromSuperview];
+        PBLoginNativeLoadingOverlay = nil;
+    });
+}
+
++ (void)pb_t_presentLoginAlertFromViewController:(UIViewController *)vc message:(NSString *)message {
+    if (message.length == 0) { return; }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *presenter = vc;
+        while (presenter.presentedViewController) {
+            presenter = presenter.presentedViewController;
+        }
+        if (presenter == nil || presenter.isBeingDismissed) { return; }
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+        [ac addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [presenter presentViewController:ac animated:YES completion:nil];
+    });
+}
+
 + (BOOL)pb_t_needShowGuideModuleJudge{
     static NSString *versionKey_pb_de = @"PrimeLoanPH_AppVersion_key";
     NSUserDefaults *userDefault_pb_de = [NSUserDefaults standardUserDefaults] ;
