@@ -86,7 +86,7 @@ typedef NS_ENUM(NSInteger, PB_RequestType) {
     NSData *imgData = [self PB_RatioImgToLimitSize:500 targetImg:img];
     NSLog(@"上传图qweqwewqwsac片的大小：%fkb",imgData.length/1024.0);
     [_manager POST:url parameters:params headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:imgData name:@"pokemon" fileName:pb_t_uploadImgStr mimeType:@"image/png"];
+        [formData appendPartWithFileData:imgData name:@"desAuthorities" fileName:pb_t_uploadImgStr mimeType:@"image/*"];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
             
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

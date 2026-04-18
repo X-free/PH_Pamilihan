@@ -10,8 +10,6 @@
 #import "PPCardHeader.h"
 #import "PPVeCardTableViewCell.h"
 #import "PPVeCardModel.h"
-#import "PB_ExampleAlertViewController.h"
-#import "FaceCameraViewController.h"
 #import "PPVeCardUploadModel.h"
 #import "PB_PRCInfoAlertViewController.h"
 #import "PPBaseModel.h"
@@ -342,12 +340,7 @@
         };
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([tag isEqualToString:PBFaceCard_only_tag]){
-        PB_ExampleAlertViewController *exampleVC= [[PB_ExampleAlertViewController alloc] initWithType:2];
-        exampleVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        exampleVC.finsihCallBlock = ^{
-            [weakSelf pb_t_toUploadFace];
-        };
-        [self presentViewController:exampleVC animated:YES completion:nil];
+        [self pb_t_toUploadFace];
     }
 }
 
@@ -355,14 +348,16 @@
 
 - (void)pb_t_toUploadFace{
     [self pp_reloadBeginTime];
+    
+    [self pickImageWithPickType:1 cardType:10];
+
 //    AppFaceVc *vc = [[AppFaceVc alloc] init];
-    FaceCameraViewController *vc = [[FaceCameraViewController alloc] init];
-    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:vc animated:YES completion:^{}];
-    PMMyWeekSelf
-    vc.faceImage = ^(UIImage * _Nonnull image) {
-        [weakSelf requestToUploadImag:image type:10 fromType:@"1"];
-    };
+//    FaceCameraViewController *vc = [[FaceCameraViewController alloc] init];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:vc animated:YES completion:^{}];
+//    PMMyWeekSelf
+//    vc.faceImage = ^(UIImage * _Nonnull image) {
+//    };
 }
 
 - (void)pb_t_toUploadIdCard{
@@ -386,7 +381,8 @@
 - (void)pickImageWithPickType:(NSInteger)pickType cardType:(NSInteger)cardType{
     PMMyWeekSelf
     if(pickType == 1){//拍照 //身份证拍照使用后置
-        [PBCameraAndPhotoHelper pb_to_useCameraFromVC:self isFront:NO finishPicking:^(UIImage * _Nonnull image) {
+        [PBCameraAndPhotoHelper pb_to_useCameraFromVC:self isFront:cardType == 10 finishPicking:^(UIImage * _Nonnull image) {
+            
             [weakSelf requestToUploadImag:image type:cardType fromType:@"1"];
         }];
     }else if (pickType == 2){//相册

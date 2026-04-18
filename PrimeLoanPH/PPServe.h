@@ -79,4 +79,11 @@ NS_INLINE NSString *PB_API_LogoutURL(void) { return PBURL_logoutUrl; }
 NS_INLINE NSString *PB_API_ProductDetailInfoURL(void) { return PBURL_productDetailInfoUrl; }
 NS_INLINE NSString *PB_API_MyOrderListItemLinkURL(void) { return PBURL_myOrderListItemLinkUrl; }
 
+NS_INLINE NSString *PB_API_V2UserInfoFetchURL(void) { return PBURL_V2UserInfoUrl; }
+NS_INLINE NSString *PB_API_V2UserInfoSubmitURL(void) { return PBURL_V2UserInfoSubUrl; }
+NS_INLINE NSString *PB_API_V3JobInfoFetchURL(void) { return PBURL_V3JobInfoUrl; }
+NS_INLINE NSString *PB_API_V3JobInfoSubmitURL(void) { return PBURL_V3JobInfoSubUrl; }
+NS_INLINE NSString *PB_API_V5BankInfoFetchURL(void) { return PBURL_V5BankInfoUrl; }
+NS_INLINE NSString *PB_API_V5BankSubmitURL(void) { return PBURL_V5BankSubUrl; }
+
 #endif /* PPServe_h */

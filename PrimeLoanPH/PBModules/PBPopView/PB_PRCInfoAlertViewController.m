@@ -47,68 +47,83 @@
         PPVeCardUploadModel *model = (PPVeCardUploadModel *)data;
         self.mainModel = model;
         self.view.frame = CGRectMake(0, 0, PB_SW - PB_Ratio(36)*2, PB_SH);
-        UIView *bgView = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:PB_WhiteColor radius:PB_Ratio(24)];
+        UIView *bgView = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:PB_WhiteColor radius:PB_Ratio(16)];
         [self.view addSubview:bgView];
         [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(0);
             make.centerY.mas_offset(-PB_Ratio(30));
             make.width.mas_equalTo(PB_SW - PB_Ratio(36) *2);
-            make.height.mas_equalTo(PB_Ratio(436));
+            make.height.mas_equalTo(PB_Ratio(520));
         }];
 
-        //
-        NSString *title = @"Confirm your ID information";
-        QMUILabel *titleLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:title color:PB_yiBanBlackColor font:UIFontMediumMake(PB_Ratio(20)) alignment:NSTextAlignmentCenter lines:0];
-        [bgView addSubview:titleLabel];
-        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(0);
-            make.top.mas_equalTo(PB_Ratio(20));
+        UIImage *headerImg = [UIImage imageNamed:@"idinfofconfirm"];
+        UIImageView *headerImgV = [[UIImageView alloc] initWithImage:headerImg];
+        headerImgV.contentMode = UIViewContentModeScaleAspectFill;
+        headerImgV.clipsToBounds = YES;
+        [bgView addSubview:headerImgV];
+        CGFloat headerH = headerImg ? (headerImg.size.height / MAX(headerImg.size.width, 1.0)) * (PB_SW - PB_Ratio(36) * 2) : PB_Ratio(96);
+        [headerImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.mas_equalTo(0);
+            make.height.mas_equalTo(MIN(headerH, PB_Ratio(120)));
         }];
-        
-        NSArray *names = @[
-            @"ID No.",
-            @"Full Name",
-            @"Date Birth"
-        ];
+
+        QMUIButton *pb_t_decloseBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
+        pb_t_decloseBtn.backgroundColor = UIColor.clearColor;
+        [pb_t_decloseBtn setImage:[UIImage imageNamed:@"Grosx1276601"] forState:UIControlStateNormal];
+        [pb_t_decloseBtn setImage:[UIImage imageNamed:@"Grosx1276601"] forState:UIControlStateHighlighted];
+        [pb_t_decloseBtn addTarget:self action:@selector(buttonSenderTap:) forControlEvents:UIControlEventTouchUpInside];
+        pb_t_decloseBtn.tag = 51;
+        [bgView addSubview:pb_t_decloseBtn];
+        [pb_t_decloseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(PB_Ratio(16));
+            make.top.mas_equalTo(PB_Ratio(14));
+            make.width.height.mas_equalTo(PB_Ratio(36));
+        }];
+        [bgView bringSubviewToFront:pb_t_decloseBtn];
+
+        NSArray *names = @[ @"Name", @"ID number", @"Birthday" ];
         NSArray *values = @[
-            PBStrFormat(model.theoretical.gillborn),
             PBStrFormat(model.theoretical.celebrating),
+            PBStrFormat(model.theoretical.gillborn),
             PBStrFormat(model.theoretical.creates),
         ];
         NSString *pleaseEnter = @"Enter text...";
         NSString *pleaeSelect = @"Please select";
-        NSArray *holds = @[
-            pleaseEnter,
-            pleaseEnter,
-            pleaeSelect,
-        ];
+        NSArray *holds = @[ pleaseEnter, pleaseEnter, pleaeSelect ];
+        UIColor *labelGreen = PB_Color(@"#1B5E20");
         CGFloat item_height = PB_Ratio(72);
+        UIView *lastFieldView = nil;
         for (NSInteger i = 0; i < names.count; i++) {
             UIView *itemView = [[UIView alloc] init];
             [bgView addSubview:itemView];
             [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(PB_Ratio(15));
                 make.right.mas_offset(-PB_Ratio(15));
-                make.top.mas_equalTo(PB_Ratio(88) + item_height * i);
+                if (lastFieldView) {
+                    make.top.mas_equalTo(lastFieldView.mas_bottom);
+                } else {
+                    make.top.mas_equalTo(headerImgV.mas_bottom).offset(PB_Ratio(12));
+                }
                 make.height.mas_equalTo(item_height);
             }];
-            QMUILabel *pb_t_depTitleLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:names[i] color:PB_morenHoldColor font:UIFontMake(PB_Ratio(15)) alignment:NSTextAlignmentCenter lines:0];
-           
-            QMUITextField *pb_t_depTextField = [PB_UI pb_create_textFieldWithFrame:CGRectZero bgColor:PB_WhiteColor placeholder:pleaseEnter textColor:PB_yiBanBlackColor font:UIFontMediumMake(PB_Ratio(16)) cornerRadius:PB_Ratio(10) keyboardType:UIKeyboardTypeDefault];
+            lastFieldView = itemView;
+
+            QMUILabel *pb_t_depTitleLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:names[i] color:labelGreen font:UIFontMediumMake(PB_Ratio(14)) alignment:NSTextAlignmentLeft lines:1];
+
+            QMUITextField *pb_t_depTextField = [PB_UI pb_create_textFieldWithFrame:CGRectZero bgColor:PB_Color(@"#F5F5F5") placeholder:pleaseEnter textColor:PB_yiBanBlackColor font:UIFontMediumMake(PB_Ratio(16)) cornerRadius:PB_Ratio(10) keyboardType:UIKeyboardTypeDefault];
             pb_t_depTextField.placeholder = holds[i];
-            pb_t_depTextField.textInsets = UIEdgeInsetsMake(0, PB_Ratio(16), 0, PB_Ratio(16));
+            pb_t_depTextField.textInsets = UIEdgeInsetsMake(0, PB_Ratio(14), 0, PB_Ratio(14));
             pb_t_depTextField.text = values[i];
-            pb_t_depTextField.userInteractionEnabled = i == (names.count - 1) ? NO : YES;
+            pb_t_depTextField.userInteractionEnabled = (i != (names.count - 1));
             [itemView addSubview:pb_t_depTitleLabel];
             [itemView addSubview:pb_t_depTextField];
             [pb_t_depTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.top.mas_equalTo(0);
             }];
             [pb_t_depTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.mas_equalTo(UIEdgeInsetsMake(PB_Ratio(28), 0, 0, 0));
+                make.edges.mas_equalTo(UIEdgeInsetsMake(PB_Ratio(26), 0, 0, 0));
             }];
             if(i == 0){
-//                pb_t_depTextField.keyboardType = UIKeyboardTypeNumberPad;
                 _tf1 = pb_t_depTextField;
             }else if (i == 1){
                 _tf2 = pb_t_depTextField;
@@ -120,41 +135,36 @@
                 [pb_t_dedatePickButton mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.edges.mas_equalTo(pb_t_depTextField);
                 }];
-
             }
         }
 
+        QMUILabel *hintLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:@"Please check your ID information correctly, once submitted it is not changed again" color:PB_Color(@"#FB6E21") font:UIFontMake(PB_Ratio(12)) alignment:NSTextAlignmentLeft lines:0];
+        [bgView addSubview:hintLabel];
+        [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(PB_Ratio(15));
+            make.right.mas_offset(-PB_Ratio(15));
+            make.top.mas_equalTo(lastFieldView.mas_bottom).offset(PB_Ratio(8));
+        }];
+
         QMUIButton *pb_t_desubmitButton = [QMUIButton buttonWithType:UIButtonTypeCustom];
-        pb_t_desubmitButton.backgroundColor = PP_AppColor;
-        pb_t_desubmitButton.layer.cornerRadius = 0;
-        pb_t_desubmitButton.layer.masksToBounds = YES;
+        pb_t_desubmitButton.backgroundColor = UIColor.clearColor;
+        [pb_t_desubmitButton setBackgroundImage:[UIImage imageNamed:@"Rec626999"] forState:UIControlStateNormal];
+        [pb_t_desubmitButton setBackgroundImage:[UIImage imageNamed:@"Rec626999"] forState:UIControlStateHighlighted];
         [pb_t_desubmitButton setTitle:@"Confirm" forState:UIControlStateNormal];
-        pb_t_desubmitButton.titleLabel.font = UIFontMediumMake(PB_Ratio(18));
+        pb_t_desubmitButton.titleLabel.font = UIFontBoldMake(PB_Ratio(17));
         [pb_t_desubmitButton setTitleColor:PB_WhiteColor forState:UIControlStateNormal];
         [pb_t_desubmitButton addTarget:self action:@selector(buttonSenderTap:) forControlEvents:UIControlEventTouchUpInside];
         pb_t_desubmitButton.tag = 50;
-        
-        //
-        QMUIButton *pb_t_decloseBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
-        pb_t_decloseBtn.backgroundColor = UIColor.clearColor;
-        [pb_t_decloseBtn setImage:[UIImage imageNamed:@"icon_close_x"] forState:UIControlStateNormal];
-        [pb_t_decloseBtn setImage:[UIImage imageNamed:@"icon_close_x"] forState:UIControlStateHighlighted];
-        [pb_t_decloseBtn addTarget:self action:@selector(buttonSenderTap:) forControlEvents:UIControlEventTouchUpInside];
-        pb_t_decloseBtn.tag = 51;
-
+        pb_t_desubmitButton.layer.cornerRadius = PB_Ratio(10);
+        pb_t_desubmitButton.layer.masksToBounds = YES;
         [bgView addSubview:pb_t_desubmitButton];
-        [self.view addSubview:pb_t_decloseBtn];
-        
         [pb_t_desubmitButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.mas_equalTo(0);
-            make.height.mas_equalTo(PB_Ratio(48));
+            make.left.mas_equalTo(PB_Ratio(15));
+            make.right.mas_offset(-PB_Ratio(15));
+            make.bottom.mas_offset(-PB_Ratio(16));
+            make.height.mas_equalTo(PB_Ratio(50));
+            make.top.mas_equalTo(hintLabel.mas_bottom).offset(PB_Ratio(16));
         }];
-        [pb_t_decloseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(bgView.mas_bottom).offset(PB_Ratio(24));
-            make.centerX.mas_equalTo(0);
-            make.width.height.mas_equalTo(PB_Ratio(34));
-        }];
-        
     }
     
 }
@@ -167,6 +177,8 @@
     [self.view endEditing:YES];
     if(![NSString PB_CheckStringIsEmpty:self.mainModel.theoretical.creates]){
         self.dataPicker_pb_t_.selectDate = [NSDate br_setYear:[self.mainModel.theoretical.incomplete integerValue] month:[self.mainModel.theoretical.outperform integerValue] day:[self.mainModel.theoretical.areas integerValue]];
+    } else {
+        self.dataPicker_pb_t_.selectDate = [NSDate br_setYear:2000 month:01 day:01];
     }
     [self.dataPicker_pb_t_ show];
 }

@@ -1,0 +1,46 @@
+Target dependency graph (16 targets)
+Target 'PrimeLoanPH' in project 'PrimeLoanPH'
+➜ Implicit dependency on target 'Pods-PrimeLoanPH' in project 'Pods' via file 'libPods-PrimeLoanPH.a' in build phase 'Link Binary'
+➜ Implicit dependency on target 'AFNetworking' in project 'Pods' via options '-lAFNetworking' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'Adjust' in project 'Pods' via options '-lAdjust' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'BRPickerView' in project 'Pods' via options '-lBRPickerView' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'IQKeyboardManager' in project 'Pods' via options '-lIQKeyboardManager' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'MJRefresh' in project 'Pods' via options '-lMJRefresh' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'Masonry' in project 'Pods' via options '-lMasonry' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'QMUIKit' in project 'Pods' via options '-lQMUIKit' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'SDCycleScrollView' in project 'Pods' via options '-lSDCycleScrollView' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'SDWebImage' in project 'Pods' via options '-lSDWebImage' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'YYModel' in project 'Pods' via options '-lYYModel' in build setting 'OTHER_LDFLAGS'
+Target 'Pods-PrimeLoanPH' in project 'Pods'
+➜ Explicit dependency on target 'AFNetworking' in project 'Pods'
+➜ Explicit dependency on target 'Adjust' in project 'Pods'
+➜ Explicit dependency on target 'BRPickerView' in project 'Pods'
+➜ Explicit dependency on target 'FBAEMKit' in project 'Pods'
+➜ Explicit dependency on target 'FBSDKCoreKit' in project 'Pods'
+➜ Explicit dependency on target 'FBSDKCoreKit_Basics' in project 'Pods'
+➜ Explicit dependency on target 'IQKeyboardManager' in project 'Pods'
+➜ Explicit dependency on target 'MJRefresh' in project 'Pods'
+➜ Explicit dependency on target 'Masonry' in project 'Pods'
+➜ Explicit dependency on target 'QMUIKit' in project 'Pods'
+➜ Explicit dependency on target 'SDCycleScrollView' in project 'Pods'
+➜ Explicit dependency on target 'SDWebImage' in project 'Pods'
+➜ Explicit dependency on target 'YYModel' in project 'Pods'
+Target 'YYModel' in project 'Pods' (no dependencies)
+Target 'SDCycleScrollView' in project 'Pods'
+➜ Explicit dependency on target 'SDWebImage' in project 'Pods'
+Target 'SDWebImage' in project 'Pods' (no dependencies)
+Target 'QMUIKit' in project 'Pods'
+➜ Explicit dependency on target 'QMUIKit-QMUIResources' in project 'Pods'
+Target 'QMUIKit-QMUIResources' in project 'Pods' (no dependencies)
+Target 'Masonry' in project 'Pods' (no dependencies)
+Target 'MJRefresh' in project 'Pods' (no dependencies)
+Target 'IQKeyboardManager' in project 'Pods' (no dependencies)
+Target 'FBSDKCoreKit' in project 'Pods'
+➜ Explicit dependency on target 'FBAEMKit' in project 'Pods'
+➜ Explicit dependency on target 'FBSDKCoreKit_Basics' in project 'Pods'
+Target 'FBAEMKit' in project 'Pods'
+➜ Explicit dependency on target 'FBSDKCoreKit_Basics' in project 'Pods'
+Target 'FBSDKCoreKit_Basics' in project 'Pods' (no dependencies)
+Target 'BRPickerView' in project 'Pods' (no dependencies)
+Target 'Adjust' in project 'Pods' (no dependencies)
+Target 'AFNetworking' in project 'Pods' (no dependencies)

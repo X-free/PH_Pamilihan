@@ -23,7 +23,6 @@ private struct GoodsRemoteIconView: UIViewRepresentable {
 
 struct GoodsDetailRootView: View {
     @ObservedObject var state: GoodsDetailViewState
-    var onBack: () -> Void
     var onStepTap: (Int) -> Void
     var onAgreementTap: () -> Void
     var onAgreementToggle: () -> Void
@@ -37,7 +36,6 @@ struct GoodsDetailRootView: View {
                 backgroundLayer(safeTop: geo.safeAreaInsets.top)
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 14) {
-                        topBar
                         summaryCard
                         certifySection
                         agreementRow
@@ -67,28 +65,6 @@ struct GoodsDetailRootView: View {
                 .frame(height: 240 + safeTop)
                 .clipped()
         }
-    }
-
-    private var topBar: some View {
-        HStack {
-            Button(action: onBack) {
-                Image("icon_return_black")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-            }
-            .frame(width: 44, height: 44, alignment: .leading)
-
-            Spacer()
-
-            Text("Product detail")
-                .font(.system(size: 15.5, weight: .medium))
-                .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
-
-            Spacer()
-            Color.clear.frame(width: 44, height: 44)
-        }
-        .padding(.top, 4)
     }
 
     private var summaryCard: some View {

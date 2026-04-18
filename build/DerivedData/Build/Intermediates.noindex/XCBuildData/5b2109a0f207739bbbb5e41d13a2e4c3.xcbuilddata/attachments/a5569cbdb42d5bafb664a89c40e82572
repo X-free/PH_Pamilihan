@@ -1,0 +1,178 @@
+{
+  "" : {
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PrimeLoanPH-master.dia",
+    "emit-module-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PrimeLoanPH-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PrimeLoanPH-master-emit-module.dia",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PrimeLoanPH-master.swiftdeps"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBCertifySteps/CertifyNorForms.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/CertifyNorForms~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBGoods/GoodsDetailRootView.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GoodsDetailRootView~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBGoods/PPGoodsDetailViewController.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPGoodsDetailViewController~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMainHome/APageAsset.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageAsset~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMainHome/APageFindingCarouselView.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageFindingCarouselView~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMainHome/APageHomeHeaderView.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageHomeHeaderView~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMainHome/APageLargeLoanCardView.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/APageLargeLoanCardView~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMainHome/HomeViewController.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/HomeViewController~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMainHome/PBReviewsHomeModels.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PBReviewsHomeModels~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMineMe/MeRootView.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeRootView~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMineMe/MeViewController.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewController~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMineMe/MeViewModel.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/MeViewModel~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMineMe/PPSettingViewController.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSettingViewController~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBMineMe/SettingRootView.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/SettingRootView~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBOrder/PPSubOrderViewController.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPSubOrderViewController~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/PrimeLoanPH/PBModules/PBToLogin/PPLoginViewController.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/PPLoginViewController~partial.swiftmodule"
+  },
+  "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/flyerfree/Desktop/KK2026/03/PH_Pamilihan/build/DerivedData/Build/Intermediates.noindex/PrimeLoanPH.build/Debug-iphonesimulator/PrimeLoanPH.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

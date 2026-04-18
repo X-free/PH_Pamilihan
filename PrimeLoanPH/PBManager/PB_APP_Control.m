@@ -14,10 +14,7 @@
 #import "PPDetailModel.h"
 #import "PPEnterModel.h"
 #import "PPVeCardsViewController.h"
-#import "PPVeInfoViewController.h"
-#import "PPVeWorkInfoViewController.h"
 #import "PPVeContactViewController.h"
-#import "PPVeBankViewController.h"
 #import "PPOrderViewController.h"
 
 static UIView *PBLoginNativeLoadingOverlay = nil;

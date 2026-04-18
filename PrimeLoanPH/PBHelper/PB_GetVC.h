@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 //移除目标控制器weqwrwer
-+ (void)pb_to_removeViewController:(id)targetVC;
++ (void)pb_to_removeViewController:(id)targetVC NS_SWIFT_NAME(pb_to_removeFromNavigation(_:));
 
 @end
 

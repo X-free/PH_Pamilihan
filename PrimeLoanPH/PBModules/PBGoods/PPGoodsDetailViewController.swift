@@ -25,6 +25,12 @@ final class GoodsDetailViewState: ObservableObject {
 @objc(PPGoodsDetailViewController)
 final class PPGoodsDetailViewController: PPBaseViewController {
 
+    /// 与 `PPHelper.h` 中 `PB_NaviBa_H`（`PBStatusBar_H + 64`）一致；宏在 Swift 中不可用故本地计算。
+    private static let pbNavigationChromeHeight: CGFloat = {
+        let sh = UIScreen.main.bounds.height
+        return (sh >= 812 ? 44 : 20) + 64
+    }()
+
     @objc var goodsId: String = ""
 
     private let state = GoodsDetailViewState()
@@ -49,12 +55,13 @@ final class PPGoodsDetailViewController: PPBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        showNavBar = false
+        showNavBar = true
+        showBackBtn = true
+        navTitle = "Product detail"
         view.backgroundColor = UIColor.pbColorBackHexStr("#FBF6E7")
 
         let root = GoodsDetailRootView(
             state: state,
-            onBack: { [weak self] in self?.handleBack() },
             onStepTap: { [weak self] idx in self?.handleStepTap(index: idx) },
             onAgreementTap: { [weak self] in self?.openAgreement() },
             onAgreementToggle: { [weak self] in
@@ -71,7 +78,7 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         host.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(host.view)
         NSLayoutConstraint.activate([
-            host.view.topAnchor.constraint(equalTo: view.topAnchor),
+            host.view.topAnchor.constraint(equalTo: view.topAnchor, constant: Self.pbNavigationChromeHeight),
             host.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             host.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             host.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -81,18 +88,10 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         requestDetail(showLoading: false)
     }
 
-    private func handleBack() {
-        if isDismiss {
-            dismiss(animated: true)
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        edgesForExtendedLayout = .all
-        extendedLayoutIncludesOpaqueBars = true
+        edgesForExtendedLayout = []
+        extendedLayoutIncludesOpaqueBars = false
         if didAppearOnce {
             requestDetail(showLoading: true)
         }
@@ -133,7 +132,9 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         let addressed = model.theoretical.addressed
         let rich = addressed?.rich
 
-        state.productTitle = (addressed?.aiming?.isEmpty == false) ? (addressed?.aiming ?? "Pamilihan Peso") : "Pamilihan Peso"
+        let title = (addressed?.aiming?.isEmpty == false) ? (addressed?.aiming ?? "Pamilihan Peso") : "Pamilihan Peso"
+        state.productTitle = title
+        navTitle = title
 
         let amount = (addressed?.issue ?? "")
         let unit = (addressed?.trend ?? "")

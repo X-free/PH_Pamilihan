@@ -18,10 +18,10 @@
 
 
 - (void)pb_initUI {
-    self.contentView.backgroundColor = PB_BgColor;
+    self.contentView.backgroundColor = PB_Color(@"#FFFFFF");
     [self.contentView addSubview:self.pb_t_de_bgView];
     [self.pb_t_de_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, PB_Ratio(15), 0, PB_Ratio(15)));
+        make.edges.mas_equalTo(0);
     }];
 }
 
@@ -30,10 +30,10 @@
         NSString *value = PBStrFormat(data);
         if([value isEqualToString:@"1"]){
             self.pb_t_de_bgView.backgroundColor = UIColor.clearColor;
-            self.pb_t_de_moreImgVI.image = UIImageMake(@"icon_moreUp_gray");
+            self.pb_t_de_moreImgVI.image = UIImageMake(@"FrameUp");
         }else{
             self.pb_t_de_bgView.backgroundColor = UIColor.clearColor;
-            self.pb_t_de_moreImgVI.image = UIImageMake(@"icon_moreDown_gray");
+            self.pb_t_de_moreImgVI.image = UIImageMake(@"FrameDown");
         }
     }
 }
@@ -43,9 +43,9 @@
     if(!_pb_t_de_bgView){
         _pb_t_de_bgView = [[UIView alloc] init];
         _pb_t_de_bgView.backgroundColor = UIColor.clearColor;
-        QMUILabel *pb_t_nameLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:@"Other ID Type" color:PB_Color(@"#373940") font:UIFontBoldMake(PB_Ratio(17)) alignment:NSTextAlignmentLeft lines:1];
+        QMUILabel *pb_t_nameLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:@"Other ID Type" color:[UIColor blackColor] font:UIFontBoldMake(PB_Ratio(16)) alignment:NSTextAlignmentLeft lines:1];
         [_pb_t_de_bgView addSubview:pb_t_nameLabel];
-        UIImageView *pb_t_de_moreImgVI = [[UIImageView alloc] initWithImage:UIImageMake(@"icon_moreDown_gray")];
+        UIImageView *pb_t_de_moreImgVI = [[UIImageView alloc] initWithImage:UIImageMake(@"FrameDown")];
         [_pb_t_de_bgView addSubview:pb_t_de_moreImgVI];
         pb_t_nameLabel.preferredMaxLayoutWidth = PB_SW - 150;
         [pb_t_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

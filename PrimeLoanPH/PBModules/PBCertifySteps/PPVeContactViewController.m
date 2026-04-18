@@ -192,6 +192,7 @@
         self.stringPickerView.selectIndex = selectIndex;
         self.stringPickerView.title = @"Relationship";
         [self.stringPickerView show];
+        [PB_BR pb_applyStringPickerOptionTitleUI:self.stringPickerView];
     }else{
 
         //当前，已经上传了，说明获取了权限
