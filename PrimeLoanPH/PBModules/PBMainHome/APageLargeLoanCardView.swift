@@ -93,8 +93,8 @@ final class APageLargeLoanCardView: UIView {
             $0.textColor = UIColor.pbColorBackHexStr("#8C8C8C")
         }
         [termValueLabel, rateValueLabel].forEach {
-            $0.font = .systemFont(ofSize: 14, weight: .semibold)
-            $0.textColor = UIColor.pbColorBackHexStr("#26252A")
+            $0.font = .systemFont(ofSize: 13, weight: .semibold)
+            $0.textColor = UIColor.pbColorBackHexStr("#3B332C")
         }
 
         applyButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -192,7 +192,7 @@ final class APageLargeLoanCardView: UIView {
         termValueLabel.text = model.naldic
         rateTitleLabel.text = model.simply
         rateValueLabel.text = model.opposition
-        applyButton.setTitle(model.lobbying ?? "Go for a loan", for: .normal)
+        applyButton.setTitle(model.lobbying ?? "", for: .normal)
     }
 
     @objc private func tapApply() {

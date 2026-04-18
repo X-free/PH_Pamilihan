@@ -243,12 +243,19 @@ static void PBStringPickerApplyConfirmGradient(QMUIButton *btn) {
 + (void)pb_applyStringPickerOptionTitleUI:(BRStringPickerView *)picker {
     if (!picker) { return; }
     [UIView performWithoutAnimation:^{
-        [self pb_applyStringPickerFigure2CardLayout:picker];
+        [self pb_applyFigure2CardOptionTitleLayout:picker];
     }];
 }
 
-/// 图2：`optiontitlbg`、白卡、关闭均为 `picker` 子视图同级；顶图左右 36、白卡左右 16；白卡盖顶图顶距 76；关闭底距顶图顶 5、左与白卡左对齐
-+ (void)pb_applyStringPickerFigure2CardLayout:(BRStringPickerView *)picker {
++ (void)pb_applyAddressPickerOptionTitleUI:(BRAddressPickerView *)picker {
+    if (!picker) { return; }
+    [UIView performWithoutAnimation:^{
+        [self pb_applyFigure2CardOptionTitleLayout:picker];
+    }];
+}
+
+/// 图2：`optiontitlbg`、白卡、关闭均为 `picker` 子视图同级；顶图左右 36、白卡左右 16；白卡盖顶图顶距 76；关闭底距顶图顶 5、左与白卡左对齐（`BRStringPickerView` / `BRAddressPickerView` 共用）
++ (void)pb_applyFigure2CardOptionTitleLayout:(BRBaseView *)picker {
     CGFloat headerInset = PBStringPickerHeaderSideInset();
     CGFloat cardInset = PBStringPickerCardSideInset();
     CGFloat headerW = PBStringPickerHeaderWidth();
@@ -375,18 +382,30 @@ static void PBStringPickerApplyConfirmGradient(QMUIButton *btn) {
 
 + (BRAddressPickerView *)pb_to_getAdressCustomPickerView {
     BRAddressPickerView *pb_t_picker = [[BRAddressPickerView alloc] initWithPickerMode:BRAddressPickerModeArea];
-    pb_t_picker.pickerStyle = [self pv_to_getPickerCustomStyle];
-    
-    //底部确认按钮
+    pb_t_picker.title = @"";
+
+    UIImage *optionBg = UIImageMake(@"optiontitlbg");
+    CGFloat headerW = PBStringPickerHeaderWidth();
+    CGFloat titleBarH = PB_Ratio(76);
+    if (optionBg && optionBg.size.width > 1.f) {
+        CGFloat scaled = optionBg.size.height * (headerW / optionBg.size.width);
+        if (scaled >= PB_Ratio(52) && scaled <= PB_Ratio(140)) {
+            titleBarH = scaled;
+        }
+    }
+    pb_t_picker.pickerStyle = [self pv_to_getStringPickerStyleWithTitleBarHeight:titleBarH];
+
     QMUIButton *button = [[QMUIButton alloc] init];
+    button.tag = kPBStringPickerConfirmTag;
     [button setTitle:@"Confirm" forState:UIControlStateNormal];
     [button setTitleColor:PB_WhiteColor forState:UIControlStateNormal];
+    button.titleLabel.font = UIFontBoldMake(PB_Ratio(16));
     button.backgroundColor = PP_AppColor;
     button.layer.cornerRadius = PB_Ratio(22);
     button.layer.masksToBounds = YES;
     button.qmui_tapBlock = ^(__kindof UIControl *sender) {
         [pb_t_picker dismiss];
-        if(pb_t_picker.doneBlock){
+        if (pb_t_picker.doneBlock) {
             pb_t_picker.doneBlock();
         }
     };
@@ -394,28 +413,30 @@ static void PBStringPickerApplyConfirmGradient(QMUIButton *btn) {
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(0);
         make.bottom.mas_offset(-PB_Ratio(48));
-        make.size.mas_equalTo(CGSizeMake(PB_SW - PB_Ratio(47)*2, PB_Ratio(44)));
+        make.left.mas_equalTo(PB_Ratio(24));
+        make.right.mas_offset(-PB_Ratio(24));
+        make.height.mas_equalTo(PB_Ratio(44));
     }];
-    
-    QMUIButton *pb_t_cancelButton = [[QMUIButton alloc] init];
-    [pb_t_cancelButton setImage:UIImageMake(@"icon_return_black") forState:UIControlStateNormal];
-    pb_t_cancelButton.qmui_tapBlock = ^(__kindof UIControl *sender) {
+
+    QMUIButton *cancelButton = [[QMUIButton alloc] init];
+    cancelButton.tag = kPBStringPickerCloseTag;
+    [cancelButton setImage:UIImageMake(@"Grosx1276601") forState:UIControlStateNormal];
+    cancelButton.qmui_tapBlock = ^(__kindof UIControl *sender) {
         [pb_t_picker dismiss];
     };
-    [pb_t_picker.alertView addSubview:pb_t_cancelButton];
-    [pb_t_cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [pb_t_picker.alertView addSubview:cancelButton];
+    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(PB_Ratio(10));
         make.top.mas_equalTo(PB_Ratio(10));
         make.width.height.mas_equalTo(PB_Ratio(34));
     }];
-    
-    
+
     return pb_t_picker;
 }
 
 @end
 
-#pragma mark - BRStringPickerView：去掉 BRPickerView 自带上滑/收起动画（不改变布局数值）
+#pragma mark - BRStringPickerView / BRAddressPickerView：去掉 BRPickerView 自带上滑/收起动画（不改变布局数值）
 
 @implementation BRBaseView (PB_StringPickerInstantAnimation)
 
@@ -440,9 +461,10 @@ static void PBStringPickerApplyConfirmGradient(QMUIButton *btn) {
     });
 }
 
-/// 仅 `BRStringPickerView`：无动画展示（最终 frame / mask 与原版一致）
+/// `BRStringPickerView` / `BRAddressPickerView`：无动画展示（最终 frame / mask 与原版一致）
 - (void)pb_sp_instant_addPickerToView:(UIView *)view {
-    if (!view && [self isKindOfClass:NSClassFromString(@"BRStringPickerView")]) {
+    BOOL pb_t_instantPicker = [self isKindOfClass:NSClassFromString(@"BRStringPickerView")] || [self isKindOfClass:NSClassFromString(@"BRAddressPickerView")];
+    if (!view && pb_t_instantPicker) {
         [self initUI];
 
         if (self.pickerHeaderView) {
@@ -480,7 +502,8 @@ static void PBStringPickerApplyConfirmGradient(QMUIButton *btn) {
 }
 
 - (void)pb_sp_instant_removePickerFromView:(UIView *)view {
-    if (!view && [self isKindOfClass:NSClassFromString(@"BRStringPickerView")]) {
+    BOOL pb_t_instantPicker = [self isKindOfClass:NSClassFromString(@"BRStringPickerView")] || [self isKindOfClass:NSClassFromString(@"BRAddressPickerView")];
+    if (!view && pb_t_instantPicker) {
         if (!self.pickerStyle.hiddenMaskView) {
             self.maskView.alpha = 0;
         }

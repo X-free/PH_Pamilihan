@@ -83,13 +83,9 @@
     return self.showNavBar ? PB_NaviBa_H : 0;
 }
 
-/// `ordtopbg` 高/宽，与头图容器一致时 `ScaleAspectFill` 不会裁切图片内容
+/// 与全案 `ordtopbg` 一致：高/宽 = 400/375
 - (CGFloat)pp_orderOrdtopbgHeightPerWidth {
-    UIImage *img = [UIImage imageNamed:@"ordtopbg"];
-    if (img.size.width > 1) {
-        return (CGFloat)(img.size.height / img.size.width);
-    }
-    return 400.0f / 375.0f;
+    return (CGFloat)PB_OrdtopbgHeightToWidthRatio;
 }
 
 /// segment 底边在 `self.view` 中的 Y：顶部安全区高度 + 120（未布局时用状态栏高度兜底）
@@ -151,6 +147,7 @@
     }
     UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ordtopbg"]];
     bg.contentMode = UIViewContentModeScaleAspectFill;
+    bg.backgroundColor = PB_Color(@"#FBF6E7");
     // 必须为 YES：NO 时图层会画进下方列表区域，遮挡内容且打乱点击层级
 //    bg.clipsToBounds = NO;
     self.pp_orderTopBg = bg;

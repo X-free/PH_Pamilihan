@@ -276,7 +276,7 @@ static UIView *PBLoginNativeLoadingOverlay = nil;
         vc.oId = oId;
         [fromVC.navigationController pushViewController:vc animated:YES];
     }else if ([pb_t_de_stepStr isEqualToString:@"std"]){//ext紧急联系人
-        PPVeContactViewController *vc = [[PPVeContactViewController alloc] initWithPBTableViewOfGroupStyle:YES];
+        PPVeContactViewController *vc = [[PPVeContactViewController alloc] initWithPBTableViewOfGroupStyle:NO];
         vc.pId = pid;
         vc.oId = oId;
         [fromVC.navigationController pushViewController:vc animated:YES];

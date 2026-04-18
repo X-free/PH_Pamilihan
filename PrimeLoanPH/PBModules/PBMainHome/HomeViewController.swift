@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  PrimeLoanPH
 //
-//  首页：off/reviews → 解析 draw；reviewed == srb 展示 APage 大卡（APageLargeLoanCardView）
+//  首页：off/reviews → 解析 draw；reviewed == srb 展示大卡；无 srb 时用 src 回退到大卡，保证首页默认有大卡区
 //
 
 import UIKit
@@ -25,9 +25,6 @@ final class HomeViewController: PPTableViewController {
         let v = APageHomeHeaderView()
         v.onLoanApply = { [weak self] pid in
             self?.applyProduct(pid: pid)
-        }
-        v.onBannerTap = { [weak self] in
-            self?.openBannerOrPromo()
         }
         v.onServiceTap = { [weak self] in
             self?.openService()
@@ -57,8 +54,8 @@ final class HomeViewController: PPTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showNavBar = false
-        view.backgroundColor = UIColor.pbColorBackHexStr("#F4F5F9")
-        tableView.backgroundColor = UIColor.pbColorBackHexStr("#F4F5F9")
+        view.backgroundColor = UIColor.pbColorBackHexStr("#FBF6E7")
+        tableView.backgroundColor = UIColor.pbColorBackHexStr("#FBF6E7")
         tableView.separatorStyle = .none
         ppShowTableViewHeaderRefresh = true
 
@@ -265,12 +262,18 @@ final class HomeViewController: PPTableViewController {
             return
         }
 
+        var smallCardFallback: PBDrawConclusionPayload?
+
         for item in draw {
             let type = (item.reviewed ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
             switch type {
             case PBHomeDrawReviewed.largeCard:
                 if largeCardModel == nil, let first = item.conclusion?.first {
                     largeCardModel = first
+                }
+            case PBHomeDrawReviewed.smallCard:
+                if smallCardFallback == nil, let first = item.conclusion?.first {
+                    smallCardFallback = first
                 }
             case PBHomeDrawReviewed.banner:
                 if bannerModel == nil, let first = item.conclusion?.first {
@@ -283,6 +286,10 @@ final class HomeViewController: PPTableViewController {
             default:
                 break
             }
+        }
+
+        if largeCardModel == nil {
+            largeCardModel = smallCardFallback
         }
 
         layoutTableHeaderIfNeeded()
@@ -299,14 +306,9 @@ final class HomeViewController: PPTableViewController {
     }
 
     private func applyProduct(pid: Int) {
+        guard pid > 0 else { return }
         guard PB_APP_Control.pb_t_presentLoginVC(withTargetVC: self) else { return }
         PB_APP_Control.pb_t_toRequestProductIsCanEnterAllow(withProductID: pid, fromVC: self)
-    }
-
-    private func openBannerOrPromo() {
-        guard PB_APP_Control.pb_t_presentLoginVC(withTargetVC: self) else { return }
-        guard let link = aPageHeader.resolvedBannerURL(), !link.isEmpty else { return }
-        PB_APP_Control.pb_t_goToModule(withJudgeTypeStr: link, fromVC: self)
     }
 
     private func openService() {

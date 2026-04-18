@@ -29,11 +29,13 @@ struct GoodsDetailRootView: View {
     var onApplyTap: () -> Void
 
     private let cream = Color(UIColor.pbColorBackHexStr("#FBF6E7"))
+    /// 与全案 `ordtopbg` 一致：高/宽 = 400/375
+    private var ordtopbgHeightWidthRatio: CGFloat { 400.0 / 375.0 }
 
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
-                backgroundLayer(safeTop: geo.safeAreaInsets.top)
+                backgroundLayer(width: geo.size.width)
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 14) {
                         summaryCard
@@ -54,15 +56,15 @@ struct GoodsDetailRootView: View {
         .ignoresSafeArea(edges: [.top, .bottom])
     }
 
-    private func backgroundLayer(safeTop: CGFloat) -> some View {
+    private func backgroundLayer(width: CGFloat) -> some View {
         ZStack(alignment: .top) {
             cream
                 .ignoresSafeArea(edges: [.top, .bottom])
             Image("ordtopbg")
                 .resizable()
                 .scaledToFill()
-                .frame(maxWidth: .infinity)
-                .frame(height: 240 + safeTop)
+                .frame(width: width)
+                .frame(height: width * ordtopbgHeightWidthRatio)
                 .clipped()
         }
     }

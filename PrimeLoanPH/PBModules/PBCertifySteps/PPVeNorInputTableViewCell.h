@@ -23,7 +23,8 @@ static NSString *const PPVeNorInputTableViewCellKey =  @"PPVeNorInputTableViewCe
 
 @property (nonatomic, weak) id<PPVeNorInputTableViewCellDelegate> delegate;
 
-- (void)pb_configWithCellData:(id)data index:(NSInteger)index;
+/// `section`：紧急联系人每组标题「Emergency Contact-n」；其它页面传 0。
+- (void)pb_configWithCellData:(id)data index:(NSInteger)index section:(NSInteger)section;
 
 @end
 

@@ -38,7 +38,11 @@
         if(mainModel.theoretical.addressed){
             PPDetailAddressedModel *detailModel = mainModel.theoretical.addressed;
             [self.pb_t_de_pLogoImgV sd_setImageWithURL:[NSURL URLWithString:PBStrFormat(detailModel.networks)] placeholderImage:UIImageMake(@"logo_Group")];
-            self.pb_t_de_pTitleLabel.text = PBStrFormat(detailModel.aiming);
+            NSString *name = [[PBStrFormat(detailModel.courses) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] copy];
+            if ([NSString PB_CheckStringIsEmpty:name]) {
+                name = @"Pamilihan Peso";
+            }
+            self.pb_t_de_pTitleLabel.text = name;
       
             NSString *amountStr = [NSString stringWithFormat:@"%@%@",detailModel.trend,detailModel.issue];
             NSString *amountUnit = PBStrFormat(detailModel.trend);

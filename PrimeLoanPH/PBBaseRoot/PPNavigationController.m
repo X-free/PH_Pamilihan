@@ -6,6 +6,7 @@
 //
 
 #import "PPNavigationController.h"
+#import "PPHelper.h"
 
 @interface PPNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -16,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // 侧滑返回时容器底色会露出；与全局背景一致，避免白块。
+    self.view.backgroundColor = PB_BgColor;
     if (@available(iOS 13.0, *)) {
         self.navigationBar.standardAppearance.backgroundColor = [UIColor whiteColor];
     }else{

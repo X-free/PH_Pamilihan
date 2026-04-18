@@ -40,10 +40,11 @@
     UIImageView *topBg = [[UIImageView alloc] initWithImage:UIImageMake(@"ordtopbg")];
     topBg.contentMode = UIViewContentModeScaleAspectFill;
     topBg.clipsToBounds = YES;
+    topBg.backgroundColor = PB_Color(@"#FBF6E7");
     [self.view addSubview:topBg];
     [topBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(0);
-        make.height.mas_equalTo(PB_Ratio(200) + StatusBarHeightConstant);
+        make.height.mas_equalTo(topBg.mas_width).multipliedBy(PB_OrdtopbgHeightToWidthRatio);
     }];
     [self.view sendSubviewToBack:topBg];
 

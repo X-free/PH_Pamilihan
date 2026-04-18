@@ -123,7 +123,7 @@ struct MeRootView: View {
             Circle()
                 .fill(Color(UIColor.pbColorBackHexStr("#E3F2FD")))
                 .frame(width: avatarOuterSize, height: avatarOuterSize)
-            Image("icn_head")
+            Image("rpiofileicon")
                 .resizable()
                 .scaledToFill()
                 .frame(width: avatarOuterSize - 8, height: avatarOuterSize - 8)

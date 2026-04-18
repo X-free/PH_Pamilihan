@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// `BRStringPickerView`：`show` 后立即调用；居中白卡、`optiontitlbg`、标题左对齐、`picker.title`；关闭 `Grosx1276601` 在卡外左上；Confirm 渐变；列表区与白卡叠在顶栏下方（设计稿层级）
 + (void)pb_applyStringPickerOptionTitleUI:(BRStringPickerView *)picker;
 
+/// `BRAddressPickerView`：布局与字符串选择器一致，`show` 后立即调用
++ (void)pb_applyAddressPickerOptionTitleUI:(BRAddressPickerView *)picker;
+
 ///地址sdfksldfjsldkfj选择器
 + (BRAddressPickerView *)pb_to_getAdressCustomPickerView;
 

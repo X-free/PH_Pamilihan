@@ -26,6 +26,18 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = PB_BgColor;
     [self.view addSubview:self.nav];
+
+    if (self.navigationController != nil) {
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+    }
+}
+
+- (UIView *)pb_navigationBarContainerView {
+    return self.nav;
+}
+
+- (void)pp_bringCustomNavigationBarToFront {
+    [self.view bringSubviewToFront:self.nav];
 }
 
 - (void)popController {
@@ -84,7 +96,7 @@
     if (!_backBtn) {
         return;
     }
-    NSString *name = _useDarkNavBackIcon ? @"icon_return_black" : @"icon_return_white";
+    NSString *name = @"icon_return_bb";
     UIImage *img = [UIImage imageNamed:name];
     [_backBtn setImage:img forState:UIControlStateNormal];
     [_backBtn setImage:img forState:UIControlStateHighlighted];
@@ -136,12 +148,22 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     [self.navigationController setIsPopGestureRecognizerEnable:YES];
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
+    
 }
 
 - (void)dealloc {

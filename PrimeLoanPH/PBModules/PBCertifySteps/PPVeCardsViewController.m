@@ -15,8 +15,17 @@
 #import "PPBaseModel.h"
 #import "PPVeCardTypeOptionVC.h"
 
-
-
+/// `Roundedrectangle` 九宫拉伸，适配不同宽度 Next 按钮。
+static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
+    UIImage *raw = UIImageMake(@"Roundedrectangle");
+    if (!raw) { return nil; }
+    CGFloat w = raw.size.width;
+    CGFloat h = raw.size.height;
+    if (w <= 2.0 || h <= 2.0) { return raw; }
+    CGFloat capX = floor(w / 2.0) - 1.0;
+    CGFloat capY = floor(h / 2.0) - 1.0;
+    return [raw resizableImageWithCapInsets:UIEdgeInsetsMake(capY, capX, capY, capX) resizingMode:UIImageResizingModeStretch];
+}
 
 @interface PPVeCardsViewController ()
 
@@ -47,7 +56,7 @@
     [self setShowBackBtn:YES];
     [self setNavTitle:@"Identity information"];
     self.useDarkNavBackIcon = YES;
-    self.view.backgroundColor = PB_BgColor;
+    self.view.backgroundColor = PB_Color(@"#FBF6E7");
     [self ppInit];
 }
 
@@ -57,17 +66,18 @@
     self.pb_t_de_reportEndTime = @"";
     self.cardTypeValue = @"";
     self.pb_t_de_carType_reportStartTime = @"";
-    self.view.backgroundColor = PB_BgColor;
+    self.view.backgroundColor = PB_Color(@"#FBF6E7");
     self.pb_t_de_selectedTab = 0;
     self.tableView.hidden = YES;
     
     UIImageView *topBg = [[UIImageView alloc] initWithImage:UIImageMake(@"ordtopbg")];
     topBg.contentMode = UIViewContentModeScaleAspectFill;
     topBg.clipsToBounds = YES;
+    topBg.backgroundColor = PB_Color(@"#FBF6E7");
     [self.view addSubview:topBg];
     [topBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(0);
-        make.height.mas_equalTo(PB_Ratio(220) + StatusBarHeightConstant);
+        make.height.mas_equalTo(topBg.mas_width).multipliedBy(PB_OrdtopbgHeightToWidthRatio);
     }];
     [self.view sendSubviewToBack:topBg];
 
@@ -171,7 +181,7 @@
     [self.view addSubview:self.pb_t_de_submitButton];
     [self.pb_t_de_submitButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(0);
-        make.bottom.mas_offset(-PB_Ratio(48));
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-PB_Ratio(15));
         make.width.mas_equalTo(PB_SW - PB_Ratio(47)*2);
         make.height.mas_equalTo(PB_Ratio(44));
     }];
@@ -237,9 +247,7 @@
 - (UIButton *)pb_t_de_submitButton {
     if(!_pb_t_de_submitButton){
         _pb_t_de_submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_pb_t_de_submitButton setBackgroundImage:UIImageMake(@"Roundedrectangle") forState:UIControlStateNormal];
-        _pb_t_de_submitButton.layer.cornerRadius = PB_Ratio(22);
-        _pb_t_de_submitButton.layer.masksToBounds = YES;
+        [_pb_t_de_submitButton setBackgroundImage:PPVeNextButtonRoundedRectangleBackground() forState:UIControlStateNormal];
         [_pb_t_de_submitButton setTitle:@"Next" forState:UIControlStateNormal];
         _pb_t_de_submitButton.titleLabel.font = UIFontMediumMake(PB_Ratio(16));
         [_pb_t_de_submitButton setTitleColor:PB_WhiteColor forState:UIControlStateNormal];

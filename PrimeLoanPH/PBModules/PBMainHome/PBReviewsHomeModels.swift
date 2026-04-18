@@ -233,6 +233,48 @@ struct PBDrawConclusionPayload: Decodable {
             pivotal = nil
         }
     }
+
+    /// 无 `srb`/`src` 接口数据时首页仍展示大卡壳（本地 `mpagecard` 底图）
+    init(
+        translated: String? = nil,
+        examine: String? = nil,
+        courses: String? = nil,
+        networks: String? = nil,
+        lobbying: String? = nil,
+        voice: String? = nil,
+        powerful: String? = nil,
+        naldic: String? = nil,
+        questioning: String? = nil,
+        opposition: String? = nil,
+        simply: String? = nil,
+        discourage: String? = nil,
+        consequently: String? = nil,
+        announced: String? = nil,
+        pivotal: Int? = nil
+    ) {
+        self.translated = translated
+        self.examine = examine
+        self.courses = courses
+        self.networks = networks
+        self.lobbying = lobbying
+        self.voice = voice
+        self.powerful = powerful
+        self.naldic = naldic
+        self.questioning = questioning
+        self.opposition = opposition
+        self.simply = simply
+        self.discourage = discourage
+        self.consequently = consequently
+        self.announced = announced
+        self.pivotal = pivotal
+    }
+}
+
+extension PBDrawConclusionPayload {
+    /// 首页默认大卡占位（`APageLargeLoanCardView` 本地 `mpagecard` 底图；无 `pivotal` 时按钮不发起进件）
+    static var aPageHomeLargeCardShell: PBDrawConclusionPayload {
+        PBDrawConclusionPayload(lobbying: "Go for a loan")
+    }
 }
 
 extension PBReviewsResponse {

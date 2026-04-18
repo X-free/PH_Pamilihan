@@ -25,12 +25,6 @@ final class GoodsDetailViewState: ObservableObject {
 @objc(PPGoodsDetailViewController)
 final class PPGoodsDetailViewController: PPBaseViewController {
 
-    /// 与 `PPHelper.h` 中 `PB_NaviBa_H`（`PBStatusBar_H + 64`）一致；宏在 Swift 中不可用故本地计算。
-    private static let pbNavigationChromeHeight: CGFloat = {
-        let sh = UIScreen.main.bounds.height
-        return (sh >= 812 ? 44 : 20) + 64
-    }()
-
     @objc var goodsId: String = ""
 
     private let state = GoodsDetailViewState()
@@ -55,10 +49,15 @@ final class PPGoodsDetailViewController: PPBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         showNavBar = true
         showBackBtn = true
         navTitle = "Product detail"
-        view.backgroundColor = UIColor.pbColorBackHexStr("#FBF6E7")
+
+        let pageBg = UIColor.pbColorBackHexStr("#FBF6E7")
+        view.backgroundColor = pageBg
+        navigationController?.view.backgroundColor = pageBg
 
         let root = GoodsDetailRootView(
             state: state,
@@ -73,25 +72,25 @@ final class PPGoodsDetailViewController: PPBaseViewController {
 
         let host = UIHostingController(rootView: root)
         host.view.backgroundColor = .clear
+        host.view.clipsToBounds = true
         hostingController = host
         addChild(host)
         host.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(host.view)
         NSLayoutConstraint.activate([
-            host.view.topAnchor.constraint(equalTo: view.topAnchor, constant: Self.pbNavigationChromeHeight),
+            host.view.topAnchor.constraint(equalTo: pb_navigationBarContainerView.bottomAnchor),
             host.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             host.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             host.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         host.didMove(toParent: self)
+        pp_bringCustomNavigationBarToFront()
 
         requestDetail(showLoading: false)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        edgesForExtendedLayout = []
-        extendedLayoutIncludesOpaqueBars = false
         if didAppearOnce {
             requestDetail(showLoading: true)
         }
@@ -99,8 +98,8 @@ final class PPGoodsDetailViewController: PPBaseViewController {
     }
 
     private func requestDetail(showLoading: Bool) {
-        if showLoading {
-            PB_NativeTipsHelper.pb_showLoading(in: view)
+        if showLoading, let content = hostingController?.view {
+            PB_NativeTipsHelper.pb_showLoading(in: content)
         }
 
         let params: [String: Any] = [
@@ -110,15 +109,17 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         PB_RequestHelper.pb_instance().pb_postRequest(withUrlStr: url, params: params, commplete: { [weak self] result, _ in
             DispatchQueue.main.async {
                 PB_NativeTipsHelper.pb_hideAllLoading()
+                self?.pp_bringCustomNavigationBarToFront()
                 guard let self else { return }
                 guard let result else { return }
                 if let model = PPDetailModel.yy_model(withJSON: result) {
                     self.applyDetailModel(model)
                 }
             }
-        }, failure: { _, _, msg in
+        }, failure: { [weak self] _, _, msg in
             DispatchQueue.main.async {
                 PB_NativeTipsHelper.pb_hideAllLoading()
+                self?.pp_bringCustomNavigationBarToFront()
                 let text = (msg as String?) ?? ""
                 if !text.isEmpty {
                     PB_NativeTipsHelper.pb_presentAlert(withMessage: text)
@@ -132,7 +133,8 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         let addressed = model.theoretical.addressed
         let rich = addressed?.rich
 
-        let title = (addressed?.aiming?.isEmpty == false) ? (addressed?.aiming ?? "Pamilihan Peso") : "Pamilihan Peso"
+        let coursesTitle = (addressed?.courses ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let title = coursesTitle.isEmpty ? "Pamilihan Peso" : coursesTitle
         state.productTitle = title
         navTitle = title
 
@@ -230,7 +232,9 @@ final class PPGoodsDetailViewController: PPBaseViewController {
     }
 
     private func requestToBorrow() {
-        PB_NativeTipsHelper.pb_showLoading(in: view)
+        if let content = hostingController?.view {
+            PB_NativeTipsHelper.pb_showLoading(in: content)
+        }
 
         let params: [String: Any] = [
             "aged": dataModel?.theoretical.addressed?.enough ?? "",
@@ -243,6 +247,7 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         PB_RequestHelper.pb_instance().pb_postRequest(withUrlStr: url, params: params, commplete: { [weak self] result, _ in
             DispatchQueue.main.async {
                 PB_NativeTipsHelper.pb_hideAllLoading()
+                self?.pp_bringCustomNavigationBarToFront()
                 guard let self else { return }
                 if let theoretical = result?["theoretical"] as? [String: Any],
                    let link = theoretical["translated"] as? String,
@@ -252,9 +257,10 @@ final class PPGoodsDetailViewController: PPBaseViewController {
                     self.navigationController?.popViewController(animated: false)
                 }
             }
-        }, failure: { _, _, msg in
+        }, failure: { [weak self] _, _, msg in
             DispatchQueue.main.async {
                 PB_NativeTipsHelper.pb_hideAllLoading()
+                self?.pp_bringCustomNavigationBarToFront()
                 let text = (msg as String?) ?? ""
                 if !text.isEmpty {
                     PB_NativeTipsHelper.pb_presentAlert(withMessage: text)

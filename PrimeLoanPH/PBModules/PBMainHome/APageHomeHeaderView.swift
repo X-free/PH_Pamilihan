@@ -16,7 +16,6 @@ private enum APageHeroLayout {
 final class APageHomeHeaderView: UIView {
 
     var onLoanApply: ((Int) -> Void)?
-    var onBannerTap: (() -> Void)?
     var onServiceTap: (() -> Void)?
 
     private let topBackgroundView = UIImageView()
@@ -37,6 +36,8 @@ final class APageHomeHeaderView: UIView {
     private var shapes: PBShapesPayload?
     private var bannerLink: String?
     private var bannerExpectsRemoteImage = false
+    /// 与大卡 `pivotal` 一致，券图 / 监管卡点击走同一进件逻辑
+    private var largeCardProductId: Int = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,11 +50,13 @@ final class APageHomeHeaderView: UIView {
     }
 
     private func setupViews() {
-        backgroundColor = UIColor.pbColorBackHexStr("#F4F5F9")
+        backgroundColor = UIColor.pbColorBackHexStr("#FBF6E7")
 
         topBackgroundView.image = UIImage(named: APageAsset.topBackground)
+        // mpagetopbg：等比缩放填充容器，不拉伸变形；留白处见背景色 #FBF6E7
         topBackgroundView.contentMode = .scaleAspectFill
         topBackgroundView.clipsToBounds = true
+        topBackgroundView.backgroundColor = .clear
 
         brandTitleLabel.font = .systemFont(ofSize: 17, weight: .bold)
         brandTitleLabel.textColor = UIColor.pbColorBackHexStr("#26252A")
@@ -82,13 +85,15 @@ final class APageHomeHeaderView: UIView {
         bannerView.clipsToBounds = true
         bannerView.layer.cornerRadius = APageLayout.ratio(22)
         bannerView.isUserInteractionEnabled = true
-        bannerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedBanner)))
+        bannerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedBannerSameAsLargeCard)))
 
         regulatoryImageView.image = UIImage(named: APageAsset.regulatoryCard)
         regulatoryImageView.contentMode = .scaleAspectFit
         regulatoryImageView.layer.cornerRadius = 12
         regulatoryImageView.clipsToBounds = true
-        regulatoryImageView.backgroundColor = UIColor.pbColorBackHexStr("#FDFBF3")
+        regulatoryImageView.backgroundColor = .clear
+        regulatoryImageView.isUserInteractionEnabled = true
+        regulatoryImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedRegulatorySameAsLargeCard)))
         if let reg = UIImage(named: APageAsset.regulatoryCard), reg.size.width > 0 {
             regulatoryImageView.heightAnchor.constraint(
                 equalTo: regulatoryImageView.widthAnchor,
@@ -194,32 +199,34 @@ final class APageHomeHeaderView: UIView {
             bannerView.image = nil
         }
 
-        if let card = largeCard {
-            largeLoanCardView.isHidden = false
-            largeLoanCardView.configure(model: card)
-            let iconURL = card.networks?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            if !iconURL.isEmpty {
-                largeCardIconImageView.isHidden = false
-                loadIconURL(iconURL, into: largeCardIconImageView)
-            } else {
-                largeCardIconImageView.isHidden = true
-                largeCardIconImageView.image = nil
-            }
-            
-            brandTitleLabel.text = card.courses
-            
+        // 无接口 `srb`/`src` 时用本地大卡壳（`mpagecard` 底图，见 `PBDrawConclusionPayload.aPageHomeLargeCardShell`）
+        let card = largeCard ?? .aPageHomeLargeCardShell
+        largeCardProductId = card.pivotal ?? 0
+        largeLoanCardView.isHidden = false
+        largeLoanCardView.configure(model: card)
+        let iconURL = card.networks?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if !iconURL.isEmpty {
+            largeCardIconImageView.isHidden = false
+            loadIconURL(iconURL, into: largeCardIconImageView)
         } else {
-            largeLoanCardView.isHidden = true
             largeCardIconImageView.isHidden = true
             largeCardIconImageView.image = nil
         }
+        brandTitleLabel.text = card.courses
 
         regulatoryImageView.isHidden = UIImage(named: APageAsset.regulatoryCard) == nil
 
-        let heroW = max(0, bounds.width - 32)
+        let fullW = bounds.width > 0 ? bounds.width : (superview?.bounds.width ?? UIScreen.main.bounds.width)
+        let heroW = max(0, fullW - 32)
         let heroH = heroW * (APageHeroLayout.designHeight / APageHeroLayout.designWidth)
         let navHeroApprox = safeAreaInsets.top + 52 + heroH + 24
-        topBackgroundHeightConstraint?.constant = max(APageLayout.ratio(200), navHeroApprox)
+        // mpagetopbg：按资源宽高比铺满宽度时的高度，并与导航+主标语区取较大值，避免裁切过多
+        var topBgH = max(APageLayout.ratio(200), navHeroApprox)
+        if let img = UIImage(named: APageAsset.topBackground), img.size.width > 0 {
+            let naturalH = fullW * (img.size.height / img.size.width)
+            topBgH = max(topBgH, naturalH)
+        }
+        topBackgroundHeightConstraint?.constant = topBgH
 
         setNeedsLayout()
         layoutIfNeeded()
@@ -235,8 +242,14 @@ final class APageHomeHeaderView: UIView {
         return ceil(size.height)
     }
 
-    @objc private func tappedBanner() {
-        onBannerTap?()
+    /// 券图 Group2119900452（及远程 Banner）：点击与大卡「进件」一致
+    @objc private func tappedBannerSameAsLargeCard() {
+        onLoanApply?(largeCardProductId)
+    }
+
+    /// 监管说明 Group2119900448：点击与大卡「进件」一致
+    @objc private func tappedRegulatorySameAsLargeCard() {
+        onLoanApply?(largeCardProductId)
     }
 
     @objc private func tappedService() {

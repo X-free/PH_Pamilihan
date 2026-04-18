@@ -3,6 +3,7 @@
 //  PrimeLoanPH
 //
 
+import Combine
 import SwiftUI
 import UIKit
 // BRPickerView is an Obj-C CocoaPod: use PB_BR helpers and types via PrimeLoanPH-Bridging-Header.h — do not `import BRPickerView` (no Swift module).
@@ -14,6 +15,17 @@ private enum CertifyNorLayout {
         let sh = UIScreen.main.bounds.height
         return (sh >= 812 ? 44 : 20) + 64
     }
+}
+
+/// `Roundedrectangle` 切图九宫拉伸，与 `PPVeCardsViewController` Next 一致。
+private func certifyNorNextButtonBackgroundImage() -> UIImage? {
+    guard let raw = UIImage(named: "Roundedrectangle") else { return nil }
+    let w = raw.size.width
+    let h = raw.size.height
+    guard w > 2, h > 2 else { return raw }
+    let capX = floor(w / 2) - 1
+    let capY = floor(h / 2) - 1
+    return raw.resizableImage(withCapInsets: UIEdgeInsets(top: capY, left: capX, bottom: capY, right: capX), resizingMode: .stretch)
 }
 
 // MARK: - Kind / configuration
@@ -61,6 +73,22 @@ enum CertifyNorKind {
     }
 }
 
+// MARK: - Rows store (avoid replacing `UIHostingController.rootView` so `ScrollView` keeps offset)
+
+private final class CertifyNorFormRowsStore: ObservableObject {
+    var rows: [PPVeNorInfoMceachronModel] = []
+
+    func replaceAll(_ r: [PPVeNorInfoMceachronModel]) {
+        rows = r
+        objectWillChange.send()
+    }
+
+    /// NSObject element mutations do not trigger `ObservableObject`; call after picker / text edits.
+    func notify() {
+        objectWillChange.send()
+    }
+}
+
 // MARK: - SwiftUI
 
 private struct CertifyNorFormSwiftUIView: View {
@@ -76,33 +104,26 @@ private struct CertifyNorFormSwiftUIView: View {
     /// Orange bar top-left & top-right radius (Fig.2 tab strip).
     private var orangeBarCornerRadius: CGFloat { PB_RatioSwift(12) }
 
-    let rows: [PPVeNorInfoMceachronModel]
+    /// Row titles, field text, and filled selection captions.
+    private var listContentGreen: Color { Color(UIColor.pbColorBackHexStr("#16360F")) }
+
+    @ObservedObject var rowsStore: CertifyNorFormRowsStore
+
     let bannerTitle: String
     let onTapRow: (Int) -> Void
     let onTextCommit: (Int, String) -> Void
 
     var body: some View {
         GeometryReader { geo in
-            ZStack(alignment: .bottom) {
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 14) {
-                        cardBlock
-                            .padding(.horizontal, PB_RatioSwift(14))
-                            .padding(.top, PB_RatioSwift(12))
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 14) {
+                    cardBlock
+                        .padding(.horizontal, PB_RatioSwift(14))
+                        .padding(.top, PB_RatioSwift(12))
 
-                        Spacer(minLength: PB_RatioSwift(96))
-                    }
-                    .padding(.bottom, geo.safeAreaInsets.bottom + PB_RatioSwift(24))
+                    Spacer(minLength: PB_RatioSwift(96))
                 }
-
-                LinearGradient(colors: [
-                    cream.opacity(0),
-                    cream.opacity(1)
-                ], startPoint: .top, endPoint: .bottom)
-                .frame(height: PB_RatioSwift(48))
-                .allowsHitTesting(false)
-
-                Color.clear.frame(height: 1)
+                .padding(.bottom, geo.safeAreaInsets.bottom + PB_RatioSwift(24))
             }
             .background(cream.ignoresSafeArea())
         }
@@ -121,7 +142,7 @@ private struct CertifyNorFormSwiftUIView: View {
                     .padding(.horizontal, PB_RatioSwift(12))
 
                 VStack(alignment: .leading, spacing: PB_RatioSwift(10)) {
-                    ForEach(Array(rows.enumerated()), id: \.offset) { idx, model in
+                    ForEach(Array(rowsStore.rows.enumerated()), id: \.offset) { idx, model in
                         rowView(index: idx, model: model)
                     }
                 }
@@ -166,12 +187,29 @@ private struct CertifyNorFormSwiftUIView: View {
     private func rowView(index idx: Int, model: PPVeNorInfoMceachronModel) -> some View {
         let kind = (model.blair ?? "") as String
         let title = (model.age ?? "") as String
-        let display = (model.stemming ?? "") as String
+        let rawStem = (model.stemming ?? "") as String
+
+        /// `sea` 单选：`stemming` 与某项 `reviewed`（字符串相等）一致时显示 `celebrating`，否则显示 `stemming` 原文。
+        let echoed: String = {
+            if kind == "sea" { return seaEchoDisplay(for: model) }
+            return rawStem
+        }()
+        let captionForRow: String = {
+            if kind == "sea" {
+                if !echoed.isEmpty { return echoed }
+                return fieldCaption(kind: kind, display: "", importance: model.importance)
+            }
+            return fieldCaption(kind: kind, display: rawStem, importance: model.importance)
+        }()
+        let captionLooksEmpty: Bool = {
+            if kind == "sea" { return echoed.isEmpty }
+            return rawStem.isEmpty
+        }()
 
         return VStack(alignment: .leading, spacing: PB_RatioSwift(6)) {
             Text(title.isEmpty ? " " : title)
                 .font(.system(size: PB_RatioSwift(14), weight: .semibold))
-                .foregroundColor(Color(UIColor.pbColorBackHexStr("#1B5E3A")))
+                .foregroundColor(listContentGreen)
 
             if kind == "seb" {
                 TextField(
@@ -185,7 +223,8 @@ private struct CertifyNorFormSwiftUIView: View {
                     )
                 )
                 .font(.system(size: PB_RatioSwift(15)))
-                .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
+                .foregroundColor(listContentGreen)
+                .keyboardType(model.underachieving == 1 ? .numberPad : .default)
                 .padding(.horizontal, PB_RatioSwift(14))
                 .padding(.vertical, PB_RatioSwift(12))
                 .background(Color(UIColor.pbColorBackHexStr("#F3F3F3")))
@@ -195,9 +234,9 @@ private struct CertifyNorFormSwiftUIView: View {
                     onTapRow(idx)
                 } label: {
                     HStack {
-                        Text(fieldCaption(kind: kind, display: display, importance: model.importance))
+                        Text(captionForRow)
                             .font(.system(size: PB_RatioSwift(15)))
-                            .foregroundColor(display.isEmpty ? Color(UIColor.pbColorBackHexStr("#8C8C8C")) : Color(UIColor.pbColorBackHexStr("#262626")))
+                            .foregroundColor(captionLooksEmpty ? Color(UIColor.pbColorBackHexStr("#8C8C8C")) : listContentGreen)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Image(systemName: "chevron.down")
                             .font(.system(size: PB_RatioSwift(13), weight: .semibold))
@@ -221,11 +260,25 @@ private struct CertifyNorFormSwiftUIView: View {
         return "Please enter"
     }
 
+    private func seaEchoDisplay(for model: PPVeNorInfoMceachronModel) -> String {
+        let stem = (model.stemming ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        if stem.isEmpty { return "" }
+        guard let opts = model.identified else { return stem }
+        for opt in opts {
+            let reviewedKey = String(opt.reviewed)
+            if stem == reviewedKey {
+                let cel = (opt.celebrating ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                return cel.isEmpty ? stem : cel
+            }
+        }
+        return stem
+    }
+
     private func fieldCaption(kind: String, display: String, importance: String?) -> String {
         if !display.isEmpty { return display }
         let imp = (importance ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         if !imp.isEmpty { return imp }
-        if kind == "sec" { return "省 | 市 | 区" }
+        if kind == "sec" { return "" }
         return "Please select"
     }
 }
@@ -256,12 +309,15 @@ class CertifyNorFormShellController: PPBaseViewController {
 
     private let kind: CertifyNorKind
     private var hosting: UIHostingController<CertifyNorFormSwiftUIView>?
-    private var rowModels: [PPVeNorInfoMceachronModel] = []
+    private let rowsStore = CertifyNorFormRowsStore()
     private var submitParams = NSMutableDictionary()
     private var addressSelectIndexes: [NSNumber] = [
         NSNumber(value: 0), NSNumber(value: 0), NSNumber(value: 0)
     ]
     private var currentKeyCode = ""
+
+    /// When a `UITextField` / `UITextView` gains focus while a string or address picker is still on-screen, the picker mask stays in the window and blocks the form (above SwiftUI but under the keyboard).
+    private var textInputBeginObserverTokens: [NSObjectProtocol] = []
 
     private var reportStart = ""
     private var reportEnd = ""
@@ -304,8 +360,6 @@ class CertifyNorFormShellController: PPBaseViewController {
         reportEnd = ""
         submitParams = NSMutableDictionary(dictionary: ["foundation": pId])
 
-        reloadSwiftUI()
-
         let host = UIHostingController(rootView: makeRootView())
         host.view.backgroundColor = .clear
         hosting = host
@@ -314,12 +368,10 @@ class CertifyNorFormShellController: PPBaseViewController {
         view.addSubview(host.view)
 
         let nextBtn = UIButton(type: .custom)
-        nextBtn.layer.cornerRadius = PB_RatioSwift(22)
-        nextBtn.layer.masksToBounds = true
+        nextBtn.setBackgroundImage(certifyNorNextButtonBackgroundImage(), for: .normal)
         nextBtn.titleLabel?.font = UIFont.systemFont(ofSize: PB_RatioSwift(16), weight: .medium)
         nextBtn.setTitle("Next", for: .normal)
         nextBtn.setTitleColor(.white, for: .normal)
-        nextBtn.backgroundColor = UIColor.pbColorBackHexStr("#1B5E3A")
         nextBtn.addTarget(self, action: #selector(onNextTap), for: .touchUpInside)
         nextBtn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nextBtn)
@@ -331,13 +383,41 @@ class CertifyNorFormShellController: PPBaseViewController {
             host.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             nextBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -PB_RatioSwift(16)),
+            nextBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -PB_RatioSwift(15)),
             nextBtn.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - PB_RatioSwift(47) * 2),
             nextBtn.heightAnchor.constraint(equalToConstant: PB_RatioSwift(44))
         ])
         host.didMove(toParent: self)
 
+        pb_registerDismissPickersOnTextInputBegin()
+
         requestList()
+    }
+
+    deinit {
+        textInputBeginObserverTokens.forEach { NotificationCenter.default.removeObserver($0) }
+    }
+
+    /// Removes BRPickerView overlays only when still attached (avoids redundant `dismiss` on never-shown lazy pickers).
+    private func pb_dismissOverlayPickersIfPresent() {
+        if stringPickerView.superview != nil {
+            stringPickerView.dismiss()
+        }
+        if addressPickerView.superview != nil {
+            addressPickerView.dismiss()
+        }
+    }
+
+    private func pb_registerDismissPickersOnTextInputBegin() {
+        let handler: (Notification) -> Void = { [weak self] note in
+            guard let self else { return }
+            guard let v = note.object as? UIView, v.isDescendant(of: self.view) else { return }
+            self.pb_dismissOverlayPickersIfPresent()
+        }
+        textInputBeginObserverTokens = [
+            NotificationCenter.default.addObserver(forName: UITextField.textDidBeginEditingNotification, object: nil, queue: .main, using: handler),
+            NotificationCenter.default.addObserver(forName: UITextView.textDidBeginEditingNotification, object: nil, queue: .main, using: handler)
+        ]
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -346,19 +426,22 @@ class CertifyNorFormShellController: PPBaseViewController {
         extendedLayoutIncludesOpaqueBars = false
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent || isBeingDismissed {
+            pb_dismissOverlayPickersIfPresent()
+        }
+    }
+
     private func makeRootView() -> CertifyNorFormSwiftUIView {
         CertifyNorFormSwiftUIView(
-            rows: rowModels,
+            rowsStore: rowsStore,
             bannerTitle: kind.cardBannerTitle,
             onTapRow: { [weak self] idx in self?.handleTapRow(idx) },
             onTextCommit: { [weak self] idx, text in
                 self?.commitText(index: idx, text: text)
             }
         )
-    }
-
-    private func reloadSwiftUI() {
-        hosting?.rootView = makeRootView()
     }
 
     private func requestList() {
@@ -369,12 +452,11 @@ class CertifyNorFormShellController: PPBaseViewController {
             guard let self else { return }
             if let result, let model = PPVeNorInfoModel.yy_model(withJSON: result) {
                 let arr = model.theoretical?.mceachron as? [PPVeNorInfoMceachronModel] ?? []
-                self.rowModels = arr
+                self.rowsStore.replaceAll(arr)
             } else {
-                self.rowModels = []
+                self.rowsStore.replaceAll([])
             }
             self.refreshSubmitParams()
-            self.reloadSwiftUI()
             self.setupPickersIfNeeded()
         }, failure: { _, _, msg in
             PB_NativeTipsHelper.pb_hideAllLoading()
@@ -397,17 +479,31 @@ class CertifyNorFormShellController: PPBaseViewController {
 
     private func handleTapRow(_ index: Int) {
         view.endEditing(true)
-        guard index >= 0, index < rowModels.count else { return }
-        let model = rowModels[index]
+        pb_dismissOverlayPickersIfPresent()
+        guard index >= 0, index < rowsStore.rows.count else { return }
+        let model = rowsStore.rows[index]
         currentKeyCode = model.defines ?? ""
         let type = model.blair ?? ""
         if type == "sea" {
             var strings: [String] = []
-            var selectIndex = 0
-            for (j, opt) in (model.identified ?? []).enumerated() {
+            let identified = model.identified ?? []
+            for opt in identified {
                 strings.append(opt.celebrating ?? "")
-                if opt.select {
+            }
+            let stem = (model.stemming ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            var selectIndex = 0
+            if !stem.isEmpty {
+                for (j, opt) in identified.enumerated() {
+                    let cel = (opt.celebrating ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                    if stem == String(opt.reviewed) || stem == cel {
+                        selectIndex = j
+                        break
+                    }
+                }
+            } else {
+                for (j, opt) in identified.enumerated() where opt.select {
                     selectIndex = j
+                    break
                 }
             }
             stringPickerView.dataSourceArr = strings.map { $0 as Any }
@@ -433,25 +529,27 @@ class CertifyNorFormShellController: PPBaseViewController {
         addressPickerView.dataSourceArr = (0..<addrSrc.count).map { addrSrc.object(at: $0) as Any }
         addressPickerView.selectIndexs = addressSelectIndexes as [NSNumber]
         addressPickerView.show()
+        PB_BR.pb_applyAddressPickerOptionTitleUI(addressPickerView)
     }
 
     private func applyStringPick(_ resultModel: BRResultModel) {
-        for i in 0..<rowModels.count {
-            guard (rowModels[i].defines ?? "") == currentKeyCode else { continue }
-            let m = rowModels[i]
+        for i in 0..<rowsStore.rows.count {
+            guard (rowsStore.rows[i].defines ?? "") == currentKeyCode else { continue }
+            let m = rowsStore.rows[i]
             let optCount = m.identified?.count ?? 0
             for j in 0..<optCount {
                 guard let opt = m.identified?[j] else { continue }
                 let picked = (j == resultModel.index)
                 opt.select = picked
                 if picked {
-                    rowModels[i].stemming = resultModel.value ?? ""
-                    rowModels[i].choice = opt.reviewed
+                    // 存 reviewed 字符串，便于与下发数据一致；列表回显由 seaEchoDisplay 映射为 celebrating
+                    rowsStore.rows[i].stemming = String(opt.reviewed)
+                    rowsStore.rows[i].choice = opt.reviewed
                 }
             }
         }
         refreshSubmitParams()
-        reloadSwiftUI()
+        rowsStore.notify()
     }
 
     private func applyAddressPick(province: BRProvinceModel?, city: BRCityModel?, area: BRAreaModel?) {
@@ -468,32 +566,37 @@ class CertifyNorFormShellController: PPBaseViewController {
             addressSelectIndexes[2] = NSNumber(value: area.index)
             result = result.isEmpty ? (area.name ?? "") : "\(result)|\(area.name ?? "")"
         }
-        for i in 0..<rowModels.count {
-            if (rowModels[i].defines ?? "") == currentKeyCode {
-                rowModels[i].stemming = result
+        for i in 0..<rowsStore.rows.count {
+            if (rowsStore.rows[i].defines ?? "") == currentKeyCode {
+                rowsStore.rows[i].stemming = result
             }
         }
         refreshSubmitParams()
-        reloadSwiftUI()
+        rowsStore.notify()
     }
 
     private func commitText(index: Int, text: String) {
-        guard index >= 0, index < rowModels.count else { return }
-        rowModels[index].stemming = text
+        guard index >= 0, index < rowsStore.rows.count else { return }
+        rowsStore.rows[index].stemming = text
         refreshSubmitParams()
+        rowsStore.notify()
     }
 
     private func refreshSubmitParams() {
-        for i in 0..<rowModels.count {
-            let model = rowModels[i]
+        for i in 0..<rowsStore.rows.count {
+            let model = rowsStore.rows[i]
             let code = model.defines ?? ""
             let type = model.blair ?? ""
             var value = ""
             if type == "sea" {
-                if model.choice == 0, let stem = model.stemming, !stem.isEmpty {
-                    for opt in model.identified ?? [] where stem == (opt.celebrating ?? "") {
-                        model.choice = opt.reviewed
-                        break
+                let stemTrim = (model.stemming ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                if model.choice == 0, !stemTrim.isEmpty {
+                    for opt in model.identified ?? [] {
+                        let cel = (opt.celebrating ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                        if stemTrim == String(opt.reviewed) || stemTrim == cel {
+                            model.choice = opt.reviewed
+                            break
+                        }
                     }
                 }
                 value = "\(model.choice)"

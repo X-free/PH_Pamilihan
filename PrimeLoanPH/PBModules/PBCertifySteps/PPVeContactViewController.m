@@ -6,7 +6,6 @@
 //
 
 #import "PPVeContactViewController.h"
-#import "PPVeContactHrader.h"
 #import "PPVeNorInputTableViewCell.h"
 #import "PPBaseModel.h"
 #import "PPVeContactModel.h"
@@ -14,6 +13,30 @@
 #import <ContactsUI/ContactsUI.h>
 #import "PPNavigationController.h"
 
+/// 每组卡片总高：首行含橘条 68 + 叠白卡与 45pt 选择框，次行含第二组字段（设计稿 45pt 高）。
+static CGFloat PBVeContactCardGroupHeight(void) {
+    return PB_Ratio(220);
+}
+static CGFloat PBVeContactOrangeVisualHeight(void) {
+    return PB_Ratio(68);
+}
+static CGFloat PBVeContactSecondRowHeight(void) {
+    return PB_Ratio(82);
+}
+static CGFloat PBVeContactFirstRowHeight(void) {
+    return PBVeContactCardGroupHeight() - PBVeContactSecondRowHeight();
+}
+
+static UIImage *PPVeContactNextButtonRoundedBackground(void) {
+    UIImage *raw = UIImageMake(@"Roundedrectangle");
+    if (!raw) { return nil; }
+    CGFloat w = raw.size.width;
+    CGFloat h = raw.size.height;
+    if (w <= 2.0 || h <= 2.0) { return raw; }
+    CGFloat capX = floor(w / 2.0) - 1.0;
+    CGFloat capY = floor(h / 2.0) - 1.0;
+    return [raw resizableImageWithCapInsets:UIEdgeInsetsMake(capY, capX, capY, capX) resizingMode:UIImageResizingModeStretch];
+}
 
 @interface PPVeContactViewController ()<CNContactPickerDelegate>
 
@@ -29,6 +52,8 @@
 @property (nonatomic, assign) BOOL hasReportContact;
 @property (nonatomic, assign) QMUIAlertController *pp_alertVC;
 
+@property (nonatomic, strong) UIImageView *pb_t_de_topGradientBg;
+
 
 @end
 
@@ -36,12 +61,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setShowNavBar:YES];
     [self setShowBackBtn:YES];
-    [self setNavTitle:@"Contact Information"];
-    self.view.backgroundColor = PB_BgColor;
+    [self setNavTitle:@"Emergency Contact"];
+    self.useDarkNavBackIcon = YES;
+    self.navBgColr = PP_AppColor;
+    self.view.backgroundColor = PB_Color(@"#FBF6E7");
+
+    UIImageView *topBg = [[UIImageView alloc] initWithImage:UIImageMake(@"ordtopbg")];
+    topBg.contentMode = UIViewContentModeScaleAspectFill;
+    topBg.clipsToBounds = YES;
+    topBg.backgroundColor = PB_Color(@"#FBF6E7");
+    self.pb_t_de_topGradientBg = topBg;
+    [self.view insertSubview:topBg atIndex:0];
+    [topBg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(0);
+        make.height.mas_equalTo(topBg.mas_width).multipliedBy(PB_OrdtopbgHeightToWidthRatio);
+    }];
+
     [self ppInit];
-    
 }
 
 - (void)ppInit{
@@ -50,20 +88,25 @@
     self.pb_t_de_reportEndTime = @"";
     
     self.currentSection = 0;
-    self.view.backgroundColor = PB_BgColor;
+    self.view.backgroundColor = PB_Color(@"#FBF6E7");
     //
     [self.tableView registerClass:PPVeNorInputTableViewCell.class forCellReuseIdentifier:PPVeNorInputTableViewCellKey];
-    [self.tableView registerClass:PPVeContactHrader.class forHeaderFooterViewReuseIdentifier:PPVeContactHraderKey];
-    self.tableView.backgroundColor = PB_BgColor;
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(PB_NaviBa_H, 0, PB_Ratio(100), 0));
-    }];
+    self.tableView.backgroundColor = UIColor.clearColor;
+    self.tableView.backgroundView = nil;
+    self.tableView.opaque = NO;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.clipsToBounds = NO;
     [self.view addSubview:self.pb_t_de_submitButton];
     [self.pb_t_de_submitButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(0);
-        make.bottom.mas_offset(-PB_Ratio(48));
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-PB_Ratio(15));
         make.width.mas_equalTo(PB_SW - PB_Ratio(47)*2);
         make.height.mas_equalTo(PB_Ratio(44));
+    }];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(PB_NaviBa_H);
+        make.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(self.pb_t_de_submitButton.mas_top).offset(-PB_Ratio(12));
     }];
     [self requestMethod];
     
@@ -100,11 +143,9 @@
 - (UIButton *)pb_t_de_submitButton {
     if(!_pb_t_de_submitButton){
         _pb_t_de_submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _pb_t_de_submitButton.backgroundColor = PP_AppColor;
-        _pb_t_de_submitButton.layer.cornerRadius = PB_Ratio(22);
-        _pb_t_de_submitButton.layer.masksToBounds = YES;
+        [_pb_t_de_submitButton setBackgroundImage:PPVeContactNextButtonRoundedBackground() forState:UIControlStateNormal];
         [_pb_t_de_submitButton setTitle:@"Next" forState:UIControlStateNormal];
-        _pb_t_de_submitButton.titleLabel.font = UIFontMediumMake(PB_Ratio(16));
+        _pb_t_de_submitButton.titleLabel.font = UIFontBoldMake(PB_Ratio(16));
         [_pb_t_de_submitButton setTitleColor:PB_WhiteColor forState:UIControlStateNormal];
         [_pb_t_de_submitButton addTarget:self action:@selector(pb_t_de_submitButtonSender:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -150,28 +191,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PPVeNorInputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PPVeNorInputTableViewCellKey forIndexPath:indexPath];
-    [cell pb_configWithCellData:self.dataArr[indexPath.section] index:indexPath.row];
+    [cell pb_configWithCellData:self.dataArr[indexPath.section] index:indexPath.row section:indexPath.section];
     return cell;
 
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    PPVeContactHrader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:PPVeContactHraderKey];
-    NSString *sectionName = [NSString stringWithFormat:@"%@ %ld",@"Emergency contact",section + 1];
-    [header pb_confWithSectionData:sectionName];
-    return header;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return PB_Ratio(61);
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section < self.dataArr.count - 1) {
+        return PB_Ratio(12);
+    }
     return CGFLOAT_MIN;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section >= self.dataArr.count - 1) {
+        return nil;
+    }
+    UIView *v = [[UIView alloc] init];
+    v.backgroundColor = UIColor.clearColor;
+    return v;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return PB_Ratio(105);
+    return indexPath.row == 0 ? PBVeContactFirstRowHeight() : PBVeContactSecondRowHeight();
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -476,6 +518,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    cell.clipsToBounds = NO;
+    cell.contentView.clipsToBounds = NO;
     [self shearTableViewSection:cell tableView:tableView IndexPath:indexPath cornerRadius:PB_Ratio(12) width:0];
 }
 
@@ -499,10 +543,15 @@
     CAShapeLayer *backgroundLayer = [[CAShapeLayer alloc] init]; //显示选中
     // 创建一个可变的图像Path句柄，该路径用于保存绘图信息
     CGMutablePathRef pathRef = CGPathCreateMutable();
-    // 获取cell的size
-    // 第一个参数,是整个 cell 的 bounds, 第二个参数是距左右两端的距离,第三个参数是距上下两端的距离
-    CGRect bounds;
-    bounds = CGRectInset(CGRectMake(PB_Ratio(15), PB_Ratio(15), cell.bounds.size.width - PB_Ratio(15)*2, cell.bounds.size.height), width, 0);
+    CGFloat leftInset = PB_Ratio(15);
+    CGFloat rightInset = PB_Ratio(15);
+    /// 紧急联系人每组仅 2 行：白卡须上下连成一体，第二行不能再 topInset，否则中间会露出表底色（黄条）。
+    NSInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
+    CGFloat topInset = 0;
+    if (rowCount > 2 && indexPath.row > 0 && indexPath.row < rowCount - 1) {
+        topInset = leftInset;
+    }
+    CGRect bounds = CGRectMake(leftInset, topInset, cell.bounds.size.width - leftInset - rightInset, cell.bounds.size.height - topInset);
     
     // CGRectGetMinY：返回对象顶点坐标
     // CGRectGetMaxY：返回对象底点坐标
@@ -525,14 +574,20 @@
         
         
     }else if (indexPath.row == 0) {
-        // 初始起点为cell的左下角坐标
-        CGPathMoveToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds));
-        // 起始坐标为左下角，设为p，（CGRectGetMinX(bounds), CGRectGetMinY(bounds)）为左上角的点，设为p1(x1,y1)，(CGRectGetMidX(bounds), CGRectGetMinY(bounds))为顶部中点的点，设为p2(x2,y2)。然后连接p1和p2为一条直线l1，连接初始点p到p1成一条直线l，则在两条直线相交处绘制弧度为r的圆角。
-        CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMinY(bounds), CGRectGetMidX(bounds), CGRectGetMinY(bounds), cornerRadius);
-        CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius);
-        // 终点坐标为右下角坐标点，把绘图信息都放到路径中去,根据这些路径就构成了一块区域了
-        CGPathAddLineToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds));
-        
+        NSInteger rows = [tableView numberOfRowsInSection:indexPath.section];
+        if (rows > 1) {
+            // 首行含橘色：白底左上、右上圆角 12
+            CFRelease(pathRef);
+            UIBezierPath *topRound = [UIBezierPath bezierPathWithRoundedRect:bounds
+                                                             byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight)
+                                                                   cornerRadii:CGSizeMake(cornerRadius, cornerRadius)];
+            pathRef = CGPathCreateMutableCopy(topRound.CGPath);
+        } else {
+            CGPathMoveToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMaxY(bounds));
+            CGPathAddArcToPoint(pathRef, nil, CGRectGetMinX(bounds), CGRectGetMinY(bounds), CGRectGetMidX(bounds), CGRectGetMinY(bounds), cornerRadius);
+            CGPathAddArcToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMinY(bounds), CGRectGetMaxX(bounds), CGRectGetMidY(bounds), cornerRadius);
+            CGPathAddLineToPoint(pathRef, nil, CGRectGetMaxX(bounds), CGRectGetMaxY(bounds));
+        }
     } else if (indexPath.row == [tableView numberOfRowsInSection:indexPath.section]-1) {
         
         // 初始起点为cell的左上角坐标
@@ -554,12 +609,26 @@
     // 按照shape layer的path填充颜色，类似于渲染render
     // layer.fillColor = [UIColor colorWithWhite:1.f alpha:0.8f].CGColor;
     layer.fillColor = [UIColor whiteColor].CGColor;
-    // view大小与cell一致
     UIView *roundView = [[UIView alloc] initWithFrame:bounds];
-    // 添加自定义圆角后的图层到roundView中
     [roundView.layer insertSublayer:layer atIndex:0];
     roundView.backgroundColor = UIColor.clearColor;
-    // cell的背景view
+
+    BOOL isLastRow = indexPath.row == [tableView numberOfRowsInSection:indexPath.section] - 1;
+    if (isLastRow) {
+        roundView.layer.masksToBounds = NO;
+        roundView.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.18].CGColor;
+        roundView.layer.shadowOffset = CGSizeMake(0, PB_Ratio(3));
+        roundView.layer.shadowRadius = PB_Ratio(10);
+        roundView.layer.shadowOpacity = 1.0;
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:bounds
+                                                         byRoundingCorners:(UIRectCornerBottomLeft | UIRectCornerBottomRight)
+                                                               cornerRadii:CGSizeMake(cornerRadius, cornerRadius)];
+        roundView.layer.shadowPath = shadowPath.CGPath;
+    } else {
+        roundView.layer.shadowPath = nil;
+        roundView.layer.shadowOpacity = 0;
+    }
+
     cell.backgroundView = roundView;
 }
 

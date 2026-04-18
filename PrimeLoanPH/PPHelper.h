@@ -66,6 +66,9 @@
 /**转换成当前比例的数*/
 #define PB_Ratio(x) ((double)((x) * PB_Scale_iphone7))
 
+/// `ordtopbg` 全案统一：头图容器 **高 = 宽 × (400/375)**，页底色 `#FBF6E7`
+#define PB_OrdtopbgHeightToWidthRatio (400.0 / 375.0)
+
 
 //获取底部导航条的asdada高度(如果是iPhoneX的是比sdfsfsdsdf普通的多出34)
 //#define PHBsdsadaottomBarHeight (PB_SH>=812?83:49)
@@ -74,7 +77,7 @@
 //状态栏高度scsdvdfgfd
 #define PBStatusBar_H (PB_SH>=812?44:20)
 //获取导航栏顶部加上状asdasd态栏的高度(如果是iPhoneX 状态栏高度由之前的20 变成44)
-#define PB_NaviBa_H (PBStatusBar_H + 64)
+#define PB_NaviBa_H (PBStatusBar_H + 44)
 
 
 

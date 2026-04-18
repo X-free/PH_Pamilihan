@@ -39,7 +39,7 @@
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:_tableViewIsGroupStyle ? UITableViewStyleGrouped : UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         
         _tableView.backgroundColor = PB_BgColor;
         _tableView.delegate = self;
@@ -48,6 +48,7 @@
         _tableView.keyboardDismissMode =  UIScrollViewKeyboardDismissModeOnDrag;
         _tableView.estimatedSectionFooterHeight = CGFLOAT_MIN;
         _tableView.estimatedSectionHeaderHeight = CGFLOAT_MIN;
+        _tableView.backgroundColor = [UIColor whiteColor];
 //        if([[[UIDevice currentDevice] systemVersion] floatValue] >= 11.0) {
 //             if (@available(iOS 11.0, *)) {
 //                 _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

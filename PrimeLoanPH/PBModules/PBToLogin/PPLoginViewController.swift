@@ -137,10 +137,16 @@ final class PPLoginViewController: PPBaseViewController {
 
     // MARK: - UI
 
+    /// 与 `PB_OrdtopbgHeightToWidthRatio`（ObjC `PPHelper.h`）一致：高/宽 = 400/375
+    private enum Ordtopbg {
+        static let heightWidthRatio: CGFloat = 400.0 / 375.0
+    }
+
     private func buildLayout() {
         topBackgroundView.image = UIImage(named: "ordtopbg")
         topBackgroundView.contentMode = .scaleAspectFill
         topBackgroundView.clipsToBounds = true
+        topBackgroundView.backgroundColor = UIColor.pbColorBackHexStr("#FBF6E7")
         topBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topBackgroundView)
 
@@ -159,8 +165,7 @@ final class PPLoginViewController: PPBaseViewController {
             topBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             topBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            // 设计稿比例 375:400（宽:高）→ height = width × (400/375)
-            topBackgroundView.heightAnchor.constraint(equalTo: topBackgroundView.widthAnchor, multiplier: 400.0 / 375.0),
+            topBackgroundView.heightAnchor.constraint(equalTo: topBackgroundView.widthAnchor, multiplier: Ordtopbg.heightWidthRatio),
 
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
