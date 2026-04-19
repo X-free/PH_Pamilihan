@@ -18,7 +18,7 @@
 @implementation PPBaseViewController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDarkContent;
 }
 
 - (void)viewDidLoad {

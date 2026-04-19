@@ -76,7 +76,7 @@
     _pb_t_de_pLogoImgV.layer.masksToBounds = YES;
     [self.pb_t_de_pBgImgV addSubview:self.pb_t_de_pLogoImgV];
     
-    _pb_t_de_pTitleLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:@"Loan amount" color:PB_WhiteColor font:UIFontMediumMake(PB_Ratio(16)) alignment:NSTextAlignmentLeft lines:1];
+    _pb_t_de_pTitleLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:@"" color:PB_WhiteColor font:UIFontMediumMake(PB_Ratio(16)) alignment:NSTextAlignmentLeft lines:1];
     [self.pb_t_de_pBgImgV addSubview:self.pb_t_de_pTitleLabel];
     
     UIImageView *moneyBgImgV = [[UIImageView alloc] initWithImage:UIImageMake(@"amount_bg")];

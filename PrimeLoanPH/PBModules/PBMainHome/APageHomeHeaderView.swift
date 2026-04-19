@@ -33,6 +33,8 @@ final class APageHomeHeaderView: UIView {
 
     private var bannerHeightConstraint: NSLayoutConstraint?
     private var topBackgroundHeightConstraint: NSLayoutConstraint?
+    private var heroImageHeightConstraint: NSLayoutConstraint?
+    private var findingCarouselHeightConstraint: NSLayoutConstraint?
     private var shapes: PBShapesPayload?
     private var bannerLink: String?
     private var bannerExpectsRemoteImage = false
@@ -127,13 +129,14 @@ final class APageHomeHeaderView: UIView {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        let heroAspect = APageHeroLayout.designHeight / APageHeroLayout.designWidth
-
         let topBgH = topBackgroundView.heightAnchor.constraint(equalToConstant: APageLayout.ratio(240))
         topBackgroundHeightConstraint = topBgH
 
+        let heroHConstraint = heroImageView.heightAnchor.constraint(equalToConstant: 59)
+        heroImageHeightConstraint = heroHConstraint
         let findH = findingCarouselView.heightAnchor.constraint(equalToConstant: APageLayout.ratio(36))
-        
+        findingCarouselHeightConstraint = findH
+
         NSLayoutConstraint.activate([
             topBgH,
             topBackgroundView.topAnchor.constraint(equalTo: topAnchor),
@@ -157,7 +160,7 @@ final class APageHomeHeaderView: UIView {
             heroImageView.topAnchor.constraint(equalTo: topNavStack.bottomAnchor, constant: 10),
             heroImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             heroImageView.widthAnchor.constraint(equalToConstant: 278),
-            heroImageView.heightAnchor.constraint(equalToConstant: 59),
+            heroHConstraint,
 
             bannerCardStack.topAnchor.constraint(equalTo: heroImageView.bottomAnchor, constant: APageLayout.ratio(12)),
             bannerCardStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
@@ -165,6 +168,8 @@ final class APageHomeHeaderView: UIView {
             bannerCardStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
 
         ])
+
+        findH.isActive = true
 
         let bh = bannerView.heightAnchor.constraint(equalToConstant: 0)
         bannerHeightConstraint = bh
@@ -174,13 +179,22 @@ final class APageHomeHeaderView: UIView {
     func configure(
         response: PBReviewsResponse?,
         largeCard: PBDrawConclusionPayload?,
+        smallCardHero: PBDrawConclusionPayload?,
         banner: PBDrawConclusionPayload?
     ) {
         shapes = response?.theoretical?.shapes
         findingCarouselView.setFindingMessages(response?.theoretical?.finding)
 
+        let isSmallHeroMode = (smallCardHero != nil)
+
         bannerExpectsRemoteImage = false
-        if let b = banner, let urlStr = b.examine, !urlStr.isEmpty {
+        if isSmallHeroMode {
+            // 小卡不展示券图 Group2119900452（及远程 Banner）
+            bannerView.isHidden = true
+            bannerHeightConstraint?.constant = 0
+            bannerLink = nil
+            bannerView.image = nil
+        } else if let b = banner, let urlStr = b.examine, !urlStr.isEmpty {
             bannerView.isHidden = false
             bannerHeightConstraint?.constant = APageLayout.ratio(88)
             bannerLink = (b.translated?.isEmpty == false) ? b.translated : nil
@@ -199,12 +213,34 @@ final class APageHomeHeaderView: UIView {
             bannerView.image = nil
         }
 
-        // 无接口 `srb`/`src` 时用本地大卡壳（`mpagecard` 底图，见 `PBDrawConclusionPayload.aPageHomeLargeCardShell`）
-        let card = largeCard ?? .aPageHomeLargeCardShell
-        largeCardProductId = card.pivotal ?? 0
+        // 默认大卡（`srb`）；存在 `reviewed == src` 时用 conclusion 首条 + 小卡底图 `ScardGroup9900486`
+        let heroCard: PBDrawConclusionPayload
+        let heroSkin: APageLoanCardSkin
+        if let s = smallCardHero {
+            heroCard = s
+            heroSkin = .small
+        } else {
+            heroCard = largeCard ?? .aPageHomeLargeCardShell
+            heroSkin = .large
+        }
+        let isSmallHero = (heroSkin == .small)
+
+        // 小卡：去掉大卡头部元素（主标语 Group2119900432、公告轮播、监管条 Group2119900448）；导航仍展示 icon + 产品名
+        if isSmallHero {
+            heroImageView.isHidden = true
+            heroImageHeightConstraint?.constant = 0
+            findingCarouselView.isHidden = true
+            findingCarouselHeightConstraint?.constant = 0
+        } else {
+            heroImageView.isHidden = false
+            heroImageHeightConstraint?.constant = 59
+            findingCarouselHeightConstraint?.constant = APageLayout.ratio(36)
+        }
+
+        largeCardProductId = heroCard.pivotal ?? 0
         largeLoanCardView.isHidden = false
-        largeLoanCardView.configure(model: card)
-        let iconURL = card.networks?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        largeLoanCardView.configure(model: heroCard, skin: heroSkin)
+        let iconURL = heroCard.networks?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if !iconURL.isEmpty {
             largeCardIconImageView.isHidden = false
             loadIconURL(iconURL, into: largeCardIconImageView)
@@ -212,14 +248,16 @@ final class APageHomeHeaderView: UIView {
             largeCardIconImageView.isHidden = true
             largeCardIconImageView.image = nil
         }
-        brandTitleLabel.text = card.courses
+        let course = (heroCard.courses ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        brandTitleLabel.text = course.isEmpty ? "\u{00A0}" : course
 
-        regulatoryImageView.isHidden = UIImage(named: APageAsset.regulatoryCard) == nil
+        regulatoryImageView.isHidden = isSmallHero || UIImage(named: APageAsset.regulatoryCard) == nil
 
         let fullW = bounds.width > 0 ? bounds.width : (superview?.bounds.width ?? UIScreen.main.bounds.width)
         let heroW = max(0, fullW - 32)
         let heroH = heroW * (APageHeroLayout.designHeight / APageHeroLayout.designWidth)
-        let navHeroApprox = safeAreaInsets.top + 52 + heroH + 24
+        let heroStripH: CGFloat = isSmallHero ? 0 : heroH
+        let navHeroApprox = safeAreaInsets.top + 52 + heroStripH + 24
         // mpagetopbg：按资源宽高比铺满宽度时的高度，并与导航+主标语区取较大值，避免裁切过多
         var topBgH = max(APageLayout.ratio(200), navHeroApprox)
         if let img = UIImage(named: APageAsset.topBackground), img.size.width > 0 {

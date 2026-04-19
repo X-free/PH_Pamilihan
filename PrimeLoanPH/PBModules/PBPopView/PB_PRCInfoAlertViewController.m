@@ -46,25 +46,53 @@
     if([data isKindOfClass:PPVeCardUploadModel.class]){
         PPVeCardUploadModel *model = (PPVeCardUploadModel *)data;
         self.mainModel = model;
-        self.view.frame = CGRectMake(0, 0, PB_SW - PB_Ratio(36)*2, PB_SH);
-        UIView *bgView = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:PB_WhiteColor radius:PB_Ratio(16)];
-        [self.view addSubview:bgView];
-        [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.view.frame = CGRectMake(0, 0, PB_SW, PB_SH);
+
+        /// 设计：`idinfofconfirm` 距屏幕左右 36；白卡片距左右 15；切图、卡片、关闭同层级，卡片盖在切图上
+        const CGFloat kHeaderSide = PB_Ratio(36);
+        const CGFloat kCardSide = PB_Ratio(15);
+        const CGFloat kHeaderCardOverlap = PB_Ratio(28);
+
+        UIView *contentWrap = [[UIView alloc] init];
+        contentWrap.backgroundColor = UIColor.clearColor;
+        [self.view addSubview:contentWrap];
+        [contentWrap mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(0);
             make.centerX.mas_equalTo(0);
             make.centerY.mas_offset(-PB_Ratio(30));
-            make.width.mas_equalTo(PB_SW - PB_Ratio(36) *2);
-            make.height.mas_equalTo(PB_Ratio(520));
         }];
+
+        /// 蒙层区域可点，仅收键盘，不关闭弹窗；弹窗内容盖在上方，点击内容区仍正常
+        UIView *dimTouchShield = [[UIView alloc] init];
+        dimTouchShield.backgroundColor = UIColor.clearColor;
+        dimTouchShield.userInteractionEnabled = YES;
+        [self.view insertSubview:dimTouchShield belowSubview:contentWrap];
+        [dimTouchShield mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(0);
+        }];
+        UITapGestureRecognizer *dimTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pb_dimAreaTapOnlyDismissKeyboard:)];
+        [dimTouchShield addGestureRecognizer:dimTap];
 
         UIImage *headerImg = [UIImage imageNamed:@"idinfofconfirm"];
         UIImageView *headerImgV = [[UIImageView alloc] initWithImage:headerImg];
         headerImgV.contentMode = UIViewContentModeScaleAspectFill;
         headerImgV.clipsToBounds = YES;
-        [bgView addSubview:headerImgV];
-        CGFloat headerH = headerImg ? (headerImg.size.height / MAX(headerImg.size.width, 1.0)) * (PB_SW - PB_Ratio(36) * 2) : PB_Ratio(96);
+        [contentWrap addSubview:headerImgV];
+        CGFloat headerW = PB_SW - kHeaderSide * 2;
+        CGFloat headerH = headerImg ? (headerImg.size.height / MAX(headerImg.size.width, 1.0)) * headerW : PB_Ratio(96);
         [headerImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.top.mas_equalTo(0);
+            make.left.mas_equalTo(kHeaderSide);
+            make.right.mas_equalTo(-kHeaderSide);
+            make.top.mas_equalTo(contentWrap.mas_top);
             make.height.mas_equalTo(MIN(headerH, PB_Ratio(120)));
+        }];
+
+        UIView *cardView = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:PB_WhiteColor radius:PB_Ratio(16)];
+        [contentWrap addSubview:cardView];
+        [cardView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(kCardSide);
+            make.right.mas_equalTo(-kCardSide);
+            make.top.mas_equalTo(headerImgV.mas_bottom).offset(-kHeaderCardOverlap);
         }];
 
         QMUIButton *pb_t_decloseBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
@@ -73,13 +101,17 @@
         [pb_t_decloseBtn setImage:[UIImage imageNamed:@"Grosx1276601"] forState:UIControlStateHighlighted];
         [pb_t_decloseBtn addTarget:self action:@selector(buttonSenderTap:) forControlEvents:UIControlEventTouchUpInside];
         pb_t_decloseBtn.tag = 51;
-        [bgView addSubview:pb_t_decloseBtn];
+        [contentWrap addSubview:pb_t_decloseBtn];
         [pb_t_decloseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(PB_Ratio(16));
-            make.top.mas_equalTo(PB_Ratio(14));
+            make.left.mas_equalTo(cardView.mas_left);
+            /// 关闭按钮 bottom 相对切图 top 向下 15px
+            make.bottom.mas_equalTo(headerImgV.mas_top).offset(PB_Ratio(15));
             make.width.height.mas_equalTo(PB_Ratio(36));
         }];
-        [bgView bringSubviewToFront:pb_t_decloseBtn];
+
+        /// 层级：切图在下，卡片盖住切图重叠区，关闭键最上
+        [contentWrap bringSubviewToFront:cardView];
+        [contentWrap bringSubviewToFront:pb_t_decloseBtn];
 
         NSArray *names = @[ @"Name", @"ID number", @"Birthday" ];
         NSArray *values = @[
@@ -95,14 +127,14 @@
         UIView *lastFieldView = nil;
         for (NSInteger i = 0; i < names.count; i++) {
             UIView *itemView = [[UIView alloc] init];
-            [bgView addSubview:itemView];
+            [cardView addSubview:itemView];
             [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(PB_Ratio(15));
                 make.right.mas_offset(-PB_Ratio(15));
                 if (lastFieldView) {
                     make.top.mas_equalTo(lastFieldView.mas_bottom);
                 } else {
-                    make.top.mas_equalTo(headerImgV.mas_bottom).offset(PB_Ratio(12));
+                    make.top.mas_equalTo(cardView.mas_top).offset(PB_Ratio(18));
                 }
                 make.height.mas_equalTo(item_height);
             }];
@@ -139,7 +171,7 @@
         }
 
         QMUILabel *hintLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:@"Please check your ID information correctly, once submitted it is not changed again" color:PB_Color(@"#FB6E21") font:UIFontMake(PB_Ratio(12)) alignment:NSTextAlignmentLeft lines:0];
-        [bgView addSubview:hintLabel];
+        [cardView addSubview:hintLabel];
         [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(PB_Ratio(15));
             make.right.mas_offset(-PB_Ratio(15));
@@ -157,7 +189,7 @@
         pb_t_desubmitButton.tag = 50;
         pb_t_desubmitButton.layer.cornerRadius = PB_Ratio(10);
         pb_t_desubmitButton.layer.masksToBounds = YES;
-        [bgView addSubview:pb_t_desubmitButton];
+        [cardView addSubview:pb_t_desubmitButton];
         [pb_t_desubmitButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(PB_Ratio(15));
             make.right.mas_offset(-PB_Ratio(15));
@@ -165,11 +197,20 @@
             make.height.mas_equalTo(PB_Ratio(50));
             make.top.mas_equalTo(hintLabel.mas_bottom).offset(PB_Ratio(16));
         }];
+
+        [contentWrap mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(headerImgV.mas_top);
+            make.bottom.mas_equalTo(cardView.mas_bottom);
+        }];
     }
     
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
+
+- (void)pb_dimAreaTapOnlyDismissKeyboard:(UITapGestureRecognizer *)gr {
     [self.view endEditing:YES];
 }
 

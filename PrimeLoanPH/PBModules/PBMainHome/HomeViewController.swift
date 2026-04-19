@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  PrimeLoanPH
 //
-//  首页：off/reviews → 解析 draw；reviewed == srb 展示大卡；无 srb 时用 src 回退到大卡，保证首页默认有大卡区
+//  首页：off/reviews → draw；默认大卡（srb）；存在 reviewed==src 时顶部改小卡 UI（conclusion 首条 + ScardGroup9900486）；列表 reviewed==srd 的 conclusion 为小卡列表
 //
 
 import UIKit
@@ -18,7 +18,10 @@ final class HomeViewController: PPTableViewController {
     private var allowBlockingLoad = true
     private var homePayload: PBReviewsResponse?
     private var largeCardModel: PBDrawConclusionPayload?
+    /// `reviewed == src` 时顶部小卡：对应该项 `conclusion` 第一条
+    private var smallCardHeroModel: PBDrawConclusionPayload?
     private var bannerModel: PBDrawConclusionPayload?
+    /// `reviewed == srd`：`conclusion` 为小卡列表数据
     private var productRows: [PBDrawConclusionPayload] = []
 
     private lazy var aPageHeader: APageHomeHeaderView = {
@@ -253,6 +256,7 @@ final class HomeViewController: PPTableViewController {
     private func applyHome(_ model: PBReviewsResponse) {
         homePayload = model
         largeCardModel = nil
+        smallCardHeroModel = nil
         bannerModel = nil
         productRows.removeAll()
 
@@ -262,8 +266,6 @@ final class HomeViewController: PPTableViewController {
             return
         }
 
-        var smallCardFallback: PBDrawConclusionPayload?
-
         for item in draw {
             let type = (item.reviewed ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
             switch type {
@@ -272,8 +274,8 @@ final class HomeViewController: PPTableViewController {
                     largeCardModel = first
                 }
             case PBHomeDrawReviewed.smallCard:
-                if smallCardFallback == nil, let first = item.conclusion?.first {
-                    smallCardFallback = first
+                if smallCardHeroModel == nil, let first = item.conclusion?.first {
+                    smallCardHeroModel = first
                 }
             case PBHomeDrawReviewed.banner:
                 if bannerModel == nil, let first = item.conclusion?.first {
@@ -288,10 +290,6 @@ final class HomeViewController: PPTableViewController {
             }
         }
 
-        if largeCardModel == nil {
-            largeCardModel = smallCardFallback
-        }
-
         layoutTableHeaderIfNeeded()
         tableView.reloadData()
     }
@@ -299,7 +297,12 @@ final class HomeViewController: PPTableViewController {
     private func layoutTableHeaderIfNeeded() {
         let w = view.bounds.width
         guard w > 0 else { return }
-        aPageHeader.configure(response: homePayload, largeCard: largeCardModel, banner: bannerModel)
+        aPageHeader.configure(
+            response: homePayload,
+            largeCard: largeCardModel,
+            smallCardHero: smallCardHeroModel,
+            banner: bannerModel
+        )
         let h = aPageHeader.preferredHeight(width: w)
         aPageHeader.frame = CGRect(x: 0, y: 0, width: w, height: h)
         tableView.tableHeaderView = aPageHeader
@@ -358,16 +361,11 @@ final class HomeViewController: PPTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let id = "pb.home.product.cell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: id)
-            ?? UITableViewCell(style: .subtitle, reuseIdentifier: id)
+        let id = APageHomeSmallProductCell.reuseId
+        let cell = tableView.dequeueReusableCell(withIdentifier: id) as? APageHomeSmallProductCell
+            ?? APageHomeSmallProductCell(style: .default, reuseIdentifier: id)
         let m = productRows[indexPath.row]
-        cell.selectionStyle = .none
-        cell.textLabel?.numberOfLines = 2
-        cell.textLabel?.text = m.courses
-        cell.detailTextLabel?.text = m.voice
-        cell.detailTextLabel?.textColor = UIColor.pbColorBackHexStr("#8C8C8C")
-        cell.accessoryType = .disclosureIndicator
+        cell.configure(model: m)
         return cell
     }
 
@@ -378,6 +376,242 @@ final class HomeViewController: PPTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        APageLayout.ratio(72)
+        APageLayout.ratio(176)
+    }
+}
+
+// MARK: - `reviewed == srd` 列表：白底小卡；整卡点击进件（`didSelectRow`）；底栏仅样式；底行 questioning:naldic | simply:announced
+
+final class APageHomeSmallProductCell: UITableViewCell {
+
+    static let reuseId = "pb.home.small.product"
+
+    private let cardContainer = UIView()
+    private let iconImageView = UIImageView()
+    private let titleLabel = UILabel()
+    private let amountCaptionLabel = UILabel()
+    private let amountLabel = UILabel()
+    /// 底行左：`questioning` + ":" + `naldic`
+    private let bottomLeftLabel = UILabel()
+    /// 底行右：`simply` + ":" + `announced`
+    private let bottomRightLabel = UILabel()
+    private let bottomInterpRow = UIStackView()
+    /// 底行左右「两头对齐」之间的弹性占位
+    private let bottomRowSpacer = UIView()
+    private let applyButton = UIButton(type: .system)
+
+    private var iconLoadTask: URLSessionDataTask?
+    /// 避免异步回调与复用后错位上图
+    private var iconExpectedURL: String = ""
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+
+        cardContainer.backgroundColor = .white
+        cardContainer.layer.cornerRadius = 12
+        cardContainer.clipsToBounds = true
+        cardContainer.translatesAutoresizingMaskIntoConstraints = false
+
+        iconImageView.contentMode = .scaleAspectFill
+        iconImageView.clipsToBounds = true
+        iconImageView.layer.cornerRadius = APageLayout.ratio(8)
+        iconImageView.backgroundColor = UIColor.pbColorBackHexStr("#F0F0F0")
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        titleLabel.font = .systemFont(ofSize: APageLayout.ratio(15), weight: .semibold)
+        titleLabel.textColor = UIColor.pbColorBackHexStr("#26252A")
+        titleLabel.numberOfLines = 2
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        amountCaptionLabel.font = .systemFont(ofSize: APageLayout.ratio(12), weight: .regular)
+        amountCaptionLabel.textColor = UIColor.pbColorBackHexStr("#8C8C8C")
+        amountCaptionLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        amountLabel.font = .systemFont(ofSize: APageLayout.ratio(24), weight: .bold)
+        amountLabel.textColor = UIColor.pbColorBackHexStr("#26252A")
+        amountLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        [bottomLeftLabel, bottomRightLabel].forEach {
+            $0.numberOfLines = 2
+            $0.lineBreakMode = .byTruncatingTail
+            $0.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        bottomLeftLabel.textAlignment = .left
+        bottomRightLabel.textAlignment = .right
+
+        bottomRowSpacer.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+        bottomRowSpacer.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
+
+        bottomInterpRow.addArrangedSubview(bottomLeftLabel)
+        bottomInterpRow.addArrangedSubview(bottomRowSpacer)
+        bottomInterpRow.addArrangedSubview(bottomRightLabel)
+        bottomInterpRow.axis = .horizontal
+        bottomInterpRow.spacing = APageLayout.ratio(8)
+        bottomInterpRow.alignment = .top
+        bottomInterpRow.distribution = .fill
+        bottomInterpRow.translatesAutoresizingMaskIntoConstraints = false
+
+        applyButton.titleLabel?.font = .systemFont(ofSize: APageLayout.ratio(14), weight: .semibold)
+        applyButton.setTitleColor(.white, for: .normal)
+        applyButton.layer.cornerRadius = APageLayout.ratio(18)
+        applyButton.clipsToBounds = true
+        applyButton.setTitle("", for: .normal)
+        applyButton.translatesAutoresizingMaskIntoConstraints = false
+        if let capImg = UIImage(named: APageAsset.primaryButtonBg) {
+            let inset = capImg.size.width * 0.45
+            let resizable = capImg.resizableImage(
+                withCapInsets: UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset),
+                resizingMode: .stretch
+            )
+            applyButton.setBackgroundImage(resizable, for: .normal)
+        } else {
+            applyButton.backgroundColor = UIColor.pbColorBackHexStr("#5C4033")
+        }
+        applyButton.setContentHuggingPriority(.required, for: .horizontal)
+        applyButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        // 整卡点击由 TableView `didSelectRow` 处理；底部仅视觉样式，不作为独立按钮
+        applyButton.isUserInteractionEnabled = false
+
+        let amountBlock = UIStackView(arrangedSubviews: [amountCaptionLabel, amountLabel])
+        amountBlock.axis = .vertical
+        amountBlock.spacing = APageLayout.ratio(4)
+        amountBlock.alignment = .leading
+        amountBlock.translatesAutoresizingMaskIntoConstraints = false
+        amountBlock.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
+        let topRow = UIStackView(arrangedSubviews: [iconImageView, titleLabel])
+        topRow.axis = .horizontal
+        topRow.spacing = APageLayout.ratio(10)
+        topRow.alignment = .center
+        topRow.translatesAutoresizingMaskIntoConstraints = false
+
+        let middleRow = UIStackView(arrangedSubviews: [amountBlock, applyButton])
+        middleRow.axis = .horizontal
+        middleRow.spacing = APageLayout.ratio(10)
+        middleRow.alignment = .center
+        middleRow.distribution = .fill
+        middleRow.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(cardContainer)
+        cardContainer.addSubview(topRow)
+        cardContainer.addSubview(middleRow)
+        cardContainer.addSubview(bottomInterpRow)
+
+        let pad = APageLayout.ratio(12)
+        let iconSide = APageLayout.ratio(40)
+        NSLayoutConstraint.activate([
+            cardContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
+            cardContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            cardContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            cardContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+
+            topRow.topAnchor.constraint(equalTo: cardContainer.topAnchor, constant: pad),
+            topRow.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: pad),
+            topRow.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -pad),
+
+            iconImageView.widthAnchor.constraint(equalToConstant: iconSide),
+            iconImageView.heightAnchor.constraint(equalToConstant: iconSide),
+
+            middleRow.topAnchor.constraint(equalTo: topRow.bottomAnchor, constant: APageLayout.ratio(10)),
+            middleRow.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: pad),
+            middleRow.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -pad),
+
+            bottomInterpRow.topAnchor.constraint(equalTo: middleRow.bottomAnchor, constant: APageLayout.ratio(10)),
+            bottomInterpRow.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: pad),
+            bottomInterpRow.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -pad),
+
+            applyButton.widthAnchor.constraint(equalToConstant: APageLayout.ratio(88)),
+            applyButton.heightAnchor.constraint(equalToConstant: APageLayout.ratio(36))
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private static func linePlaceholderIfEmpty(_ s: String?) -> String {
+        let t = (s ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        return t.isEmpty ? "\u{00A0}" : t
+    }
+
+    /// 与大卡期限/费率行一致：标题（含冒号）11 Regular `#8C8C8C`，数值 13 Semibold `#3B332C`
+    private static func listCardFooterLine(title: String?, value: String?) -> NSAttributedString? {
+        let t = (title ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let v = (value ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        if t.isEmpty && v.isEmpty { return nil }
+        let titleFont = UIFont.systemFont(ofSize: APageLayout.ratio(11), weight: .regular)
+        let valueFont = UIFont.systemFont(ofSize: APageLayout.ratio(13), weight: .semibold)
+        let titleColor = UIColor.pbColorBackHexStr("#8C8C8C")
+        let valueColor = UIColor.pbColorBackHexStr("#3B332C")
+        let m = NSMutableAttributedString()
+        if !t.isEmpty {
+            m.append(NSAttributedString(string: t, attributes: [
+                .font: titleFont,
+                .foregroundColor: titleColor
+            ]))
+            m.append(NSAttributedString(string: ":", attributes: [
+                .font: titleFont,
+                .foregroundColor: titleColor
+            ]))
+            if !v.isEmpty {
+                m.append(NSAttributedString(string: " ", attributes: [
+                    .font: valueFont,
+                    .foregroundColor: valueColor
+                ]))
+            }
+        }
+        if !v.isEmpty {
+            m.append(NSAttributedString(string: v, attributes: [
+                .font: valueFont,
+                .foregroundColor: valueColor
+            ]))
+        }
+        return m
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        iconLoadTask?.cancel()
+        iconLoadTask = nil
+        iconExpectedURL = ""
+        iconImageView.image = nil
+    }
+
+    func configure(model: PBDrawConclusionPayload) {
+        titleLabel.text = Self.linePlaceholderIfEmpty(model.courses)
+        amountCaptionLabel.text = Self.linePlaceholderIfEmpty(model.powerful)
+        amountLabel.text = Self.linePlaceholderIfEmpty(model.voice)
+
+        bottomLeftLabel.attributedText = Self.listCardFooterLine(title: model.questioning, value: model.naldic)
+        bottomRightLabel.attributedText = Self.listCardFooterLine(title: model.simply, value: model.announced)
+        let hasBottom = bottomLeftLabel.attributedText != nil || bottomRightLabel.attributedText != nil
+        bottomInterpRow.isHidden = !hasBottom
+
+        let btnRaw = (model.lobbying?.isEmpty == false) ? model.lobbying! : ""
+        let btn = btnRaw.trimmingCharacters(in: .whitespacesAndNewlines)
+        applyButton.setTitle(btn.isEmpty ? "\u{00A0}" : btn, for: .normal)
+
+        iconLoadTask?.cancel()
+        iconLoadTask = nil
+        let raw = model.networks?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        iconExpectedURL = raw
+        if raw.isEmpty {
+            iconImageView.image = nil
+        } else if let url = URL(string: raw) {
+            iconLoadTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+                guard let data, let img = UIImage(data: data) else { return }
+                DispatchQueue.main.async {
+                    guard let self, self.iconExpectedURL == raw else { return }
+                    self.iconImageView.image = img
+                }
+            }
+            iconLoadTask?.resume()
+        } else {
+            iconImageView.image = nil
+        }
     }
 }

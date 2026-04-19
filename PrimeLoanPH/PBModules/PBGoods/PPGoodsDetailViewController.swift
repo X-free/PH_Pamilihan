@@ -7,15 +7,21 @@ import SwiftUI
 import UIKit
 
 final class GoodsDetailViewState: ObservableObject {
-    @Published var productTitle: String = "Pamilihan Peso"
-    @Published var amountText: String = "₱0"
-    @Published var termText: String = "--"
-    @Published var rateText: String = "--"
+    @Published var productTitle: String = ""
+    /// 原固定文案「Maximum loan amount」，对应接口 `addressed.aiming`
+    @Published var amountCaptionText: String = ""
+    @Published var amountText: String = ""
+    /// 左列标题：`rich.can.age`；数值：`rich.can.view`
+    @Published var loanTermTitle: String = ""
+    @Published var loanTermValue: String = ""
+    /// 右列标题：`rich.subtractive.age`；数值：`rich.subtractive.view`
+    @Published var interestRateTitle: String = ""
+    @Published var interestRateValue: String = ""
     @Published var logoURLs: [String] = []
     @Published var steps: [PPDetailValuingModel] = []
     @Published var showAgreement: Bool = false
     @Published var agreementChecked: Bool = true
-    @Published var applyTitle: String = "Apply"
+    @Published var applyTitle: String = ""
 
     var applyEnabled: Bool {
         !showAgreement || agreementChecked
@@ -53,7 +59,7 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         
         showNavBar = true
         showBackBtn = true
-        navTitle = "Product detail"
+        navTitle = ""
 
         let pageBg = UIColor.pbColorBackHexStr("#FBF6E7")
         view.backgroundColor = pageBg
@@ -134,26 +140,22 @@ final class PPGoodsDetailViewController: PPBaseViewController {
         let rich = addressed?.rich
 
         let coursesTitle = (addressed?.courses ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-        let title = coursesTitle.isEmpty ? "Pamilihan Peso" : coursesTitle
-        state.productTitle = title
-        navTitle = title
+        state.productTitle = coursesTitle
+        navTitle = coursesTitle
 
-        let amount = (addressed?.issue ?? "")
-        let unit = (addressed?.trend ?? "")
-        state.amountText = unit + amount
+        let aiming = (addressed?.aiming ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        state.amountCaptionText = aiming
+        let unit = (addressed?.trend ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let issue = (addressed?.issue ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        state.amountText = unit + issue
 
-        let termRaw = (addressed?.narratives ?? "")
-        if termRaw.isEmpty {
-            state.termText = "--"
-        } else {
-            state.termText = termRaw + " Days"
-        }
-
-        let rate = rich?.subtractive?.view ?? ""
-        state.rateText = rate.isEmpty ? "--" : rate.replacingOccurrences(of: " ", with: "")
+        state.loanTermTitle = (rich?.can?.age ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        state.loanTermValue = (rich?.can?.view ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        state.interestRateTitle = (rich?.subtractive?.age ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        state.interestRateValue = (rich?.subtractive?.view ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
 
         state.steps = (model.theoretical.valuing as? [PPDetailValuingModel]) ?? []
-        state.applyTitle = (addressed?.lobbying?.isEmpty == false) ? (addressed?.lobbying ?? "Apply") : "Apply"
+        state.applyTitle = (addressed?.lobbying?.isEmpty == false) ? (addressed?.lobbying ?? "") : ""
 
         let agreementURL = model.theoretical.ethnic?.funds ?? ""
         state.showAgreement = !agreementURL.isEmpty

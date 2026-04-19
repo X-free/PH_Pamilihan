@@ -2,137 +2,140 @@
 //  PPResignViewController.m
 //  PrimeLoanPH
 //
-//  Created by MacPing on 2023/11/1.
+//  注销：半透明遮罩 + `noticeacccellation`；勾选同意 + 底部注销热区；未勾选点注销 Toast；同意后可调接口；modal 呈现需 isDismiss
 //
 
 #import "PPResignViewController.h"
+#import "PB_UI.h"
 
 @interface PPResignViewController ()
-
-@property (nonatomic, assign) UIButton *pb_t_resignButton;
-@property (nonatomic, assign) UIButton *pb_t_agreeButton;
-
+@property (nonatomic, strong) QMUIButton *pb_t_agreeButton;
+@property (nonatomic, strong) UIButton *pb_t_confirmButton;
 @end
 
 @implementation PPResignViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.showNavBar = NO;
+    self.isDismiss = YES;
+    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.55];
     [self ppInit];
-    self.showNavBar = YES;
-    self.navTitle = @"Account cancellation";
-    self.showBackBtn = YES;
 }
 
 - (void)ppInit {
-    
-    NSString *descStr = @"The account cannot be restored after cancellation. \n To ensure the safety of your account please confirm that the services related to the account are in order before the application and pay attention to the following conditions:";
-    QMUILabel *pb_t_descLabel = [PB_UI pb_create_LabelWithFrame:CGRectZero title:descStr color:PB_yiBanBlackColor font:UIFontMake(PB_Ratio(15)) alignment:NSTextAlignmentLeft lines:0];
-    pb_t_descLabel.contentEdgeInsets = UIEdgeInsetsMake(PB_Ratio(24), PB_Ratio(20), PB_Ratio(24), PB_Ratio(20));
-    pb_t_descLabel.layer.cornerRadius = PB_Ratio(12);
-    pb_t_descLabel.layer.masksToBounds = YES;
-    pb_t_descLabel.qmui_lineHeight = PB_Ratio(25);
-    pb_t_descLabel.backgroundColor = PB_WhiteColor;
-    [self.view addSubview:pb_t_descLabel];
-    [pb_t_descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(PB_NaviBa_H + PB_Ratio(15));
-        make.left.mas_equalTo(PB_Ratio(15));
-        make.right.mas_offset(-PB_Ratio(15));
-    }];
-    
-    UIView *pb_t_tipBgView = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:PB_WhiteColor radius:PB_Ratio(12)];
-    [self.view addSubview:pb_t_tipBgView];
-    [pb_t_tipBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(pb_t_descLabel);
-        make.top.mas_equalTo(pb_t_descLabel.mas_bottom).offset(PB_Ratio(15));
-        make.height.mas_equalTo(PB_Ratio(68));
-    }];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.backgroundColor = UIColor.clearColor;
-    btn.layer.cornerRadius = PB_Ratio(10);
-    btn.layer.masksToBounds = YES;
-    [btn setTitle:@"All loans are settled" forState:UIControlStateNormal];
-    btn.titleLabel.font = UIFontMake(PB_Ratio(15));
-    [btn setTitleColor:PB_Color(@"#BC6B2B") forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(nullAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [btn setImage:UIImageMake(@"icon_warn_brown") forState:UIControlStateNormal];
-    btn.layer.cornerRadius = PB_Ratio(10);
-    btn.layer.borderColor = PB_Color(@"#E8E8E8").CGColor;
-    btn.layer.borderWidth = PB_Ratio(1);
-    btn.layer.masksToBounds = YES;
-    btn.userInteractionEnabled = NO;
+    UIImage *sheetImg = [UIImage imageNamed:@"noticeacccellation"];
 
-    [pb_t_tipBgView addSubview:btn];
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(PB_Ratio(10), PB_Ratio(20), PB_Ratio(10), PB_Ratio(20)));
-    }];
-    
-    UIButton *pb_t_resignButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    pb_t_resignButton.backgroundColor = PP_AppColor;
-    pb_t_resignButton.layer.cornerRadius = PB_Ratio(22);
-    pb_t_resignButton.layer.masksToBounds = YES;
-    [pb_t_resignButton setTitle:@"Account cancellation" forState:UIControlStateNormal];
-    pb_t_resignButton.titleLabel.font = UIFontMediumMake(PB_Ratio(16));
-    [pb_t_resignButton setTitleColor:PB_WhiteColor forState:UIControlStateNormal];
-    [pb_t_resignButton addTarget:self action:@selector(pb_t_resignButtonSendAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [self.view addSubview:pb_t_resignButton];
-    _pb_t_resignButton = pb_t_resignButton;
-    [pb_t_resignButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_offset(-PB_BottomBarXH - PB_Ratio(48));
-        make.left.mas_equalTo(PB_Ratio(47));
-        make.right.mas_offset(-PB_Ratio(47));
-        make.height.mas_equalTo(PB_Ratio(44));
-    }];
-    //    
-    QMUIButton *pb_t_agreeButton = [QMUIButton buttonWithType:UIButtonTypeCustom];
-    pb_t_agreeButton.backgroundColor = UIColor.clearColor;
+    UIView *card = [[UIView alloc] init];
+    card.backgroundColor = UIColor.clearColor;
+    card.clipsToBounds = YES;
+    [self.view addSubview:card];
 
-    [pb_t_agreeButton setImage:[UIImage imageNamed:@"signin_icon_select"] forState:UIControlStateNormal];
-    [pb_t_agreeButton setImage:[UIImage imageNamed:@"signin_icon_select"] forState:UIControlStateHighlighted];
-    [pb_t_agreeButton addTarget:self action:@selector(pb_t_agreeButtonSendAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView *dialogIv = [[UIImageView alloc] initWithImage:sheetImg];
+    dialogIv.backgroundColor = UIColor.clearColor;
+    dialogIv.contentMode = UIViewContentModeScaleAspectFit;
+    dialogIv.clipsToBounds = YES;
+    dialogIv.userInteractionEnabled = NO;
+    [card addSubview:dialogIv];
 
-    [pb_t_agreeButton setImage:UIImageMake(@"signin_icon_selected") forState:UIControlStateSelected];
-    pb_t_agreeButton.spacingBetweenImageAndTitle = PB_Ratio(10);
-    [self.view addSubview:pb_t_agreeButton];
-    [pb_t_agreeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(pb_t_resignButton);
-        make.top.mas_equalTo(pb_t_resignButton.mas_bottom).offset(PB_Ratio(5));
-        make.width.height.mas_equalTo(PB_Ratio(21));
+    CGFloat ar = (sheetImg.size.width > 1.f)
+        ? (sheetImg.size.height / sheetImg.size.width)
+        : (944.f / 686.f);
+
+    [card mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.view).offset(-PB_Ratio(20));
+        make.leading.equalTo(self.view).offset(16);
+        make.trailing.equalTo(self.view).offset(-16);
+        make.height.equalTo(card.mas_width).multipliedBy(ar);
     }];
-    pb_t_agreeButton.selected = NO;
-    _pb_t_agreeButton = pb_t_agreeButton;
-    
-    QMUIButton *pb_t_agreeShowButton = [QMUIButton buttonWithType:UIButtonTypeCustom];
-    NSString *agreeStr = @"I have read and agree to the above. ";
-    NSString *agreeStr1 = @"Loan Agreement";
-    NSAttributedString *attri = [PPTools pb_t_attriStringWithHexString:agreeStr1 totalStr:agreeStr norColor:PB_Gray_1_Color attriColor:PP_AppColor norFont:UIFontMake(PB_Ratio(12)) attriFont:UIFontMake(PB_Ratio(12)) underline:YES];
-    pb_t_agreeShowButton.titleLabel.numberOfLines = 0;
-    [pb_t_agreeShowButton setAttributedTitle:attri forState:UIControlStateNormal];
-    [pb_t_agreeShowButton addTarget:self action:@selector(pp_agreeShow) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pb_t_agreeShowButton];
-    [pb_t_agreeShowButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(pb_t_agreeButton.mas_right);
-        make.centerY.mas_equalTo(pb_t_agreeButton);
-        make.width.mas_lessThanOrEqualTo(PB_SW - PB_Ratio(60));
+
+    [dialogIv mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(card);
     }];
-    [self pb_t_refreshButtonState_de];
+
+    UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeBtn.backgroundColor = UIColor.clearColor;
+    closeBtn.accessibilityLabel = @"Close";
+    [closeBtn addTarget:self action:@selector(pb_t_closeTapped) forControlEvents:UIControlEventTouchUpInside];
+
+    QMUIButton *agreeCheck = [QMUIButton buttonWithType:UIButtonTypeCustom];
+    agreeCheck.backgroundColor = UIColor.clearColor;
+    [agreeCheck setImage:UIImageMake(@"Group00734") forState:UIControlStateNormal];
+    [agreeCheck setImage:UIImageMake(@"Group00733") forState:UIControlStateSelected];
+    [agreeCheck addTarget:self action:@selector(pb_t_agreeButtonSendAction:) forControlEvents:UIControlEventTouchUpInside];
+    agreeCheck.selected = NO;
+    self.pb_t_agreeButton = agreeCheck;
+
+    QMUILabel *agreeText = [PB_UI pb_create_LabelWithFrame:CGRectZero
+                                                      title:@"I have read and agree to the above"
+                                                      color:PB_Gray_1_Color
+                                                       font:UIFontMake(PB_Ratio(13))
+                                                  alignment:NSTextAlignmentLeft
+                                                      lines:0];
+    agreeText.numberOfLines = 0;
+    agreeText.userInteractionEnabled = NO;
+
+    UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    confirmBtn.backgroundColor = UIColor.clearColor;
+    confirmBtn.accessibilityLabel = @"Account cancellation";
+    [confirmBtn addTarget:self action:@selector(pb_t_confirmCancellation:) forControlEvents:UIControlEventTouchUpInside];
+    self.pb_t_confirmButton = confirmBtn;
+
+    [card addSubview:closeBtn];
+    [card addSubview:agreeCheck];
+    [card addSubview:agreeText];
+    [card addSubview:confirmBtn];
+
+    [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(card).offset(8);
+        make.top.equalTo(card).offset(8);
+        make.width.height.mas_equalTo(44);
+    }];
+
+    [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(card).offset(PB_Ratio(30));
+        make.trailing.equalTo(card).offset(-PB_Ratio(30));
+        make.bottom.equalTo(card).offset(-PB_Ratio(14));
+        make.height.mas_equalTo(PB_Ratio(56));
+    }];
+
+    [agreeCheck mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(card).offset(PB_Ratio(30));
+        make.bottom.equalTo(confirmBtn.mas_top).offset(-PB_Ratio(16));
+        make.width.height.mas_equalTo(PB_Ratio(14));
+    }];
+
+    [agreeText mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(agreeCheck);
+        make.left.equalTo(agreeCheck.mas_right).offset(PB_Ratio(5));
+        make.right.lessThanOrEqualTo(card).offset(-PB_Ratio(30));
+    }];
+
+    [self pb_t_refreshConfirmAppearance];
 }
 
-- (void)nullAction{
-    
+- (void)pb_t_refreshConfirmAppearance {
+    BOOL ok = self.pb_t_agreeButton.selected;
+    self.pb_t_confirmButton.alpha = ok ? 1.0 : 0.45;
 }
 
-- (void)pp_agreeShow {
-    [PB_APP_Control pb_t_goToModuleWithJudgeTypeStr:url_h5Agree fromVC:self];
+#pragma mark - Actions
+
+- (void)pb_t_closeTapped {
+    [self popController];
 }
 
-- (void)pb_t_resignButtonSendAction:(UIButton *)button {
+- (void)pb_t_agreeButtonSendAction:(UIButton *)button {
+    button.selected = !button.selected;
+    [self pb_t_refreshConfirmAppearance];
+}
+
+- (void)pb_t_confirmCancellation:(UIButton *)sender {
+    if (!self.pb_t_agreeButton.selected) {
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:@"please read and agree to the above"];
+        return;
+    }
     [PB_NativeTipsHelper pb_showLoadingInView:self.view];
     [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_cancelationUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         [PB_NativeTipsHelper pb_hideAllLoading];
@@ -142,16 +145,5 @@
         [PB_APP_Control pb_t_toLogoutAntToHomeMyAccount];
     }];
 }
-
-
-- (void)pb_t_agreeButtonSendAction:(UIButton *)button{
-    button.selected = !button.selected;
-    [self pb_t_refreshButtonState_de];
-}
-
-- (void)pb_t_refreshButtonState_de{
-    _pb_t_resignButton.enabled = _pb_t_agreeButton.selected;
-}
-
 
 @end

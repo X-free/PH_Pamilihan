@@ -183,6 +183,27 @@ struct PBDrawItemPayload: Decodable {
     }
 }
 
+/// 与订单 `PPOrderInterpretedModel` 一致：`age` 为灰字标签，`challenges` 为数值文案
+struct PBInterpretedLinePayload: Decodable {
+    var age: String?
+    var challenges: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case age, challenges
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        age = try c.decodeLooseStringIfPresent(forKey: .age)
+        challenges = try c.decodeLooseStringIfPresent(forKey: .challenges)
+    }
+
+    init(age: String? = nil, challenges: String? = nil) {
+        self.age = age
+        self.challenges = challenges
+    }
+}
+
 struct PBDrawConclusionPayload: Decodable {
     var translated: String?
     var examine: String?
@@ -199,11 +220,13 @@ struct PBDrawConclusionPayload: Decodable {
     var consequently: String?
     var announced: String?
     var pivotal: Int?
+    /// 与订单列表 `interpreted` 一致；首页小卡列表底行展示前两项
+    var interpreted: [PBInterpretedLinePayload]?
 
     private enum CodingKeys: String, CodingKey {
         case translated, examine, courses, networks, lobbying, voice, powerful
         case naldic, questioning, opposition, simply, discourage, consequently
-        case announced, pivotal
+        case announced, pivotal, interpreted
     }
 
     init(from decoder: Decoder) throws {
@@ -222,6 +245,7 @@ struct PBDrawConclusionPayload: Decodable {
         discourage = try c.decodeLooseStringIfPresent(forKey: .discourage)
         consequently = try c.decodeLooseStringIfPresent(forKey: .consequently)
         announced = try c.decodeLooseStringIfPresent(forKey: .announced)
+        interpreted = try c.decodeIfPresent([PBInterpretedLinePayload].self, forKey: .interpreted)
 
         if let i = try? c.decodeIfPresent(Int.self, forKey: .pivotal) {
             pivotal = i
@@ -250,7 +274,8 @@ struct PBDrawConclusionPayload: Decodable {
         discourage: String? = nil,
         consequently: String? = nil,
         announced: String? = nil,
-        pivotal: Int? = nil
+        pivotal: Int? = nil,
+        interpreted: [PBInterpretedLinePayload]? = nil
     ) {
         self.translated = translated
         self.examine = examine
@@ -267,13 +292,14 @@ struct PBDrawConclusionPayload: Decodable {
         self.consequently = consequently
         self.announced = announced
         self.pivotal = pivotal
+        self.interpreted = interpreted
     }
 }
 
 extension PBDrawConclusionPayload {
-    /// 首页默认大卡占位（`APageLargeLoanCardView` 本地 `mpagecard` 底图；无 `pivotal` 时按钮不发起进件）
+    /// 首页无 `srb`/`src` 数据时仍展示大卡壳（本地底图）；文案为空，布局不变；无 `pivotal` 时按钮不发起进件
     static var aPageHomeLargeCardShell: PBDrawConclusionPayload {
-        PBDrawConclusionPayload(lobbying: "Go for a loan")
+        PBDrawConclusionPayload()
     }
 }
 

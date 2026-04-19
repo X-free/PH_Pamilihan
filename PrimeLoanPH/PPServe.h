@@ -72,6 +72,7 @@ static NSString *const PBFaceCard_only_tag = @"PBFaceCard_only_tag";
 
 /// C 宏在 Swift 中不可见，供 Swift / 桥接调用（与上方 PBURL_* 宏一致）
 NS_INLINE NSString *PB_API_LoginMessageURL(void) { return PBURL_loginMessageUrl; }
+NS_INLINE NSString *PB_API_LoginVoiceMessageURL(void) { return PBURL_loginVoiceMessageUrl; }
 NS_INLINE NSString *PB_API_H5PrivacyPolicyURL(void) { return url_h5Agree; }
 NS_INLINE NSString *PB_API_MyOrderListURL(void) { return PBURL_myOrderListUrl; }
 NS_INLINE NSString *PB_API_MineMenuURL(void) { return PBURL_appMineMenuUrl; }

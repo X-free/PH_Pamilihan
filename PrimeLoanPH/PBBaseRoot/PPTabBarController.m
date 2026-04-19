@@ -25,6 +25,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self start];
+    
+    self.tabBar.tintColor = [UIColor PBColorBackHexStr:@"#FFCC16"];
 }
 
 - (void)start {

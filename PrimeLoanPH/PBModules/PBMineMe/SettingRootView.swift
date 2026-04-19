@@ -8,7 +8,6 @@ import UIKit
 
 struct SettingRootView: View {
     var versionText: String
-    var onBack: () -> Void
     var onExit: () -> Void
     var onAccountCancellation: () -> Void
 
@@ -22,7 +21,6 @@ struct SettingRootView: View {
             ZStack(alignment: .top) {
                 backgroundLayer(width: geo.size.width)
                 VStack(spacing: 0) {
-                    topBar
                     headerSection
                     Spacer(minLength: 0)
                     settingsCard
@@ -45,26 +43,6 @@ struct SettingRootView: View {
                 .frame(height: width * ordtopbgHeightWidthRatio)
                 .clipped()
         }
-    }
-
-    private var topBar: some View {
-        HStack {
-            Button(action: onBack) {
-                Image("icon_return_black")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-            }
-            .frame(width: 44, height: 44, alignment: .leading)
-            Spacer()
-            Text("Setting")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
-            Spacer()
-            Color.clear.frame(width: 44, height: 44)
-        }
-        .padding(.horizontal, 8)
-        .padding(.top, 4)
     }
 
     private var headerSection: some View {

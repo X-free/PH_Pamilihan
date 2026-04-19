@@ -32,6 +32,12 @@ struct GoodsDetailRootView: View {
     /// 与全案 `ordtopbg` 一致：高/宽 = 400/375
     private var ordtopbgHeightWidthRatio: CGFloat { 400.0 / 375.0 }
 
+    /// 无接口文案时用不换行空格占位，避免 `Text("")` 塌高度、布局错位
+    private func displayLine(_ raw: String) -> String {
+        let t = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        return t.isEmpty ? "\u{00A0}" : t
+    }
+
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -77,24 +83,24 @@ struct GoodsDetailRootView: View {
                 .frame(maxWidth: .infinity)
 
             VStack(spacing: 0) {
-                Text(state.productTitle)
+                Text(displayLine(state.productTitle))
                     .font(.system(size: 18, weight: .bold))
                     .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
                     .padding(.top, 35)
 
-                Text("Maximum loan amount")
+                Text(displayLine(state.amountCaptionText))
                     .font(.system(size: 14))
                     .foregroundColor(Color(UIColor.pbColorBackHexStr("#8C8C8C")))
                     .padding(.top, 12)
 
-                Text(state.amountText)
+                Text(displayLine(state.amountText))
                     .font(.system(size: 35, weight: .heavy))
                     .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
                     .padding(.top, 4)
 
                 HStack(spacing: 0) {
-                    metricCol(title: "Loan term", value: state.termText)
-                    metricCol(title: "Interest rate", value: state.rateText)
+                    metricCol(title: state.loanTermTitle, value: state.loanTermValue)
+                    metricCol(title: state.interestRateTitle, value: state.interestRateValue)
                 }
                 .padding(.top, 10)
 
@@ -123,11 +129,13 @@ struct GoodsDetailRootView: View {
     }
 
     private func metricCol(title: String, value: String) -> some View {
-        VStack(spacing: 2) {
-            Text(title)
+        let t = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let v = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return VStack(spacing: 2) {
+            Text(t)
                 .font(.system(size: 12.5))
                 .foregroundColor(Color(UIColor.pbColorBackHexStr("#8C8C8C")))
-            Text(value)
+            Text(v)
                 .font(.system(size: 16, weight: .bold))
                 .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
         }
@@ -162,34 +170,54 @@ struct GoodsDetailRootView: View {
     }
 
     private func stepRow(index: Int, step: PPDetailValuingModel) -> some View {
-        Button {
+        let certified = step.acknowledges == 1
+        let r12 = pbGoodsDetailRatio(12)
+        let r8 = pbGoodsDetailRatio(8)
+        let r10 = pbGoodsDetailRatio(10)
+        let r15 = pbGoodsDetailRatio(15)
+        let r38 = pbGoodsDetailRatio(38)
+        let pillW = pbGoodsDetailRatio(108)
+        let pillH = pbGoodsDetailRatio(38)
+        let pillCorner = pbGoodsDetailRatio(19)
+        let pillLabelSize = pbGoodsDetailRatio(9)
+
+        return Button {
             onStepTap(index)
         } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .center, spacing: r12) {
+                VStack(alignment: .leading, spacing: r8) {
                     Text(step.age ?? "")
-                        .font(.system(size: 16, weight: .bold))
+                        .font(.system(size: pbGoodsDetailRatio(16), weight: .bold))
                         .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
                     ZStack {
-                        Image("Rectastatubg6999")
-                            .resizable()
-                            .scaledToFill()
-                        Text(step.acknowledges == 1 ? "Certified" : "Get certified")
-                            .font(.system(size: 18 * 0.5, weight: .bold))
-                            .foregroundColor(.white)
+                        if certified {
+                            RoundedRectangle(cornerRadius: pillCorner, style: .continuous)
+                                .fill(Color(UIColor.pbColorBackHexStr("#EDE5D8")))
+                            Text("Certified")
+                                .font(.system(size: pillLabelSize, weight: .bold))
+                                .foregroundColor(Color(UIColor.pbColorBackHexStr("#FB6E21")))
+                        } else {
+                            Image("Rectastatubg6999")
+                                .resizable()
+                                .scaledToFill()
+                            Text("Get certified")
+                                .font(.system(size: pillLabelSize, weight: .bold))
+                                .foregroundColor(.white)
+                        }
                     }
-                    .frame(width: 108, height: 38)
-                    .clipShape(RoundedRectangle(cornerRadius: 19, style: .continuous))
+                    .frame(width: pillW, height: pillH)
+                    .clipShape(RoundedRectangle(cornerRadius: pillCorner, style: .continuous))
                 }
-                Spacer()
+                Spacer(minLength: 0)
                 GoodsRemoteIconView(url: step.goals ?? "", placeholder: "logo_Group")
-                    .frame(width: 34, height: 34)
+                    .frame(width: r38, height: r38)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
+            .padding(.leading, r12)
+            .padding(.vertical, r10)
+            .padding(.trailing, r15)
             .frame(maxWidth: .infinity)
             .background(Color(UIColor.pbColorBackHexStr("#F5F5F5")))
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: pbGoodsDetailRatio(8), style: .continuous))
         }
         .buttonStyle(.plain)
     }
@@ -229,7 +257,7 @@ struct GoodsDetailRootView: View {
                 Image("Roundedrectangle")
                     .resizable()
                     .scaledToFill()
-                Text(state.applyTitle)
+                Text(displayLine(state.applyTitle))
                     .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.white)
             }
@@ -240,4 +268,9 @@ struct GoodsDetailRootView: View {
         .opacity(state.applyEnabled ? 1 : 0.45)
         .disabled(!state.applyEnabled)
     }
+}
+
+/// 与 `PB_Ratio` 一致，供详情认证行尺寸换算
+private func pbGoodsDetailRatio(_ x: Double) -> CGFloat {
+    CGFloat(x * (UIScreen.main.bounds.width / 375.0))
 }

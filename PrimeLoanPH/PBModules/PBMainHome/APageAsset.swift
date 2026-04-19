@@ -19,6 +19,8 @@ enum APageAsset {
     static let heroHeadline = "Group2119900432"
     /// 大卡主背景（`APageLargeLoanCardView`）
     static let cardTopAccent = "mpagecard"
+    /// 小卡主背景（`reviewed == src` 顶部小卡；列表行小卡样式）
+    static let smallCardBackground = "ScardGroup9900486"
     /// 大卡内：Submit — Get Loan — Disburse
     static let processSteps = "Group2119900481"
     /// 主按钮棕色渐变底

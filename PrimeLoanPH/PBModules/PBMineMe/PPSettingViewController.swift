@@ -22,13 +22,14 @@ final class PPSettingViewController: PPBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        showNavBar = false
+        showNavBar = true
+        showBackBtn = true
+        navTitle = "Setting"
         view.backgroundColor = UIColor.pbColorBackHexStr("#FBF6E7")
 
         let ver = PB_getAppInfoHelper.pb_to_getMyAppVersionString()
         let root = SettingRootView(
             versionText: ver,
-            onBack: { [weak self] in self?.handleBack() },
             onExit: { [weak self] in self?.showLogoutOverlay() },
             onAccountCancellation: { [weak self] in self?.pushAccountCancellation() }
         )
@@ -39,33 +40,20 @@ final class PPSettingViewController: PPBaseViewController {
         hosting.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hosting.view)
         NSLayoutConstraint.activate([
-            hosting.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hosting.view.topAnchor.constraint(equalTo: pb_navigationBarContainerView.bottomAnchor),
             hosting.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             hosting.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             hosting.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         hosting.didMove(toParent: self)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // 覆盖基类的 `edgesForExtendedLayout = .none`，让顶部背景图贴到页面最上方。
-        edgesForExtendedLayout = .all
-        extendedLayoutIncludesOpaqueBars = true
-    }
-
-    /// 与 `PPBaseViewController.popController` 行为一致，避免 Swift 对 `popController` 的导入名差异
-    private func handleBack() {
-        if isDismiss {
-            dismiss(animated: true)
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
+        pp_bringCustomNavigationBarToFront()
     }
 
     private func pushAccountCancellation() {
         let vc = PPResignViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        vc.modalTransitionStyle = .coverVertical
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: false, completion: nil)
     }
 
     private func showLogoutOverlay() {

@@ -16,8 +16,41 @@
 #import "PPVeCardsViewController.h"
 #import "PPVeContactViewController.h"
 #import "PPOrderViewController.h"
+#import "PB_NativeTipsHelper.h"
 
 static UIView *PBLoginNativeLoadingOverlay = nil;
+
+/// 登录 Loading 铺满整屏：优先取 `hostView.window`，否则取前台 `UIWindowScene` 的 keyWindow / 首窗口
+static UIWindow *PB_ApplicationKeyWindowFromHostView(UIView *hostView) {
+    if (hostView != nil && hostView.window != nil) {
+        return hostView.window;
+    }
+    if (@available(iOS 13.0, *)) {
+        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (scene.activationState != UISceneActivationStateForegroundActive &&
+                scene.activationState != UISceneActivationStateForegroundInactive) {
+                continue;
+            }
+            if ([scene isKindOfClass:[UIWindowScene class]]) {
+                UIWindowScene *ws = (UIWindowScene *)scene;
+                for (UIWindow *w in ws.windows) {
+                    if (w.isKeyWindow) { return w; }
+                }
+                if (ws.windows.count > 0) {
+                    return ws.windows.firstObject;
+                }
+            }
+        }
+    }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    NSArray<UIWindow *> *legacy = UIApplication.sharedApplication.windows;
+#pragma clang diagnostic pop
+    if (legacy.count > 0) {
+        return legacy.firstObject;
+    }
+    return nil;
+}
 
 @implementation PB_APP_Control
 
@@ -474,10 +507,11 @@ static UIView *PBLoginNativeLoadingOverlay = nil;
 #pragma mark - Native loading (avoid QMUITips maskView crash on iOS 18+)
 
 + (void)pb_t_showNativeLoginLoadingOnHostView:(UIView *)hostView {
-    if (!hostView) { return; }
     dispatch_async(dispatch_get_main_queue(), ^{
         [PB_APP_Control pb_t_hideNativeLoginLoadingOverlay];
-        UIView *dim = [[UIView alloc] initWithFrame:hostView.bounds];
+        UIWindow *window = PB_ApplicationKeyWindowFromHostView(hostView);
+        if (!window) { return; }
+        UIView *dim = [[UIView alloc] initWithFrame:window.bounds];
         dim.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         dim.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.22];
         dim.userInteractionEnabled = YES;
@@ -495,7 +529,7 @@ static UIView *PBLoginNativeLoadingOverlay = nil;
             [spin.centerYAnchor constraintEqualToAnchor:dim.centerYAnchor],
         ]];
         [spin startAnimating];
-        [hostView addSubview:dim];
+        [window addSubview:dim];
         PBLoginNativeLoadingOverlay = dim;
     });
 }
@@ -509,16 +543,7 @@ static UIView *PBLoginNativeLoadingOverlay = nil;
 
 + (void)pb_t_presentLoginAlertFromViewController:(UIViewController *)vc message:(NSString *)message {
     if (message.length == 0) { return; }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *presenter = vc;
-        while (presenter.presentedViewController) {
-            presenter = presenter.presentedViewController;
-        }
-        if (presenter == nil || presenter.isBeingDismissed) { return; }
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-        [ac addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-        [presenter presentViewController:ac animated:YES completion:nil];
-    });
+    [PB_NativeTipsHelper pb_presentAlertWithMessage:message];
 }
 
 + (BOOL)pb_t_needShowGuideModuleJudge{

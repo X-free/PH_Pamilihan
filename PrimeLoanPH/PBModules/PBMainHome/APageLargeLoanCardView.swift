@@ -10,10 +10,24 @@ import UIKit
 private enum APageLargeCardLayout {
     static let mpagecardAspectWidth: CGFloat = 343
     static let mpagecardAspectHeight: CGFloat = 337
+    /// `ScardGroup9900486` 与资源一致（@2x 686×586），宽:高 = 343:293
+    static let smallCardAspectWidth: CGFloat = 343
+    static let smallCardAspectHeight: CGFloat = 293
     static let mpagecardHorizontalInset: CGFloat = 16
     static let contentInset: CGFloat = 12
-    /// `courses` 标题距 mpagecard 顶
+    /// `courses` 标题距 mpagecard 顶（大卡）
     static let coursesTitleTop: CGFloat = 32
+    /// 小卡 `ScardGroup9900486` 上产品名称距底图顶
+    static let coursesTitleTopSmall: CGFloat = 32
+    /// 小卡 Apply 按钮底距 `ScardGroup9900486` 底
+    static let applyButtonBottomInsetSmall: CGFloat = 22
+}
+
+enum APageLoanCardSkin {
+    /// `reviewed == srb`：大卡 `mpagecard`
+    case large
+    /// `reviewed == src`：小卡 `ScardGroup9900486`，布局与大卡一致
+    case small
 }
 
 final class APageLargeLoanCardView: UIView {
@@ -34,8 +48,19 @@ final class APageLargeLoanCardView: UIView {
     private let rateValueLabel = UILabel()
 
     private let applyButton = UIButton(type: .system)
+    /// 需在 `configure` 中切换小卡整卡手势时关闭栈的命中，避免盖住 `smallCardTapGesture`
+    private let mainStack = UIStackView()
 
     private var productId: Int = 0
+    private var backgroundAspectConstraint: NSLayoutConstraint?
+    private var coursesTitleTopConstraint: NSLayoutConstraint?
+    /// 大卡：主栈底 ≤ 底图底 − contentInset；小卡：主栈底 = 底图底 − `applyButtonBottomInsetSmall`（按钮即栈尾）
+    private var mainStackBottomLessConstraint: NSLayoutConstraint?
+    private var mainStackBottomSmallEqualConstraint: NSLayoutConstraint?
+    /// 与 `setup` 里默认大卡比例一致，仅在 `configure` 切换 `skin` 时更新约束
+    private var appliedCardSkin: APageLoanCardSkin = .large
+    /// 小卡：整卡区域点击进件；`src` 时开启，底栏为纯展示非独立按钮
+    private let smallCardTapGesture = UITapGestureRecognizer()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,7 +87,8 @@ final class APageLargeLoanCardView: UIView {
         surfaceView.translatesAutoresizingMaskIntoConstraints = false
 
         backgroundImageView.image = UIImage(named: APageAsset.cardTopAccent)
-        backgroundImageView.contentMode = .scaleAspectFill
+        // 小卡底图约束宽高比与 PNG 一致；AspectFit 等比绘制（比例一致时即铺满）
+        backgroundImageView.contentMode = .scaleAspectFit
         backgroundImageView.backgroundColor = .clear
         backgroundImageView.clipsToBounds = true
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +139,10 @@ final class APageLargeLoanCardView: UIView {
         }
         applyButton.addTarget(self, action: #selector(tapApply), for: .touchUpInside)
 
+        smallCardTapGesture.addTarget(self, action: #selector(tapApply))
+        smallCardTapGesture.isEnabled = false
+        smallCardTapGesture.cancelsTouchesInView = false
+
         let termStack = UIStackView(arrangedSubviews: [termTitleLabel, termValueLabel])
         termStack.axis = .horizontal
         termStack.spacing = 6
@@ -128,13 +158,13 @@ final class APageLargeLoanCardView: UIView {
         metricsRow.spacing = 16
         metricsRow.distribution = .fillEqually
 
-        let mainStack = UIStackView(arrangedSubviews: [
+        [
             processImageView,
             captionAmountLabel,
             amountLabel,
             metricsRow,
             applyButton
-        ])
+        ].forEach { mainStack.addArrangedSubview($0) }
         mainStack.axis = .vertical
         mainStack.spacing = 12
         mainStack.translatesAutoresizingMaskIntoConstraints = false
@@ -150,8 +180,25 @@ final class APageLargeLoanCardView: UIView {
 
         let inset = APageLargeCardLayout.mpagecardHorizontalInset
         let pad = APageLargeCardLayout.contentInset
-        let ar = APageLargeCardLayout.mpagecardAspectHeight / APageLargeCardLayout.mpagecardAspectWidth
+        let arLarge = APageLargeCardLayout.mpagecardAspectHeight / APageLargeCardLayout.mpagecardAspectWidth
         let titleTop = APageLargeCardLayout.coursesTitleTop
+
+        let aspect = backgroundImageView.heightAnchor.constraint(equalTo: backgroundImageView.widthAnchor, multiplier: arLarge)
+        aspect.priority = .required
+        backgroundAspectConstraint = aspect
+
+        // 主内容区：大卡底边不超过底图；小卡栈底对齐底图（按钮距底 22）
+        let mainStackBottomLo = mainStack.bottomAnchor.constraint(lessThanOrEqualTo: backgroundImageView.bottomAnchor, constant: -pad)
+        mainStackBottomLessConstraint = mainStackBottomLo
+        let mainStackBottomSmallEq = mainStack.bottomAnchor.constraint(
+            equalTo: backgroundImageView.bottomAnchor,
+            constant: -APageLargeCardLayout.applyButtonBottomInsetSmall
+        )
+        mainStackBottomSmallEqualConstraint = mainStackBottomSmallEq
+        mainStackBottomSmallEq.isActive = false
+
+        let titleTopC = coursesTitleLabel.topAnchor.constraint(equalTo: backgroundImageView.topAnchor, constant: titleTop)
+        coursesTitleTopConstraint = titleTopC
 
         NSLayoutConstraint.activate([
             surfaceView.topAnchor.constraint(equalTo: topAnchor),
@@ -163,19 +210,21 @@ final class APageLargeLoanCardView: UIView {
             backgroundImageView.topAnchor.constraint(equalTo: surfaceView.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: surfaceView.leadingAnchor, constant: inset),
             backgroundImageView.trailingAnchor.constraint(equalTo: surfaceView.trailingAnchor, constant: -inset),
-            backgroundImageView.heightAnchor.constraint(equalTo: backgroundImageView.widthAnchor, multiplier: ar),
+            aspect,
 
-            coursesTitleLabel.topAnchor.constraint(equalTo: backgroundImageView.topAnchor, constant: titleTop),
+            titleTopC,
             coursesTitleLabel.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor, constant: pad),
             coursesTitleLabel.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor, constant: -pad),
 
             mainStack.topAnchor.constraint(equalTo: coursesTitleLabel.bottomAnchor, constant: 18),
             mainStack.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor, constant: pad),
             mainStack.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor, constant: -pad),
-            mainStack.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -pad),
+            mainStackBottomLo,
 
             applyButton.heightAnchor.constraint(equalToConstant: APageLayout.ratio(44))
         ])
+
+        addGestureRecognizer(smallCardTapGesture)
     }
 
     override func layoutSubviews() {
@@ -183,16 +232,65 @@ final class APageLargeLoanCardView: UIView {
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 12).cgPath
     }
 
-    func configure(model: PBDrawConclusionPayload) {
+    func configure(model: PBDrawConclusionPayload, skin: APageLoanCardSkin = .large) {
+        let bgName: String = {
+            switch skin {
+            case .large: return APageAsset.cardTopAccent
+            case .small: return APageAsset.smallCardBackground
+            }
+        }()
+        backgroundImageView.image = UIImage(named: bgName) ?? UIImage(named: APageAsset.cardTopAccent)
+        // 小卡：去掉大卡「流程三图」等大卡专属元素
+        processImageView.isHidden = (skin == .small)
+
+        let ar: CGFloat = {
+            switch skin {
+            case .large:
+                return APageLargeCardLayout.mpagecardAspectHeight / APageLargeCardLayout.mpagecardAspectWidth
+            case .small:
+                return APageLargeCardLayout.smallCardAspectHeight / APageLargeCardLayout.smallCardAspectWidth
+            }
+        }()
+        if appliedCardSkin != skin {
+            appliedCardSkin = skin
+            backgroundAspectConstraint?.isActive = false
+            let next = backgroundImageView.heightAnchor.constraint(equalTo: backgroundImageView.widthAnchor, multiplier: ar)
+            next.priority = .required
+            next.isActive = true
+            backgroundAspectConstraint = next
+        }
+
+        coursesTitleTopConstraint?.constant = (skin == .small) ? APageLargeCardLayout.coursesTitleTopSmall : APageLargeCardLayout.coursesTitleTop
+        if skin == .small {
+            mainStackBottomLessConstraint?.isActive = false
+            mainStackBottomSmallEqualConstraint?.isActive = true
+        } else {
+            mainStackBottomSmallEqualConstraint?.isActive = false
+            mainStackBottomLessConstraint?.isActive = true
+        }
+        amountLabel.font = (skin == .small) ? .systemFont(ofSize: 45, weight: .bold) : .systemFont(ofSize: 36, weight: .bold)
+
         productId = model.pivotal ?? 0
-        coursesTitleLabel.text = model.courses
-        captionAmountLabel.text = model.powerful
-        amountLabel.text = model.voice
-        termTitleLabel.text = model.questioning
-        termValueLabel.text = model.naldic
-        rateTitleLabel.text = model.simply
-        rateValueLabel.text = model.opposition
-        applyButton.setTitle(model.lobbying ?? "", for: .normal)
+        coursesTitleLabel.text = Self.linePlaceholderIfEmpty(model.courses)
+        captionAmountLabel.text = Self.linePlaceholderIfEmpty(model.powerful)
+        amountLabel.text = Self.linePlaceholderIfEmpty(model.voice)
+        termTitleLabel.text = Self.linePlaceholderIfEmpty(model.questioning)
+        termValueLabel.text = Self.linePlaceholderIfEmpty(model.naldic)
+        rateTitleLabel.text = Self.linePlaceholderIfEmpty(model.simply)
+        rateValueLabel.text = Self.linePlaceholderIfEmpty(model.opposition)
+        let lobby = (model.lobbying ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        applyButton.setTitle(lobby.isEmpty ? "\u{00A0}" : lobby, for: .normal)
+
+        let isSmallHero = (skin == .small)
+        applyButton.isUserInteractionEnabled = !isSmallHero
+        mainStack.isUserInteractionEnabled = !isSmallHero
+        smallCardTapGesture.isEnabled = isSmallHero
+    }
+
+    /// 空文案时用不换行空格占位，避免标签行高塌缩
+    private static func linePlaceholderIfEmpty(_ s: String?) -> String {
+        let t = (s ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        return t.isEmpty ? "\u{00A0}" : t
     }
 
     @objc private func tapApply() {

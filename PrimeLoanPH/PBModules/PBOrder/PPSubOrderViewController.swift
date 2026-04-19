@@ -39,6 +39,8 @@ final class PPSubOrderViewController: PPTableViewController {
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = pbRatio(145)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -220,17 +222,7 @@ final class PPSubOrderViewController: PPTableViewController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if !dataRows.isEmpty {
-            let model = dataRows[indexPath.row]
-            let itemH = pbRatio(14) * 2
-            var total = pbRatio(96) + pbRatio(28)
-            let interpCount = (model.interpreted as? [Any])?.count ?? 0
-            if interpCount > 0 {
-                total += CGFloat(interpCount) * itemH
-            }
-            if let u = model.unifying, !u.isEmpty {
-                total += itemH
-            }
-            return total
+            return UITableView.automaticDimension
         }
         return emptyPlaceholderRowHeight()
     }
