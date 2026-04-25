@@ -28,6 +28,8 @@ struct MeRootView: View {
 
     private let cardCorner: CGFloat = 16
     private let horizontal: CGFloat = 16
+    /// Apply / Repayment / Finished 与竖向分隔线统一行高，便于垂直居中对齐
+    private let statRowHeight: CGFloat = 56
     /// 头像外圈尺寸；中心落在白卡片顶边（centerY == card.top）
     private let avatarOuterSize: CGFloat = 88
     /// 头像（profile）顶边距 safe area 顶部
@@ -97,7 +99,7 @@ struct MeRootView: View {
 
                 statRow
                     .padding(.horizontal, 8)
-                    .padding(.top, 20)
+                    .padding(.top, 8) // 相对原 20 上移 12pt
                     .padding(.bottom, 16)
 
                 Divider()
@@ -133,34 +135,38 @@ struct MeRootView: View {
     }
 
     private var statRow: some View {
-        HStack(spacing: 0) {
+        HStack(alignment: .center, spacing: 0) {
             statColumn(value: viewModel.statApply, title: "Apply", index: 0)
             thinDivider
             statColumn(value: viewModel.statRepay, title: "Repayment", index: 1)
             thinDivider
             statColumn(value: viewModel.statFinished, title: "Finished", index: 2)
         }
+        .frame(height: statRowHeight)
     }
 
     private var thinDivider: some View {
         Rectangle()
             .fill(Color(UIColor.pbColorBackHexStr("#E8E8E8")))
-            .frame(width: 1 / UIScreen.main.scale, height: 36)
+            .frame(width: 1 / UIScreen.main.scale)
+            .frame(maxHeight: .infinity)
     }
 
     private func statColumn(value: String, title: String, index: Int) -> some View {
         Button {
             onStatTap(index)
         } label: {
-            VStack(spacing: 6) {
-                Text(value)
-                    .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
+            VStack(alignment: .center, spacing: 6) {
+//                Text(value)
+//                    .font(.system(size: 22, weight: .bold))
+//                    .foregroundColor(Color(UIColor.pbColorBackHexStr("#262626")))
+//                    .multilineTextAlignment(.center)
                 Text(title)
                     .font(.system(size: 13))
                     .foregroundColor(Color(UIColor.pbColorBackHexStr("#8C8C8C")))
+                    .multilineTextAlignment(.center)
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
         .buttonStyle(.plain)
     }

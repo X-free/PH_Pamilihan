@@ -16,7 +16,6 @@ final class PPLoginViewController: PPBaseViewController {
 
     /// iOS 18+ QMUITips 使用 maskView 会触发断言崩溃，发码流程改用系统遮罩
     private var nativeLoadOverlay: UIView?
-    private var didApplyInitialPhoneFirstResponder = false
 
     private let topBackgroundView = UIImageView()
     private let scrollView = UIScrollView()
@@ -27,6 +26,7 @@ final class PPLoginViewController: PPBaseViewController {
 
     private let phoneIconView = UIImageView()
     private let phoneTitleLabel = UILabel()
+    private let phonePrefixLabel = UILabel()
     private let phoneTextField = UITextField()
     private let phoneSeparator = UIView()
 
@@ -36,6 +36,9 @@ final class PPLoginViewController: PPBaseViewController {
     private let getCodeButton = UIButton(type: .custom)
     private let codeSeparator = UIView()
     private let getCodeGradient = CAGradientLayer()
+
+    /// 语音验证码 VOZ（`ppVector` + 文案，见设计稿）
+    private let vozHitButton = UIButton(type: .custom)
 
     private let loginButton = UIButton(type: .custom)
 
@@ -49,7 +52,8 @@ final class PPLoginViewController: PPBaseViewController {
     private let accentOrangeEnd = UIColor.pbColorBackHexStr("#FFB84D")
     private let placeholderColor = UIColor.pbColorBackHexStr("#B8B8B8")
     private let separatorColor = UIColor.pbColorBackHexStr("#2C2C2C")
-    private let inputFieldTextColor = UIColor.pbColorBackHexStr("#3B332C")
+    /// 仅首次出现登录页时自动拉键盘到手机号，避免从子页返回后再次抢焦点
+    private var didAutoFocusPhoneOnAppear = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13.0, *) {
@@ -75,8 +79,8 @@ final class PPLoginViewController: PPBaseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard !didApplyInitialPhoneFirstResponder else { return }
-        didApplyInitialPhoneFirstResponder = true
+        guard !didAutoFocusPhoneOnAppear else { return }
+        didAutoFocusPhoneOnAppear = true
         DispatchQueue.main.async { [weak self] in
             self?.phoneTextField.becomeFirstResponder()
         }
@@ -196,7 +200,10 @@ final class PPLoginViewController: PPBaseViewController {
         contentStack.setCustomSpacing(24, after: contentStack.arrangedSubviews.last!)
 
         contentStack.addArrangedSubview(makeCodeSection())
-        contentStack.setCustomSpacing(36, after: contentStack.arrangedSubviews.last!)
+        contentStack.setCustomSpacing(20, after: contentStack.arrangedSubviews.last!)
+
+        contentStack.addArrangedSubview(makeVozRow())
+        contentStack.setCustomSpacing(28, after: contentStack.arrangedSubviews.last!)
 
         configureLoginButton()
         contentStack.addArrangedSubview(loginButton)
@@ -257,15 +264,20 @@ final class PPLoginViewController: PPBaseViewController {
         let wrap = UIView()
         let header = makeFieldHeader(iconName: "Frameshuj", title: "Phone number", iconView: phoneIconView, titleLabel: phoneTitleLabel)
 
+        phonePrefixLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        phonePrefixLabel.textColor = .black
+        phonePrefixLabel.text = "+63"
+        phonePrefixLabel.setContentHuggingPriority(.required, for: .horizontal)
+
         phoneTextField.font = .systemFont(ofSize: 16)
-        phoneTextField.textColor = inputFieldTextColor
+        phoneTextField.textColor = .black
         phoneTextField.keyboardType = .phonePad
         phoneTextField.attributedPlaceholder = NSAttributedString(
             string: "Enter mobile number",
             attributes: [.foregroundColor: placeholderColor]
         )
 
-        let tfRow = UIStackView(arrangedSubviews: [phoneTextField])
+        let tfRow = UIStackView(arrangedSubviews: [phonePrefixLabel, phoneTextField])
         tfRow.axis = .horizontal
         tfRow.spacing = 8
         tfRow.alignment = .center
@@ -293,7 +305,7 @@ final class PPLoginViewController: PPBaseViewController {
         let header = makeFieldHeader(iconName: "Framedun", title: "Verification code", iconView: codeIconView, titleLabel: codeTitleLabel)
 
         codeTextField.font = .systemFont(ofSize: 16)
-        codeTextField.textColor = inputFieldTextColor
+        codeTextField.textColor = .black
         codeTextField.keyboardType = .numberPad
         codeTextField.attributedPlaceholder = NSAttributedString(
             string: "Verification code",
@@ -304,8 +316,6 @@ final class PPLoginViewController: PPBaseViewController {
         getCodeButton.setTitleColor(.white, for: .normal)
         getCodeButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         getCodeButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        getCodeButton.translatesAutoresizingMaskIntoConstraints = false
-        getCodeButton.widthAnchor.constraint(equalToConstant: 105).isActive = true
         getCodeButton.layer.cornerRadius = 18
         getCodeButton.layer.masksToBounds = true
         getCodeGradient.colors = [accentOrange.cgColor, accentOrangeEnd.cgColor]
@@ -313,11 +323,16 @@ final class PPLoginViewController: PPBaseViewController {
         getCodeGradient.endPoint = CGPoint(x: 1, y: 0.5)
         getCodeGradient.cornerRadius = 18
         getCodeButton.layer.insertSublayer(getCodeGradient, at: 0)
+        getCodeButton.translatesAutoresizingMaskIntoConstraints = false
+        getCodeButton.setContentHuggingPriority(.required, for: .horizontal)
+        getCodeButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        getCodeButton.widthAnchor.constraint(equalToConstant: 118).isActive = true
 
         let codeRow = UIStackView(arrangedSubviews: [codeTextField, getCodeButton])
         codeRow.axis = .horizontal
         codeRow.spacing = 12
         codeRow.alignment = .center
+        codeTextField.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
         codeSeparator.backgroundColor = separatorColor
         codeSeparator.translatesAutoresizingMaskIntoConstraints = false
@@ -333,6 +348,56 @@ final class PPLoginViewController: PPBaseViewController {
             v.leadingAnchor.constraint(equalTo: wrap.leadingAnchor),
             v.trailingAnchor.constraint(equalTo: wrap.trailingAnchor),
             v.bottomAnchor.constraint(equalTo: wrap.bottomAnchor)
+        ])
+        return wrap
+    }
+
+    private func makeVozRow() -> UIView {
+        let vozOrange = UIColor.pbColorBackHexStr("#E54D2E")
+        vozHitButton.translatesAutoresizingMaskIntoConstraints = false
+        vozHitButton.accessibilityLabel = "VOZ voice verification code"
+        vozHitButton.addTarget(self, action: #selector(onVozTapped), for: .touchUpInside)
+
+        let icon = UIImageView()
+        if let im = UIImage(named: "ppVector") {
+            icon.image = im
+        } else if #available(iOS 13.0, *) {
+            icon.image = UIImage(systemName: "mic.fill")
+            icon.tintColor = vozOrange
+        }
+        icon.contentMode = .scaleAspectFit
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            icon.widthAnchor.constraint(equalToConstant: 22),
+            icon.heightAnchor.constraint(equalToConstant: 22)
+        ])
+
+        let vozLabel = UILabel()
+        vozLabel.attributedText = NSAttributedString(string: "VOZ", attributes: [
+            .font: UIFont.systemFont(ofSize: 16, weight: .semibold),
+            .foregroundColor: vozOrange,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ])
+        vozLabel.isUserInteractionEnabled = false
+
+        let h = UIStackView(arrangedSubviews: [icon, vozLabel])
+        h.axis = .horizontal
+        h.spacing = 8
+        h.alignment = .center
+        h.isUserInteractionEnabled = false
+        h.translatesAutoresizingMaskIntoConstraints = false
+
+        let wrap = UIView()
+        wrap.addSubview(h)
+        wrap.addSubview(vozHitButton)
+        NSLayoutConstraint.activate([
+            h.centerXAnchor.constraint(equalTo: wrap.centerXAnchor),
+            h.topAnchor.constraint(equalTo: wrap.topAnchor, constant: 2),
+            h.bottomAnchor.constraint(equalTo: wrap.bottomAnchor, constant: -2),
+            vozHitButton.leadingAnchor.constraint(equalTo: wrap.leadingAnchor),
+            vozHitButton.trailingAnchor.constraint(equalTo: wrap.trailingAnchor),
+            vozHitButton.topAnchor.constraint(equalTo: wrap.topAnchor),
+            vozHitButton.bottomAnchor.constraint(equalTo: wrap.bottomAnchor)
         ])
         return wrap
     }
@@ -386,8 +451,8 @@ final class PPLoginViewController: PPBaseViewController {
         agreeCheckbox.translatesAutoresizingMaskIntoConstraints = false
         agreeCheckbox.adjustsImageWhenHighlighted = false
         updateCheckboxImages()
-        agreeCheckbox.widthAnchor.constraint(equalToConstant: 14).isActive = true
-        agreeCheckbox.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        agreeCheckbox.widthAnchor.constraint(equalToConstant: 22).isActive = true
+        agreeCheckbox.heightAnchor.constraint(equalToConstant: 22).isActive = true
 
         privacyPrefixLabel.text = "I consent to the "
         privacyPrefixLabel.font = .systemFont(ofSize: 13)
@@ -408,7 +473,6 @@ final class PPLoginViewController: PPBaseViewController {
         privacyRowStack.addArrangedSubview(agreeCheckbox)
         privacyRowStack.addArrangedSubview(privacyPrefixLabel)
         privacyRowStack.addArrangedSubview(privacyLinkButton)
-        privacyRowStack.setCustomSpacing(5, after: agreeCheckbox)
     }
 
     private func layoutGradients() {
@@ -424,9 +488,6 @@ final class PPLoginViewController: PPBaseViewController {
     private func wireActions() {
         backButton.addTarget(self, action: #selector(onBack), for: .touchUpInside)
         getCodeButton.addTarget(self, action: #selector(onGetCode), for: .touchUpInside)
-        let voiceLongPress = UILongPressGestureRecognizer(target: self, action: #selector(onVoiceCodeLongPress(_:)))
-        voiceLongPress.minimumPressDuration = 0.45
-        getCodeButton.addGestureRecognizer(voiceLongPress)
         loginButton.addTarget(self, action: #selector(onLogin), for: .touchUpInside)
         agreeCheckbox.addTarget(self, action: #selector(onAgreeToggle), for: .touchUpInside)
         privacyLinkButton.addTarget(self, action: #selector(onPrivacyLink), for: .touchUpInside)
@@ -442,13 +503,11 @@ final class PPLoginViewController: PPBaseViewController {
     }
 
     @objc private func onGetCode() {
-        sendCode(url: PB_API_LoginMessageURL())
+        postVerificationCode(channel: .sms)
     }
 
-    /// 长按「Get code」走语音验证码 `off/defines`（与短信共用手机号前置校验）
-    @objc private func onVoiceCodeLongPress(_ gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .began else { return }
-        sendCode(url: PB_API_LoginVoiceMessageURL())
+    @objc private func onVozTapped() {
+        postVerificationCode(channel: .voice)
     }
 
     @objc private func onAgreeToggle() {
@@ -472,16 +531,8 @@ final class PPLoginViewController: PPBaseViewController {
             PB_NativeTipsHelper.pb_presentAlert(withMessage: "please consent to the Privacy Agreement")
             return
         }
-        let phone = (phoneTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-        let code = (codeTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !phone.isEmpty else {
-            PB_NativeTipsHelper.pb_presentAlert(withMessage: "please enter mobile number")
-            return
-        }
-        guard !code.isEmpty else {
-            PB_NativeTipsHelper.pb_presentAlert(withMessage: "please enter verification code")
-            return
-        }
+        let phone = phoneTextField.text ?? ""
+        let code = codeTextField.text ?? ""
         PB_APP_Control.pb_t_requestToLogin(withPhone: phone, code: code, targetVC: self) { [weak self] _ in
             self?.reportRiskAfterLogin()
         }
@@ -489,13 +540,33 @@ final class PPLoginViewController: PPBaseViewController {
 
     // MARK: - Network (parity with ObjC)
 
-    private func sendCode(url: String) {
-        let trimmed = (phoneTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            PB_NativeTipsHelper.pb_presentAlert(withMessage: "please enter mobile number")
+    private enum LoginVerificationChannel {
+        /// `off/questions` 短信
+        case sms
+        /// `off/defines` 语音
+        case voice
+    }
+
+    /// 发码类接口：成功/失败都提示 `concepts`（`PB_NativeTipsHelper` Toast），与产品约定一致
+    private func focusVerificationCodeFieldAfterCodeSent() {
+        DispatchQueue.main.async { [weak self] in
+            self?.codeTextField.becomeFirstResponder()
+        }
+    }
+
+    /// 短信/语音发码；`params` 均为 form 表单 `questions`＝手机号（`PB_RequestHelper` URL-encoded POST）
+    private func postVerificationCode(channel: LoginVerificationChannel) {
+        guard let raw = phoneTextField.text, !raw.isEmpty else {
+            PB_NativeTipsHelper.pb_presentAlert(withMessage: "Please fill in the phone number")
             return
         }
-        let params = ["questions": trimmed] as [String: Any]
+        let url: String = {
+            switch channel {
+            case .sms: return PB_API_LoginMessageURL()
+            case .voice: return PB_API_LoginVoiceMessageURL()
+            }
+        }()
+        let params = ["questions": raw] as [String: Any]
         showNativeLoading()
         PB_RequestHelper.pb_instance().pb_postRequest(withUrlStr: url, params: params, commplete: { [weak self] result, _ in
             DispatchQueue.main.async {
@@ -510,10 +581,11 @@ final class PPLoginViewController: PPBaseViewController {
                         } else {
                             self.beginCountdown(seconds: 60)
                         }
-                        if let msg = model.concepts, !msg.isEmpty {
+                        let msg = (model.concepts ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !msg.isEmpty {
                             PB_NativeTipsHelper.pb_presentAlert(withMessage: msg)
                         }
-                        self.codeTextField.becomeFirstResponder()
+                        self.focusVerificationCodeFieldAfterCodeSent()
                     }
                 }
             }
@@ -521,7 +593,9 @@ final class PPLoginViewController: PPBaseViewController {
             DispatchQueue.main.async {
                 guard let self else { return }
                 self.hideNativeLoading()
-                PB_NativeTipsHelper.pb_presentAlert(withMessage: errorStr)
+                if !errorStr.isEmpty {
+                    PB_NativeTipsHelper.pb_presentAlert(withMessage: errorStr)
+                }
                 self.reloadReportStartTime()
             }
         })

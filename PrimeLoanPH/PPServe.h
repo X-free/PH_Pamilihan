@@ -86,5 +86,6 @@ NS_INLINE NSString *PB_API_V3JobInfoFetchURL(void) { return PBURL_V3JobInfoUrl; 
 NS_INLINE NSString *PB_API_V3JobInfoSubmitURL(void) { return PBURL_V3JobInfoSubUrl; }
 NS_INLINE NSString *PB_API_V5BankInfoFetchURL(void) { return PBURL_V5BankInfoUrl; }
 NS_INLINE NSString *PB_API_V5BankSubmitURL(void) { return PBURL_V5BankSubUrl; }
+NS_INLINE NSString *PB_API_ReportDeviceInfoURL(void) { return PBURL_reportDeviceInfoUrl; }
 
 #endif /* PPServe_h */

@@ -8,6 +8,7 @@
 #import "PPVeCardTypeOptionVC.h"
 #import "PPVeCardTypeOptionCell.h"
 #import "PPVeCardTypeOptionHeader.h"
+#import "PB_NativeTipsHelper.h"
 
 @interface PPVeCardTypeOptionVC ()<PPVeCardTypeOptionHeaderDelegate>
 @property (nonatomic, assign)  BOOL showMore;
@@ -26,10 +27,10 @@
     [self setNavTitle:@"Identity information"];
     self.useDarkNavBackIcon = YES;
     self.view.backgroundColor = PB_Color(@"#FEF9E7");
-    self.cardType = @"PRC";
+    self.cardType = @"";
     self.showMore = YES;
     self.showRecommend = YES;
-    self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    self.selectedIndexPath = nil;
     [self ppInit];
 }
 
@@ -126,7 +127,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PPVeCardTypeOptionCell *cell = [tableView dequeueReusableCellWithIdentifier:PPVeCardTypeOptionCellKey forIndexPath:indexPath];
-    BOOL selected = (self.selectedIndexPath.section == indexPath.section && self.selectedIndexPath.row == indexPath.row);
+    BOOL selected = (self.selectedIndexPath != nil
+                     && self.selectedIndexPath.section == indexPath.section
+                     && self.selectedIndexPath.row == indexPath.row);
     [cell pb_configWithCellData:self.pDataArray[indexPath.section][indexPath.row] selected:selected];
     return cell;
 }
@@ -205,19 +208,18 @@
 }
 
 - (void)submitSelectionAction {
-    if(self.cardType.length == 0){
-        self.cardType = @"PRC";
+    NSString *trimmed = [[PBStrFormat(self.cardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] copy];
+    if (trimmed.length == 0) {
+        [PB_NativeTipsHelper pb_presentAlertWithMessage:@"please select an ID type"];
+        return;
     }
-    
+    self.cardType = trimmed;
     [self.navigationController popViewControllerAnimated:NO];
-    
     [self callBackTypeResult];
-    
 }
 
 // value callBack
 - (void)callBackTypeResult{
-    
     if(_ppBlock){
         _ppBlock(self.cardType);
     }

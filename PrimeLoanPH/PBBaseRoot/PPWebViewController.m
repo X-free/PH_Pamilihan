@@ -41,15 +41,18 @@
         [pb_t_de_userContentController addScriptMessageHandler:self name:@"sda"];
         [pb_t_de_userContentController addScriptMessageHandler:self name:@"sdb"];
         [pb_t_de_userContentController addScriptMessageHandler:self name:@"sdc"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"sdd"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"sde"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"sdf"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"sdg"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"sdk"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"sdl"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"startBank"];
-        [pb_t_de_userContentController addScriptMessageHandler:self name:@"endBank"];
-        
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"IncreaseSociety"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"IfMigrant"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"TheInterventions"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"PolicySpeaking"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"ApproachesCouncil"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"TheResult"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"PedagogyMore"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"HawkesThe"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"AndAt"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"WhichTime"];
+        [pb_t_de_userContentController addScriptMessageHandler:self name:@"BackBe"];
+
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
         //实例化对象
         config.userContentController = pb_t_de_userContentController;
@@ -78,7 +81,7 @@
 //    NSLog(@"message.body ::: %@",message.body);
     if([NSString PB_CheckStringIsEmpty:message.name]) return;
     
-    if ([message.name isEqualToString:@"sda"]) {//页面跳转
+    if ([message.name isEqualToString:@"IncreaseSociety"]) {//页面跳转
         NSString *toUrl = PBStrFormat([(NSArray *)message.body firstObject]);
         if([toUrl hasPrefix:@"http"]){
             PPWebViewController *vc = [[PPWebViewController alloc] init];
@@ -87,7 +90,7 @@
         }else{
             [PB_OpenUrl pb_to_openUrl:[NSURL URLWithString:toUrl]];
         }
-    }if ([message.name isEqualToString:@"sdc"]) {//页面带参跳转
+    }if ([message.name isEqualToString:@"TheInterventions"]) {//页面带参跳转
         NSString *toUrl = PBStrFormat([(NSArray *)message.body firstObject]);
         if([toUrl hasPrefix:@"http"]){
             PPWebViewController *vc = [[PPWebViewController alloc] init];
@@ -97,35 +100,35 @@
             [PB_OpenUrl pb_to_openUrl:[NSURL URLWithString:toUrl]];
         }
     }
-    else if ([message.name isEqualToString:@"sdb"]){//关闭当前webview
+    else if ([message.name isEqualToString:@"IfMigrant"]){//关闭当前webview
         [self coloseCurrnetVC];
-    }else if ([message.name isEqualToString:@"sdd"]){//回到首页，并关闭当前页面ruBHome()
+    }else if ([message.name isEqualToString:@"PolicySpeaking"]){//回到首页，并关闭当前页面ruBHome()
         self.tabBarController.selectedIndex = 0;
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }else if ([message.name isEqualToString:@"sde"]){//回到个人中心，并关闭当前页面
+    }else if ([message.name isEqualToString:@"ApproachesCouncil"]){//回到个人中心，并关闭当前页面
         self.tabBarController.selectedIndex = 1;
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }else if ([message.name isEqualToString:@"sdf"]){//跳转到登录页，并清空页面栈
+    }else if ([message.name isEqualToString:@"TheResult"]){//跳转到登录页，并清空页面栈
         [PB_APP_Control pb_t_toLogoutAntToHomeMyAccount];
         [PB_APP_Control pb_t_presentLoginVCWithTargetVC:[PB_GetVC pb_to_getCurrentViewController]];
         self.tabBarController.selectedIndex = 0;
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }else if ([message.name isEqualToString:@"sdg"]){//拨打电话号码（客户端补充"tel:"）
+    }else if ([message.name isEqualToString:@"PedagogyMore"]){//拨打电话号码（客户端补充"tel:"）
         NSString *myUrl = PBStrFormat([(NSArray *)message.body firstObject]);
         myUrl = [myUrl stringByReplacingOccurrencesOfString:@" " withString:@""];
         [PB_CallCell pb_to_callPhone:myUrl];
-    }else if ([message.name isEqualToString:@"sdk"]){//app store评分功能 scoreKey
+    }else if ([message.name isEqualToString:@"HawkesThe"]){//app store评分功能 scoreKey
         [SKStoreReviewController requestReview];
-    }else if ([message.name isEqualToString:@"sdl"]){//确认申请埋点调用方法
+    }else if ([message.name isEqualToString:@"AndAt"]){//确认申请埋点调用方法
         NSDictionary *riskDict = @{
             @"speak":[PB_timeHelper pb_t_getCurrentStampTimeString],
             @"advantage":[PB_timeHelper pb_t_getCurrentStampTimeString],
             @"rejection":@"10"
         };
         [[PB_APP_Control instanceOnly] pb_t_toRePortRiskDataToServe:riskDict];
-    }else if ([message.name isEqualToString:@"startBank"]){//开始绑卡
+    }else if ([message.name isEqualToString:@"WhichTime"]){//开始绑卡
         self.pb_t_de_bindBankStartTime = [PB_timeHelper pb_t_getCurrentStampTimeString];
-    }else if ([message.name isEqualToString:@"endBank"]){ //结束绑卡
+    }else if ([message.name isEqualToString:@"BackBe"]){ //结束绑卡
         self.pb_t_de_bindBankEndTime = [PB_timeHelper pb_t_getCurrentStampTimeString];
         NSDictionary *riskDict = @{
             @"speak":self.pb_t_de_bindBankStartTime,

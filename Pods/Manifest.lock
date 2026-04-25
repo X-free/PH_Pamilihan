@@ -35,7 +35,7 @@ PODS:
     - FBAEMKit (= 17.0.3)
     - FBSDKCoreKit_Basics (= 17.0.3)
   - FBSDKCoreKit_Basics (17.0.3)
-  - IQKeyboardManager (6.5.12)
+  - IQKeyboardManager (6.5.19)
   - Masonry (1.1.0)
   - MJRefresh (3.7.5)
   - QMUIKit (4.6.0):
@@ -377,7 +377,7 @@ SPEC CHECKSUMS:
   FBAEMKit: 9900b2edd99a2d21629a6277e6166f14c6215799
   FBSDKCoreKit: 0791f8f68a8630931a4c12aa23a56cc021551596
   FBSDKCoreKit_Basics: 46d6b472c0dd0a5a7e972c025033d1c567f54eb4
-  IQKeyboardManager: b1fd66ccf7a79095bdcc4a2735231586f744216e
+  IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   QMUIKit: 6321cf1124623d686a9ec0a79a7cc59d0d64a52c
@@ -387,4 +387,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ae7426432485374589de3442c727cf832d2df8c4
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2

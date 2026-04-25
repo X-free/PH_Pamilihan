@@ -9,6 +9,16 @@
 #import "PPVeNorInfoModel.h"
 #import "PPVeContactModel.h"
 
+static NSString *PBPBContactCopyMerge(NSString * _Nullable fromItem, NSString * _Nullable fromTheo, NSString *def) {
+    if (fromItem != nil && [NSString PB_CheckStringIsEmpty:fromItem] == NO) {
+        return PBStrFormat(fromItem);
+    }
+    if (fromTheo != nil && [NSString PB_CheckStringIsEmpty:fromTheo] == NO) {
+        return PBStrFormat(fromTheo);
+    }
+    return def;
+}
+
 @interface PPVeNorInputTableViewCell ()<QMUITextFieldDelegate>
 
 @property (nonatomic, strong) UIView *pb_t_de_bgView;
@@ -96,17 +106,25 @@
 
 ///联系人
 - (void)pb_configWithCellData:(id)data index:(NSInteger)index section:(NSInteger)section {
+    [self pb_configWithCellData:data index:index section:section pageCopy:nil];
+}
+
+- (void)pb_configWithCellData:(id)data index:(NSInteger)index section:(NSInteger)section pageCopy:(PPVeContactTheoreticalModel *)pageCopy {
     if([data isKindOfClass:[PPVeContactIntegrationistModel class]]){
         PPVeContactIntegrationistModel *model = (PPVeContactIntegrationistModel *)data;
+        PPVeContactTheoreticalModel *p = pageCopy;
+        NSString *relTitle = PBPBContactCopyMerge(model.here, p.here, @"Please choose a relationship");
+        NSString *relPlaceholder = PBPBContactCopyMerge(model.communities, p.communities, @"Please select");
+        NSString *phoneTitle = PBPBContactCopyMerge(model.useText, p.useText, @"Phone number");
+        NSString *phonePlaceholder = PBPBContactCopyMerge(model.defining, p.defining, @"Please select");
 
-        NSString *pleaeSelect = @"Please select";
         self.pb_t_de_nameLabel.text = @"";
         self.pb_t_de_inputTextField.text = @"";
-        self.pb_t_de_inputTextField.placeholder = pleaeSelect;
         self.pb_t_de_inputTextField.userInteractionEnabled = NO;
         self.pb_t_de_arrowImageView.hidden = NO;
         if(index == 0){
-            self.pb_t_de_nameLabel.text = @"Please choose a relationship";
+            self.pb_t_de_nameLabel.text = relTitle;
+            self.pb_t_de_inputTextField.placeholder = relPlaceholder;
             NSString *relationName = @"";
             NSArray <PPVeContactIdentifiedModel *>*optionArr = model.identified;
             for (NSInteger i = 0; i < optionArr.count; i++) {
@@ -117,7 +135,8 @@
             }
             self.pb_t_de_inputTextField.text = relationName;
         }else if (index == 1){
-            self.pb_t_de_nameLabel.text = @"Phone number";
+            self.pb_t_de_nameLabel.text = phoneTitle;
+            self.pb_t_de_inputTextField.placeholder = phonePlaceholder;
             NSString *name_phone = @"";
             NSLog(@"%@%@",model.celebrating,model.openly);
             if(![NSString PB_CheckStringIsEmpty:model.openly]){
@@ -164,12 +183,13 @@
                 [self.contentView addSubview:self.pb_t_de_bgView];
             }
             [self.contentView bringSubviewToFront:self.pb_t_de_bgView];
-            // Phone number 行：内容区距左 15（与整卡左对齐）
+            /// 与首行白卡内字段同起点与宽度：外 15 + 内 15；输入框底距 cell 底 15
+            CGFloat contactInnerInset = PB_Ratio(15) + PB_Ratio(15);
             [self.pb_t_de_bgView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(PB_Ratio(4));
-                make.left.mas_equalTo(PB_Ratio(15));
-                make.right.mas_equalTo(-PB_Ratio(15));
-                make.bottom.mas_equalTo(0);
+                make.left.mas_equalTo(contactInnerInset);
+                make.right.mas_equalTo(-contactInnerInset);
+                make.bottom.mas_equalTo(-PB_Ratio(15));
             }];
         }
         [self.pb_t_de_nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {

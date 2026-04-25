@@ -237,18 +237,58 @@ static UIWindow *PB_ApplicationKeyWindowFromHostView(UIView *hostView) {
         [PB_APP_Control pb_t_toLogoutAntToHomeMyAccount];
     }else if ([pb_t_de_JudgeStr hasPrefix:@"pml://loan.org/sfd?identical"]){//订单
         NSString *index = [PPTools pb_to_getUrlParamWithOnlyKey:@"identical" URLString:pb_t_de_JudgeStr];
-        int indexNo = 0;;
+        int indexNo = 0;
         if(![NSString PB_CheckStringIsEmpty:index]){
             indexNo = [index intValue];
         }
-        PPOrderViewController *vc = [[PPOrderViewController alloc] init];
-        vc.currentSelIndex = indexNo <= 3 ? indexNo : 0;
-        [fromVC.navigationController pushViewController:vc animated:YES];
+        [self pb_t_selectOrderTabWithSegment:indexNo fromVC:fromVC];
     }else if ([pb_t_de_JudgeStr hasPrefix:@"https://"] ||[pb_t_de_JudgeStr hasPrefix:@"http://"]){//web
         PPWebViewController *vc = [[PPWebViewController alloc] init];
         vc.url = [[PB_APP_Control instanceOnly] pb_t_addPublicParamsDictKeyToUrlSuff:pb_t_de_JudgeStr];
         [fromVC.navigationController pushViewController:vc animated:YES];
     }
+}
+
++ (void)pb_t_selectOrderTabWithSegment:(NSInteger)segment fromVC:(UIViewController *)fromVC {
+    NSInteger seg = segment;
+    if (seg < 0 || seg > 2) {
+        seg = 0;
+    }
+    UITabBarController *tbc = fromVC.tabBarController;
+    if (!tbc || tbc.viewControllers.count < 2) {
+        UINavigationController *nav = fromVC.navigationController;
+        if (nav) {
+            PPOrderViewController *vc = [[PPOrderViewController alloc] init];
+            vc.currentSelIndex = (int)seg;
+            [nav pushViewController:vc animated:YES];
+        }
+        return;
+    }
+    UIViewController *second = tbc.viewControllers[1];
+    if (![second isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = fromVC.navigationController;
+        if (nav) {
+            PPOrderViewController *vc = [[PPOrderViewController alloc] init];
+            vc.currentSelIndex = (int)seg;
+            [nav pushViewController:vc animated:YES];
+        }
+        return;
+    }
+    UINavigationController *orderNav = (UINavigationController *)second;
+    UIViewController *root = orderNav.viewControllers.firstObject;
+    if (![root isKindOfClass:[PPOrderViewController class]]) {
+        UINavigationController *nav = fromVC.navigationController;
+        if (nav) {
+            PPOrderViewController *vc = [[PPOrderViewController alloc] init];
+            vc.currentSelIndex = (int)seg;
+            [nav pushViewController:vc animated:YES];
+        }
+        return;
+    }
+    PPOrderViewController *order = (PPOrderViewController *)root;
+    [orderNav popToRootViewControllerAnimated:NO];
+    order.currentSelIndex = (int)seg;
+    tbc.selectedIndex = 1;
 }
 
 ///产品sdfasd准入请求asdasd
@@ -446,19 +486,8 @@ static UIWindow *PB_ApplicationKeyWindowFromHostView(UIView *hostView) {
                     
         }];
 
-    }else if (type == pb_t_UploadDateTypeDeviceInfo){
-        NSDictionary *pb_t_de_deviceInfo = [[PB_mainInfo_helper instanceOnly] pb_t_getMainInfoDictData];
-        NSLog(@"设备信息上报参数：%@",pb_t_de_deviceInfo);
-        NSString *result = [self dictionaryToJsonMehton:pb_t_de_deviceInfo];
-        NSDictionary *pa = @{
-            @"theoretical":result
-        };
-        //此处需要将dic 转换成jison然后在上传
-        [[PB_RequestHelper pb_instance] pb_postRequestWithUrlStr:PBURL_reportDeviceInfoUrl params:pa commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
-                    
-        } failure:^(NSError * _Nonnull error, NSInteger errorCode, NSString * _Nonnull errorStr) {
-                    
-        }];
+    } else if (type == pb_t_UploadDateTypeDeviceInfo) {
+        [PBOffNaldicDeviceReporter uploadCollectedDeviceInfo];
     }
 }
 
@@ -495,13 +524,6 @@ static UIWindow *PB_ApplicationKeyWindowFromHostView(UIView *hostView) {
             
     }];
 }
-
-- (NSString*)dictionaryToJsonMehton:(NSDictionary *)dic {
-    NSError *parseError = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
-    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-}
-
 
 /// 检查是否需要显示引导页
 #pragma mark - Native loading (avoid QMUITips maskView crash on iOS 18+)

@@ -15,7 +15,7 @@
 #import <QMUIKit/QMUIKit.h>
 #import <YYModel/YYModel.h>
 #import <MJRefresh/MJRefresh.h>
-#import <IQKeyboardManager/IQKeyboardManager.h>
+//#import <IQKeyboardManager/IQKeyboardManager.h>
 #import <MJRefresh/MJRefresh.h>
 #import <Masonry/Masonry.h>
 #import <SDWebImage/SDWebImage.h>
@@ -55,7 +55,6 @@
 #import "PB_RequestHelper.h"
 #import "PB_idf_helper.h"
 #import "PB_location_helper.h"
-#import "PB_mainInfo_helper.h"
 #import "PB_APP_Control.h"
 #import "PB_NativeTipsHelper.h"
 

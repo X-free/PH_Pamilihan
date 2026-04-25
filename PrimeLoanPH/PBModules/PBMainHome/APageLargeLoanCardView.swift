@@ -48,7 +48,7 @@ final class APageLargeLoanCardView: UIView {
     private let rateValueLabel = UILabel()
 
     private let applyButton = UIButton(type: .system)
-    /// 需在 `configure` 中切换小卡整卡手势时关闭栈的命中，避免盖住 `smallCardTapGesture`
+    /// 整卡点击进件时关闭栈与按钮自身命中，由 `cardTapGesture` 统一响应
     private let mainStack = UIStackView()
 
     private var productId: Int = 0
@@ -59,8 +59,8 @@ final class APageLargeLoanCardView: UIView {
     private var mainStackBottomSmallEqualConstraint: NSLayoutConstraint?
     /// 与 `setup` 里默认大卡比例一致，仅在 `configure` 切换 `skin` 时更新约束
     private var appliedCardSkin: APageLoanCardSkin = .large
-    /// 小卡：整卡区域点击进件；`src` 时开启，底栏为纯展示非独立按钮
-    private let smallCardTapGesture = UITapGestureRecognizer()
+    /// 大卡 / 小卡：整卡区域点击进件（与底部 Apply 文案同一回调）
+    private let cardTapGesture = UITapGestureRecognizer()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -139,9 +139,9 @@ final class APageLargeLoanCardView: UIView {
         }
         applyButton.addTarget(self, action: #selector(tapApply), for: .touchUpInside)
 
-        smallCardTapGesture.addTarget(self, action: #selector(tapApply))
-        smallCardTapGesture.isEnabled = false
-        smallCardTapGesture.cancelsTouchesInView = false
+        cardTapGesture.addTarget(self, action: #selector(tapApply))
+        cardTapGesture.isEnabled = false
+        cardTapGesture.cancelsTouchesInView = false
 
         let termStack = UIStackView(arrangedSubviews: [termTitleLabel, termValueLabel])
         termStack.axis = .horizontal
@@ -224,7 +224,7 @@ final class APageLargeLoanCardView: UIView {
             applyButton.heightAnchor.constraint(equalToConstant: APageLayout.ratio(44))
         ])
 
-        addGestureRecognizer(smallCardTapGesture)
+        addGestureRecognizer(cardTapGesture)
     }
 
     override func layoutSubviews() {
@@ -282,9 +282,10 @@ final class APageLargeLoanCardView: UIView {
         applyButton.setTitle(lobby.isEmpty ? "\u{00A0}" : lobby, for: .normal)
 
         let isSmallHero = (skin == .small)
-        applyButton.isUserInteractionEnabled = !isSmallHero
-        mainStack.isUserInteractionEnabled = !isSmallHero
-        smallCardTapGesture.isEnabled = isSmallHero
+        // 大卡、小卡均整卡可点，避免仅按钮一条热区
+        applyButton.isUserInteractionEnabled = false
+        mainStack.isUserInteractionEnabled = false
+        cardTapGesture.isEnabled = true
     }
 
     /// 空文案时用不换行空格占位，避免标签行高塌缩

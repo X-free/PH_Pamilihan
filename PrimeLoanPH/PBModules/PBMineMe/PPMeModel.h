@@ -13,6 +13,9 @@
 
 @property (nonatomic, strong) PPMeTheoreticalModel *theoretical;
 
+/// 与 `theoretical.inspiring` 二选一或并存：接口若将 `inspiring` 挂在根节点则解析到此
+@property (nonatomic, strong) PPMeInspiringModel *inspiring;
+
 @end
 @interface PPMeTheoreticalModel : NSObject
 

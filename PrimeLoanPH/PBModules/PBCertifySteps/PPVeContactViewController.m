@@ -13,15 +13,15 @@
 #import <ContactsUI/ContactsUI.h>
 #import "PPNavigationController.h"
 
-/// 每组卡片总高：首行含橘条 68 + 叠白卡与 45pt 选择框，次行含第二组字段（设计稿 45pt 高）。
+/// 每组卡片总高：首行含橘条 68 + 叠白卡与 45pt 选择框，次行含第二组字段（设计稿 45pt 高）+ 底部留白 15
 static CGFloat PBVeContactCardGroupHeight(void) {
-    return PB_Ratio(220);
+    return PB_Ratio(220) + PB_Ratio(15);
 }
 static CGFloat PBVeContactOrangeVisualHeight(void) {
     return PB_Ratio(68);
 }
 static CGFloat PBVeContactSecondRowHeight(void) {
-    return PB_Ratio(82);
+    return PB_Ratio(82) + PB_Ratio(15);
 }
 static CGFloat PBVeContactFirstRowHeight(void) {
     return PBVeContactCardGroupHeight() - PBVeContactSecondRowHeight();
@@ -125,9 +125,11 @@ static UIImage *PPVeContactNextButtonRoundedBackground(void) {
         [PB_NativeTipsHelper pb_hideAllLoading];
         if(result != nil){
             self.dataModel = [PPVeContactModel yy_modelWithJSON:result];
+            [PPVeContactModel pp_applyContactTextFromResponse:result toModel:self.dataModel];
             self.dataArr = @[];
-            if(self.dataModel.theoretical.integrationist.count > 0){
-                self.dataArr = self.dataModel.theoretical.integrationist;
+            PPVeContactTheoreticalModel *t = self.dataModel.theoretical;
+            if (t != nil && t.integrationist.count > 0) {
+                self.dataArr = t.integrationist;
             }
         }
         [self refreshSubmitParams];
@@ -191,7 +193,7 @@ static UIImage *PPVeContactNextButtonRoundedBackground(void) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PPVeNorInputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PPVeNorInputTableViewCellKey forIndexPath:indexPath];
-    [cell pb_configWithCellData:self.dataArr[indexPath.section] index:indexPath.row section:indexPath.section];
+    [cell pb_configWithCellData:self.dataArr[indexPath.section] index:indexPath.row section:indexPath.section pageCopy:self.dataModel.theoretical];
     return cell;
 
 }

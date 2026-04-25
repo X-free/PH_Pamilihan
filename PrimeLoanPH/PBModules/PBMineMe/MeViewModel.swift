@@ -10,10 +10,10 @@ import UIKit
 final class MeViewModel: ObservableObject {
     @Published var phoneDisplay: String = " "
     @Published var menuRows: [MeMenuRow] = []
-    /// 与设计稿一致；无单独统计接口时展示占位，点击仍跳转 Order 对应 segment
-    @Published var statApply: String = "0"
-    @Published var statRepay: String = "93"
-    @Published var statFinished: String = "99+"
+    /// 与设计稿一致；无单独统计接口时数字留空，点击跳转 Order 对应 segment（identical 与 segment 下标 0/1/2 一致）
+    @Published var statApply: String = ""
+    @Published var statRepay: String = ""
+    @Published var statFinished: String = ""
 
     func load(host: PPBaseViewController, showBlockingLoading: Bool, completion: (() -> Void)? = nil) {
         if showBlockingLoading {
@@ -27,8 +27,17 @@ final class MeViewModel: ObservableObject {
                 guard let self else { return }
                 if let dict = result {
                     if let model = PPMeModel.yy_model(withJSON: dict) {
-                        if let phone = model.theoretical?.inspiring?.userphone {
-                            self.phoneDisplay = Self.maskPhone(phone)
+                        // 手机号：接口 `inspiring.userphone`（`theoretical.inspiring` 或根级 `inspiring`）
+                        let nested = model.theoretical?.inspiring?.userphone
+                        let root = model.inspiring?.userphone
+                        let raw = [nested, root]
+                            .compactMap { s -> String? in
+                                guard let s, !s.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
+                                return s.trimmingCharacters(in: .whitespacesAndNewlines)
+                            }
+                            .first
+                        if let raw {
+                            self.phoneDisplay = raw
                         }
                         if let draw = model.theoretical?.draw as? [Any] {
                             var rows: [MeMenuRow] = []
@@ -60,24 +69,9 @@ final class MeViewModel: ObservableObject {
         })
     }
 
-    /// 展示类似 63 **** 1618
-    private static func maskPhone(_ raw: String) -> String {
-        let digits = String(raw.filter(\.isNumber))
-        guard digits.count >= 4 else { return raw.isEmpty ? " " : raw }
-        let last4 = String(digits.suffix(4))
-        if digits.count <= 6 {
-            return "**** \(last4)"
-        }
-        let prefixLen = min(2, digits.count - 4)
-        let prefix = String(digits.prefix(prefixLen))
-        return "\(prefix) **** \(last4)"
-    }
-
     func openOrderSegment(_ index: Int, host: PPBaseViewController) {
-        let link = "pml://loan.org/sfd?identical=\(index + 1)"
-        if PB_APP_Control.pb_t_presentLoginVC(withTargetVC: host) {
-            PB_APP_Control.pb_t_goToModule(withJudgeTypeStr: link, fromVC: host)
-        }
+        guard PB_APP_Control.pb_t_presentLoginVC(withTargetVC: host) else { return }
+        PB_APP_Control.selectOrderTab(segment: index, from: host)
     }
 
     func openMenuLink(_ row: MeMenuRow, host: PPBaseViewController) {

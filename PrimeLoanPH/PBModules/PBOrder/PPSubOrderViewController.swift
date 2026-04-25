@@ -129,7 +129,7 @@ final class PPSubOrderViewController: PPTableViewController {
             DispatchQueue.main.async {
                 guard let self else { return }
                 self.hideNativeOrderLoading()
-                self.presentOrderAlert(message: errorStr)
+                PB_NativeTipsHelper.pb_presentAlert(withMessage: errorStr)
                 self.ppTableViewEndAllRefresh()
             }
         })
@@ -176,16 +176,6 @@ final class PPSubOrderViewController: PPTableViewController {
             run()
         } else {
             DispatchQueue.main.async(execute: run)
-        }
-    }
-
-    private func presentOrderAlert(message: String) {
-        guard !message.isEmpty else { return }
-        DispatchQueue.main.async { [weak self] in
-            guard let self, self.presentedViewController == nil else { return }
-            let ac = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(ac, animated: true)
         }
     }
 

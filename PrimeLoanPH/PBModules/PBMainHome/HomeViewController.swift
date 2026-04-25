@@ -206,15 +206,6 @@ final class HomeViewController: PPTableViewController {
         }
     }
 
-    private func presentHomeAlert(message: String) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self, self.presentedViewController == nil else { return }
-            let ac = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(ac, animated: true)
-        }
-    }
-
     private func requestHomeReviews() {
         if allowBlockingLoad {
             showNativeHomeLoading()
@@ -235,7 +226,7 @@ final class HomeViewController: PPTableViewController {
                         let model = try PBReviewsResponse.decode(from: dict)
                         self.applyHome(model)
                     } catch {
-                        self.presentHomeAlert(message: "Parse error")
+                        PB_NativeTipsHelper.pb_presentAlert(withMessage: "Parse error")
                     }
                 }
                 self.ppTableViewEndAllRefresh()
@@ -246,7 +237,7 @@ final class HomeViewController: PPTableViewController {
                 self.hideNativeHomeLoading()
                 self.allowBlockingLoad = false
                 if !msg.isEmpty {
-                    self.presentHomeAlert(message: msg)
+                    PB_NativeTipsHelper.pb_presentAlert(withMessage: msg)
                 }
                 self.ppTableViewEndAllRefresh()
             }

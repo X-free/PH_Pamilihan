@@ -213,12 +213,14 @@ final class PPGoodsDetailViewController: PPBaseViewController {
 
         let hasAllComplete = !steps.contains { $0.acknowledges == 0 }
         if hasAllComplete {
-            let alert = UIAlertController(title: "Notice", message: "Are you sure you want to apply now?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            alert.addAction(UIAlertAction(title: "Apply", style: .default, handler: { [weak self] _ in
-                self?.requestToBorrow()
-            }))
-            present(alert, animated: true)
+//            let alert = UIAlertController(title: "Notice", message: "Are you sure you want to apply now?", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+//            alert.addAction(UIAlertAction(title: "Apply", style: .default, handler: { [weak self] _ in
+//                self?.requestToBorrow()
+//            }))
+//            present(alert, animated: true)
+            
+            requestToBorrow()
             return
         }
 
@@ -254,9 +256,15 @@ final class PPGoodsDetailViewController: PPBaseViewController {
                 if let theoretical = result?["theoretical"] as? [String: Any],
                    let link = theoretical["translated"] as? String,
                    !link.isEmpty {
-                    PB_APP_Control.pb_t_goToModule(withJudgeTypeStr: link, fromVC: self)
                     self.reportRiskFromStep()
+                    
                     self.navigationController?.popViewController(animated: false)
+
+                    if let tvc = PB_GetVC.pb_to_getCurrentViewController() as? PPBaseViewController {
+                        PB_APP_Control.pb_t_goToModule(withJudgeTypeStr: link, fromVC: tvc)
+
+                    }
+
                 }
             }
         }, failure: { [weak self] _, _, msg in

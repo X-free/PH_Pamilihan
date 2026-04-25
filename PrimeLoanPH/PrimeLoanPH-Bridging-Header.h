@@ -14,6 +14,7 @@
 #import "PB_GetVC.h"
 #import "PPVeNorInfoModel.h"
 #import "PB_RequestHelper.h"
+#import "Reachability.h"
 #import "PB_AskRootUrlHelper.h"
 #import "PB_APP_Control.h"
 #import "PB_idf_helper.h"
@@ -31,5 +32,6 @@
 #import "PB_LogoutAlertView.h"
 #import "PPResignViewController.h"
 #import "PB_getAppInfoHelper.h"
+#import "NSString+PB1.h"
 
 #endif

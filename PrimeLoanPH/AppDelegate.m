@@ -10,7 +10,7 @@
 #import "PPTabBarController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "PPLanguageModel.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -35,6 +35,10 @@
         weakSelf.window.rootViewController = [[PPTabBarController alloc] init];
     };
     [self.window makeKeyAndVisible];
+    
+    IQKeyboardManager.sharedManager.enable = YES;
+    IQKeyboardManager.sharedManager.shouldResignOnTouchOutside = YES;
+    IQKeyboardManager.sharedManager.previousNextDisplayMode = IQPreviousNextDisplayModeAlwaysHide;
     
     [[PB_RequestHelper pb_instance] pb_getRequestWithUrlStr:PBURL_LanguageUrl params:@{} commplete:^(NSDictionary * _Nullable result, NSInteger statusCode) {
         if(result != nil){

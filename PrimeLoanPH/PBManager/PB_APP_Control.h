@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///根据标识sdfsdf跳转到对应的模块页面sdfsf
 + (void)pb_t_goToModuleWithJudgeTypeStr:(NSString *)typeStr fromVC:(PPBaseViewController *)fromVC;
+/// 主 Tab 选中「Order」（第 2 个 tab），并切换订单 segment：0=Apply，1=Repayment，2=Finished；无 TabBar 时在 `fromVC` 所在导航栈 push 订单页
++ (void)pb_t_selectOrderTabWithSegment:(NSInteger)segment fromVC:(UIViewController *)fromVC NS_SWIFT_NAME(selectOrderTab(segment:from:));
 ///产品准sdfsfd入请求sdfsd
 + (void)pb_t_toRequestProductIsCanEnterAllowWithProductID:(NSInteger)pId fromVC:(PPBaseViewController *)fromVC;
 ///认证流fsd程跳转sfdsdf

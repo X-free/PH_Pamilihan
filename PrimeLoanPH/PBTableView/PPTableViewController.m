@@ -45,7 +45,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  [[UIScreen mainScreen] bounds].size.width, 34)];
-        _tableView.keyboardDismissMode =  UIScrollViewKeyboardDismissModeOnDrag;
+//        _tableView.keyboardDismissMode =  UIScrollViewKeyboardDismissModeOnDrag;
         _tableView.estimatedSectionFooterHeight = CGFLOAT_MIN;
         _tableView.estimatedSectionHeaderHeight = CGFLOAT_MIN;
         _tableView.backgroundColor = [UIColor whiteColor];

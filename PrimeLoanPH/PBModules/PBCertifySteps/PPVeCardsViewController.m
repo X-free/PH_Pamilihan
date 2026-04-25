@@ -106,9 +106,11 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
 
     self.pb_t_de_uploadCardWrap = [PB_UI pb_creat_ViewWithFrame:CGRectZero color:UIColor.whiteColor radius:PB_Ratio(12)];
     [contentWrap addSubview:self.pb_t_de_uploadCardWrap];
+    /// 身份认证白卡总高度设计 385pt（随 `PB_Ratio` 适配）
     [self.pb_t_de_uploadCardWrap mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.mas_equalTo(0);
+        make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(titleBg.mas_bottom).offset(-PB_Ratio(10));
+        make.height.mas_equalTo(PB_Ratio(385));
     }];
 
     self.pb_t_de_frontTabBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
@@ -134,18 +136,27 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
 
     self.pb_t_de_mainPreviewImgV = [PB_UI pb_create_imageViewWhihFrame:CGRectZero imgName:@"Frame 39" cornerRadius:PB_Ratio(12)];
     self.pb_t_de_mainPreviewImgV.contentMode = UIViewContentModeScaleAspectFit;
+    self.pb_t_de_mainPreviewImgV.userInteractionEnabled = YES;
     [self.pb_t_de_uploadCardWrap addSubview:self.pb_t_de_mainPreviewImgV];
     UIButton *previewTap = [UIButton buttonWithType:UIButtonTypeCustom];
     previewTap.backgroundColor = UIColor.clearColor;
-    [previewTap addTarget:self action:@selector(pb_t_de_mainPreviewTapAction) forControlEvents:UIControlEventTouchUpInside];
+    [previewTap addTarget:self action:@selector(pb_t_de_previewOrExampleTapLikeNext) forControlEvents:UIControlEventTouchUpInside];
     [self.pb_t_de_mainPreviewImgV addSubview:previewTap];
     [previewTap mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
     
-    self.pb_t_de_errorExampleImgV = [PB_UI pb_create_imageViewWhihFrame:CGRectZero imgName:@"Grouerror9900502" cornerRadius:PB_Ratio(10)];
+    self.pb_t_de_errorExampleImgV = [PB_UI pb_create_imageViewWhihFrame:CGRectZero imgName:@"Grou990050" cornerRadius:PB_Ratio(10)];
     self.pb_t_de_errorExampleImgV.contentMode = UIViewContentModeScaleAspectFit;
+    self.pb_t_de_errorExampleImgV.userInteractionEnabled = YES;
     [self.pb_t_de_uploadCardWrap addSubview:self.pb_t_de_errorExampleImgV];
+    UIButton *exampleTap = [UIButton buttonWithType:UIButtonTypeCustom];
+    exampleTap.backgroundColor = UIColor.clearColor;
+    [exampleTap addTarget:self action:@selector(pb_t_de_previewOrExampleTapLikeNext) forControlEvents:UIControlEventTouchUpInside];
+    [self.pb_t_de_errorExampleImgV addSubview:exampleTap];
+    [exampleTap mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(0);
+    }];
 
     [self.pb_t_de_frontTabBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(PB_Ratio(12));
@@ -164,11 +175,12 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
         make.width.mas_equalTo(PB_Ratio(135));
         make.height.mas_equalTo(PB_Ratio(4));
     }];
+    /// 主预览区高度：385 − Tab 区(8+38+10) − 间距与底部示意(10+102+10) = 207
     [self.pb_t_de_mainPreviewImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(PB_Ratio(12));
         make.right.mas_equalTo(-PB_Ratio(12));
         make.top.mas_equalTo(self.pb_t_de_frontTabBtn.mas_bottom).offset(PB_Ratio(10));
-        make.height.mas_equalTo(PB_Ratio(182));
+        make.height.mas_equalTo(PB_Ratio(207));
     }];
     [self.pb_t_de_errorExampleImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(PB_Ratio(12));
@@ -259,7 +271,18 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
 #pragma mark - Card UI
 
 - (void)pb_t_de_tabAction:(UIButton *)sender {
-    self.pb_t_de_selectedTab = sender.tag == 700 ? 0 : 1;
+    NSInteger nextTab = sender.tag == 700 ? 0 : 1;
+    if (nextTab == 1) {
+        if (!self.dataModel || !self.dataModel.theoretical) {
+            [PB_NativeTipsHelper pb_presentAlertWithMessage:@"please upload front of ID photo first"];
+            return;
+        }
+        if ([NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.range.translated)]) {
+            [PB_NativeTipsHelper pb_presentAlertWithMessage:@"please upload front of ID photo first"];
+            return;
+        }
+    }
+    self.pb_t_de_selectedTab = nextTab;
     [self pb_t_de_refreshTabUI];
 }
 
@@ -274,6 +297,9 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
         make.height.mas_equalTo(PB_Ratio(4));
     }];
 
+    if (!self.dataModel || !self.dataModel.theoretical) {
+        return;
+    }
     if (isFront) {
         NSString *frontUrl = PBStrFormat(self.dataModel.theoretical.range.translated);
         if([NSString PB_CheckStringIsEmpty:frontUrl]){
@@ -281,7 +307,7 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
         }else{
             [PPTools PB_loadUrl_ImageView:self.pb_t_de_mainPreviewImgV urlStr:frontUrl holdImg:@"Framefront38"];
         }
-        self.pb_t_de_errorExampleImgV.image = UIImageMake(@"Grouerror9900502");
+        self.pb_t_de_errorExampleImgV.image = UIImageMake(@"Grou990050");
     } else {
         NSString *faceUrl = PBStrFormat(self.dataModel.theoretical.sought.translated);
         if([NSString PB_CheckStringIsEmpty:faceUrl]){
@@ -289,28 +315,42 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
         }else{
             [PPTools PB_loadUrl_ImageView:self.pb_t_de_mainPreviewImgV urlStr:faceUrl holdImg:@"Frame 39"];
         }
-        self.pb_t_de_errorExampleImgV.image = UIImageMake(@"Grou990050");
+        self.pb_t_de_errorExampleImgV.image = UIImageMake(@"Grouerror9900502");
     }
 }
 
-- (void)pb_t_de_mainPreviewTapAction {
-    if(self.pb_t_de_selectedTab == 0){
-        [self pp_UploadVeCellUploadButtonTap:PB_VeIdCard_only_tag];
+/// 证件大图、下方示意区：与底部 Next 相同流程；若**当前 Tab** 对应图已上传则不再走后续逻辑
+- (void)pb_t_de_previewOrExampleTapLikeNext {
+    if (!self.dataModel || !self.dataModel.theoretical) {
         return;
     }
-    if([NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.range.translated)]){
-        [PB_NativeTipsHelper pb_presentAlertWithMessage:@"Please upload Front of ID card !"];
-        return;
+    BOOL isFrontTab = self.pb_t_de_selectedTab == 0;
+    if (isFrontTab) {
+        if (![NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.range.translated)]) {
+            return;
+        }
+    } else {
+        if (![NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.sought.translated)]) {
+            return;
+        }
+        if ([NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.range.translated)]) {
+            [PB_NativeTipsHelper pb_presentAlertWithMessage:@"please upload front of ID photo first"];
+            return;
+        }
     }
-    [self pp_UploadVeCellUploadButtonTap:PBFaceCard_only_tag];
+    [self submitButtonSender:nil];
 }
 
 #pragma mark - Click
-- (void)submitButtonSender:(QMUIButton *)button{
-    if([NSString PB_CheckStringIsEmpty:self.dataModel.theoretical.range.translated]){
+- (void)submitButtonSender:(QMUIButton *)button {
+    if (!self.dataModel || !self.dataModel.theoretical) {
+        return;
+    }
+    if ([NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.range.translated)]) {
         [self pp_UploadVeCellUploadButtonTap:PB_VeIdCard_only_tag];
         return;
-    }else if ([NSString PB_CheckStringIsEmpty:self.dataModel.theoretical.sought.translated]){
+    }
+    if ([NSString PB_CheckStringIsEmpty:PBStrFormat(self.dataModel.theoretical.sought.translated)]) {
         [self pp_UploadVeCellUploadButtonTap:PBFaceCard_only_tag];
         return;
     }
@@ -371,17 +411,18 @@ static UIImage *PPVeNextButtonRoundedRectangleBackground(void) {
 - (void)pb_t_toUploadIdCard{
     [self pp_reloadBeginTime];
     PMMyWeekSelf
-    QMUIAlertController *alertVC =[QMUIAlertController alertControllerWithTitle:@"Tip" message:PB_PhotoTipContent preferredStyle:QMUIAlertControllerStyleAlert];
+    QMUIAlertController *alertVC =[QMUIAlertController alertControllerWithTitle:@"Tip" message:@"" preferredStyle:QMUIAlertControllerStyleAlert];
     [alertVC addAction:[QMUIAlertAction actionWithTitle:@"Cancel" style:QMUIAlertActionStyleCancel handler:nil]];
     [alertVC addAction:[QMUIAlertAction actionWithTitle:@"Camera" style:QMUIAlertActionStyleDefault handler:^(__kindof QMUIAlertController * _Nonnull aAlertController, QMUIAlertAction * _Nonnull action) {
         [weakSelf pickImageWithPickType:1 cardType:11];
-        
     }]];
-    [alertVC addAction:[QMUIAlertAction actionWithTitle:@"Photo Album" style:QMUIAlertActionStyleDefault handler:^(__kindof QMUIAlertController * _Nonnull aAlertController, QMUIAlertAction * _Nonnull action) {
-        
-        [weakSelf pickImageWithPickType:2 cardType:11];
-
-    }]];
+    /// `rutter`：0 拍照+相册；1 仅拍照（接口 `theoretical.rutter`）
+    NSInteger rutter = self.dataModel.theoretical != nil ? self.dataModel.theoretical.rutter : 0;
+    if (rutter != 1) {
+        [alertVC addAction:[QMUIAlertAction actionWithTitle:@"Photo Album" style:QMUIAlertActionStyleDefault handler:^(__kindof QMUIAlertController * _Nonnull aAlertController, QMUIAlertAction * _Nonnull action) {
+            [weakSelf pickImageWithPickType:2 cardType:11];
+        }]];
+    }
     [alertVC showWithAnimated:YES];
 }
 

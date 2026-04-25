@@ -174,6 +174,11 @@
         UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
         [b setTitle:titles[i] forState:UIControlStateNormal];
         b.titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold];
+        b.titleLabel.textAlignment = NSTextAlignmentCenter;
+        b.titleLabel.numberOfLines = 2;
+        b.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        b.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         b.layer.cornerRadius = 22;
         b.layer.masksToBounds = YES;
         b.tag = (int)i;
